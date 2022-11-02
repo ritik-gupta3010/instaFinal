@@ -1,0 +1,15 @@
+.story
+{
+    background-color: white;
+    width: 420px;
+    margin-left: 4%;
+    border: 1px solid blanchedalmond;
+    border-radius: 10px;
+    margin: 5%;
+}
+
+.storyIcon
+{
+    font-size: 40px;
+    padding: 5%;
+}

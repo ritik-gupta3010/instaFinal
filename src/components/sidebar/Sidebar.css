@@ -1,0 +1,48 @@
+.sidebar
+{
+    flex: 5.5;
+    margin-top: 4%;
+    margin-right: 8%;
+    cursor: pointer;
+    
+}
+
+.sidebarItem
+{
+    display: flex;
+    flex-direction: column;
+}
+.user
+{
+    margin-bottom: 3%;
+    width: 70%; 
+    
+}
+
+.userIcon
+{
+    font-size: 300%;
+    margin-right: 15%;
+    margin-left: 5%;
+    margin-bottom: 2%;
+}
+
+.switch
+{
+    cursor: pointer;
+    float: right;
+    margin-top: -17%;
+}
+
+.sugg
+{
+    margin-bottom: 3%;
+    
+    width: 70%;
+}
+.see
+{
+    cursor: pointer;
+    float: right;
+    
+}
