@@ -47,24 +47,6 @@ export const deleteData = (postId) => {
     }
 }
 
-// export const getData = (postId) => {
-//     return (dispatch) => {
-//          axios.get('http://localhost:5000/posts/'+postId)
-//             .then(response => {
-//                 console.log(response.data)
-//                 dispatch({
-//                     type: "GETDATA",
-//                     data: response.data,
-//                 })
-//             })
-//             .catch(err => {
-//                 dispatch({ 
-//                     type: "ERROR",
-//                     msg: "Unable to fetch data" 
-//                 })
-//             })
-//     }
-// }
 
 
 export const createData = (post) => {
@@ -115,11 +97,4 @@ export const updateData = (postId,post) => {
     }
 }
 
-// export const getDataObject = () => {
-//     return (dispatch) => {
-//         dispatch({
-//             type: "GETDATAOBJECT",
-//         })
-//     }
-// }
 

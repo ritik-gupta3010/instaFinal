@@ -1,0 +1,82 @@
+
+
+
+.write {
+    /* padding-top: 20px; */
+  }
+  
+  .writeForm {
+    position: relative;
+  }
+  
+  .writeFormGroup{
+    display: flex;
+    flex-direction: row;
+    
+  }
+   
+  .writeFormGroupLeft
+  {
+    width: 50%;
+    
+  } 
+  
+  .img-Preview
+  {
+    height:425px;
+    width: 100%;
+    background-image: url(https://thumbs.dreamstime.com/b/no-thumbnail-image-placeholder-forums-blogs-websites-148010362.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    
+  }
+  .writeFormGroupRight
+  {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    margin-left: 5px;
+  } 
+  
+  .writeFormGroupRightProfile
+  {
+    display: flex;
+  
+  }
+  
+  .writeInput21
+  {
+    margin-top: 15px;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    border: 1px solid gray;
+  }
+  
+  .writeText
+  {
+      font-family: inherit;
+      font-size: 10px;
+      height: 15vh;
+      border: 1px solid gray;
+  }
+  
+  .writeInput2 {
+    margin-top: 1px;
+    font-size: 16px;
+    padding: 20px;
+    padding-bottom: 60px;
+    border-radius: 10px;
+    width: 90%;
+  }
+  
+  .location
+  {
+    border: none;
+    padding: 15px;
+    width: 92%;
+    border: 1px solid gray;
+    border-radius: 10px;
+  }
+  
+   

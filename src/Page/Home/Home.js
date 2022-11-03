@@ -1,6 +1,6 @@
 import React from 'react'
 import './Home.css'
-import Posts from '../../components/Posts/Posts'
+import Posts from '../../components/Posts/index'
 import Sidebar from "../../components/sidebar/Sidebar"
 import Navbar from "../../components/Navbar/Navbar"
 

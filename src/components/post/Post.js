@@ -1,14 +1,14 @@
 import React from "react";
 import "./Post.css";
-import { deleteData ,updateData} from "../../redux/actions/postActions";
-import { connect } from "react-redux";
+import {updateData} from "../../redux/actions/postActions";
+// import { connect } from "react-redux";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import EditPost from "../editPost/EditPost";
+import EditPost from "../editPost/index";
 
 
 class Post extends React.Component {
@@ -50,7 +50,7 @@ class Post extends React.Component {
       <>
         <div className="post">
           <div className="postTop">
-            <div style={{display:"flex"}}>
+            <div style={{display:"flex",width:"80%"}}>
               <img src={post.img} alt="postImage" className="postTopIcon" />
               <span className="postTopIconLocation">
                 {post.location}
@@ -139,9 +139,10 @@ class Post extends React.Component {
   }
 }
 //mapDispatchToProps is used to dispatch the action
-const mapDispatchToProps = (dispatch) => ({
-  deleteData: (id) => dispatch(deleteData(id)),
-  updateData: (postId,post) => dispatch(updateData(postId,post))
-});
+// const mapDispatchToProps = (dispatch) => ({
+//   deleteData: (id) => dispatch(deleteData(id)),
+//   updateData: (postId,post) => dispatch(updateData(postId,post))
+// });
 
-export default connect(null, mapDispatchToProps)(Post);
+// export default connect(null, mapDispatchToProps)(Post);
+export default Post;

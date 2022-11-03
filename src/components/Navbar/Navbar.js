@@ -1,7 +1,7 @@
 import React from "react";
 import "./Navbar.css";
 
-import Write from "../../Page/write/Write";
+import Write from "../../Page/write/index";
 
 export default class Navbar extends React.Component {
   constructor(props) {

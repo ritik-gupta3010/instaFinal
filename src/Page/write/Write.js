@@ -10,9 +10,9 @@ import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import Tooltip from '@mui/material/Tooltip';
 import userIcon from "../../image/post.jpg"
-
-import {createData} from "../../redux/actions/postActions";
-import {connect} from "react-redux";
+import PropTypes from 'prop-types';
+// import {createData} from "../../redux/actions/postActions";
+// import {connect} from "react-redux";
 
 class Write extends React.Component {
   
@@ -76,17 +76,18 @@ class Write extends React.Component {
   };
 
 
-  handleClick = (e) => {
-    console.log("post post")
-    e.preventDefault();
+  handleClick = () => {
+    console.log("post")
+    
     const post = {
       desc: this.state.desc,
       location: this.state.location,
       img: this.state.img,
     };
-    console.log(post);
+    console.log(this.props);
   
     this.props.createData(post);
+    console.log("ho raha h call create")
     setTimeout(() => {
       window.location.href = "/";
     }, 2000);
@@ -212,6 +213,18 @@ class Write extends React.Component {
     );
   }
 }
+
+Write.propTypes = {
+  createData: PropTypes.func.isRequired
+
+}
+
+Write.defaultProps = {
+  createData: ()=>{}
+}
+
+
+
 // mapDispatchToProps is used to dispatch the action
 // const mapDispatchToProps = dispatch => ({
 //   createData: (data) => dispatch(createData(data))
