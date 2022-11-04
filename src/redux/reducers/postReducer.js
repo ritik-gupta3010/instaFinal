@@ -1,25 +1,24 @@
 
 const initialState = {
-    data: [],
-    error: false,
-    singleData:[]
+    data: []
 }
 
 const reducer = (state =initialState, action) => {
     switch (action.type) {
         case "FetchData":
-            return { ...state, data: action.data};
+            // return { ...state, data: action.data};
+            return { data: action.data}
         case "DELETE":
             return { ...state}
         case "CREATE":
             console.log("action.data",action.data);
-            return { ...state , data:action.data}
+            // return { ...state , data:action.data}
+            return { data: action.data}
         case "UPDATE":
-            return { ...state}
-        case "ERROR":
-            return { ...state, error: action.msg }
-        
-
+            // return { ...state, data: action.data}
+            return { data: action.data}
+        // case "GETDATA":
+        //     return {...state}
         default:
             return state
     }

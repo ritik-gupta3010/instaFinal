@@ -7,7 +7,7 @@ import thunk from "redux-thunk";
 import { Provider } from "react-redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { Route } from "react-router-dom";
-import reportWebVitals from "./reportWebVitals";
+// import reportWebVitals from "./reportWebVitals";
 import reducer from "./redux/reducers/postReducer";
 import { BrowserRouter } from "react-router-dom";
 const middleware = [thunk];

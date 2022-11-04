@@ -1,6 +1,6 @@
 import React from "react";
 import "./Post.css";
-import {updateData} from "../../redux/actions/postActions";
+// import {updateData} from "../../redux/actions/postActions";
 // import { connect } from "react-redux";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -40,9 +40,11 @@ class Post extends React.Component {
       ? this.setState({ styleSave: "fa fa-bookmark postBottomRight" })
       : this.setState({ styleSave: "fa fa-bookmark-o postBottomRight" });
   };
-
+  handelDeletePost=(id)=>{
+    this.props.deleteData(id);
+  }
   render() {
-    const { post ,deleteData} = this.props;
+    const { post } = this.props;
     const { openDelete, openEdit, styleLike, styleSave } = this.state;
     
     console.log("in post", post);
@@ -98,7 +100,6 @@ class Post extends React.Component {
         </div>
         <Dialog
           open={openDelete}
-          onClose={this.handleCloseDelete}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description">
           <DialogTitle id="alert-dialog-title">
@@ -119,7 +120,8 @@ class Post extends React.Component {
             </Button>
             <Button
               onClick={() => {
-                deleteData(post.id);
+                // deleteData(post.id);
+                this.handelDeletePost(post.id);
               }}
             >
               Continue
@@ -132,7 +134,7 @@ class Post extends React.Component {
           onClose={this.handleClickOpenEdit}
           img={post.img}
           post={post}
-          updateData={updateData}
+          // updateData={updateData}
         />
       </>
     );

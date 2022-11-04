@@ -5,7 +5,7 @@ import { Switch } from "react-router-dom";
 import React from "react";
 
 function App() {
-  // const user = true;
+  
   return (
     <Router>
       <Switch>

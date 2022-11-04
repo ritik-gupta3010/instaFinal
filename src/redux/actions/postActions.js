@@ -78,7 +78,6 @@ export const updateData = (postId,post) => {
     return (dispatch) => {
         console.log("update");
         axios.put('http://localhost:3000/post/'+postId,post)
-       
             .then(response => {
                 // alert("update")
                 console.log("update" ,response.data);
@@ -88,13 +87,28 @@ export const updateData = (postId,post) => {
                     data: response.data,
                 })
             })
+            //callback example
+            // .then(()=>{                                     
+            //     setTimeout(()=>{
+            //         dispatch({
+            //             deleteData();
+            //         })
+            //     },1000)
+            // })
             .catch(err => {
                 dispatch({ 
                     type: "ERROR",
                     msg: "Unable to update data" 
                 })
             })
+            
     }
 }
 
-
+// export const getData=()=>{
+//     return (dispatch)=>{
+//         dispatch({
+//             type:"GETDATA",
+//         })
+//     }
+// }

@@ -15,9 +15,9 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Tooltip } from "@mui/material";
 import userIcon from "../../image/post.jpg";
-import {updateData} from "../../redux/actions/postActions";
-import { connect } from "react-redux";
-import PropTypes from 'prop-types'
+// import {updateData} from "../../redux/actions/postActions";
+// import { connect } from "react-redux";
+// import PropTypes from 'prop-types'
 
 toast.configure();
 
@@ -27,35 +27,29 @@ class EditPost extends React.Component {
     this.state = {
       id: this.props.id,
       desc: "",
+      location: "",
       update: false,
-      isHidden: true,
-      open: false,
-      open1: false,
+      
+      open: false, //for edit dialoge
+      updatePostOpen: false,//to open dialoge when we click on to update the post
       open2: false,
       img: this.props.post.img,
-      location: "",
+      
     };
   }
 
-  handleClick = () => {
+  handleClick = () => { //passing data from props to state
     this.setState({
       desc: this.props.post.desc,
       img: this.props.post.img,
       location: this.props.post.location,
       update: true,
     });
-    this.setState({
-      isHidden: !this.state.isHidden,
-    });
+    
   };
 
-  handleClick1 = () => {
-    this.setState({
-      open2: true,
-    });
-  };
 
-  handleClickUpdate = () => {
+  handleClickUpdateYes = () => {
     const post = {
       id: this.state.id,
       desc: this.state.desc,
@@ -68,15 +62,16 @@ class EditPost extends React.Component {
     setTimeout(() => {
       window.location.href = "/";
     }, 1000);
+
   };
 
-  handleCloseOpen = () => {
+  handleCloseOpen = () => { //cancel dialoge and home
     if (
       this.state.location === this.props.post.location &&
       this.state.img === this.props.post.img &&
       this.state.desc === this.props.post.desc
     ) {
-      this.props.onClose();
+      this.props.onClose(); //props from post
     } else {
       this.setState({
         open: true,
@@ -84,23 +79,23 @@ class EditPost extends React.Component {
     }
   };
 
-  handleClose = () => {
+  handleCloseCancelNO = () => {
     this.setState({
       open: false,
     });
   };
 
-  handleClose2 = () => {
+  handleCloseNo = () => {
     this.setState({
-      open1: false,
+      updatePostOpen: false,
     });
   };
 
-  handleClose1 = () => {
+  handleCloseCancelYes = () => {
     this.setState({
       open: false,
     });
-    this.props.onClose();
+    this.props.onClose(); //props from post
     this.setState({
       location: this.props.post.location,
       desc: this.props.post.desc,
@@ -109,15 +104,8 @@ class EditPost extends React.Component {
   };
   handleUpdateOpen = () => {
     this.setState({
-      open1: true,
+      updatePostOpen: true,
     });
-  };
-
-  handleError = () => {
-    toast.info(
-      "you have not done any changes or you have not fullfilled the conditions of the given text fields",
-      { position: toast.POSITION.TOP_CENTER }
-    );
   };
 
   componentDidMount() {
@@ -151,7 +139,6 @@ class EditPost extends React.Component {
                   <span>
                     <button
                       className="writeSubmit2"
-                      onClick={this.handleUpdateOpen}
                       disabled={true}
                     >
                       Post
@@ -258,10 +245,8 @@ class EditPost extends React.Component {
         </Dialog>
         <Dialog
           open={this.state.open}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
         >
-          <DialogTitle id="alert-dialog-title">
+          <DialogTitle >
             {"Are you sure you don't want to edit this post?"}
           </DialogTitle>
           <DialogContent>
@@ -270,12 +255,12 @@ class EditPost extends React.Component {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose}>No</Button>
-            <Button onClick={this.handleClose1}>Yes</Button>
+            <Button onClick={this.handleCloseCancelNO}>No</Button>
+            <Button onClick={this.handleCloseCancelYes}>Yes</Button>
           </DialogActions>
         </Dialog>
         <Dialog
-          open={this.state.open1}
+          open={this.state.updatePostOpen}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
@@ -289,8 +274,8 @@ class EditPost extends React.Component {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose2}>No</Button>
-            <Button onClick={this.handleClickUpdate} id="supportyes">
+            <Button onClick={this.handleCloseNo}>No</Button>
+            <Button onClick={this.handleClickUpdateYes} id="supportyes">
               Yes
             </Button>
           </DialogActions>

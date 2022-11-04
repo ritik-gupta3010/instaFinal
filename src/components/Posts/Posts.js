@@ -21,7 +21,7 @@ class Posts extends React.Component{
             <div className="posts">
                 <Story />
                 {(data.length !== 0) ? data && data.map(post => (
-                <Post key={post.id} post={post} />
+                <Post post={post} />
                 )) : <h2 className='error'>Sorry! No Post<br />*Create a new Post and see all your post here*</h2>}
             </div> 
             </>

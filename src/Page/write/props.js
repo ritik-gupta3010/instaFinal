@@ -1,8 +1,8 @@
 import {createData } from "../../redux/actions/postActions";
 
-
+//mapDispatchToProps is used to dispatch the action
 export const mapDispatchToProps = dispatch => ({
-      createData: (data) => {dispatch(createData(data))}
+      createDataProps: (data) => {dispatch(createData(data))}
 })
 
 // export  {

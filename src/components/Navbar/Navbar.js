@@ -1,6 +1,5 @@
 import React from "react";
 import "./Navbar.css";
-
 import Write from "../../Page/write/index";
 
 export default class Navbar extends React.Component {
@@ -11,7 +10,7 @@ export default class Navbar extends React.Component {
       openDialoge: false,
     };
   }
-  openDialoge = () => {
+  openDialogeHandleClick = () => {
     this.setState({ openDialoge: !this.state.openDialoge });
   };
   render() {
@@ -23,7 +22,6 @@ export default class Navbar extends React.Component {
           <div className="top">
             <div className="topLeft">
               <a style={{ textDecoration: "none", color: "black" }} href="/">
-                {" "}
                 Instagram
                 <i className="fa fa-instagram instagram" aria-hidden="true"></i>
               </a>
@@ -34,8 +32,6 @@ export default class Navbar extends React.Component {
                 <li className="topListItem">
                   <input
                     type="text"
-                    name=""
-                    id=""
                     placeholder="Search"
                     className="topRightSearch"
                   />
@@ -45,10 +41,10 @@ export default class Navbar extends React.Component {
             <div className="topCenter">
               <ul className="topList">
                 <li className="topListItem">
+                  
                   <a
                     style={{ textDecoration: "none", color: "black" }}
-                    href="/"
-                  >
+                    href="/">
                     <i className="fa fa-home" aria-hidden="true"></i>
                   </a>
                 </li>
@@ -57,7 +53,7 @@ export default class Navbar extends React.Component {
                 </li>
                 <li className="topListItem">
                   <button
-                    onClick={this.openDialoge}
+                    onClick={this.openDialogeHandleClick}
                     className="fa fa-plus buttom"
                   ></button>
                 </li>
@@ -71,7 +67,7 @@ export default class Navbar extends React.Component {
             </div>
           </div>
         </nav>
-        <Write openDiolog={openDialoge} onClose={this.openDialoge} />
+        <Write openDiolog={openDialoge} onClose={this.openDialogeHandleClick} />
       </>
     );
   }

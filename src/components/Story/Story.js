@@ -1,7 +1,5 @@
 import React from 'react'
 import "./Story.css"
-import {connect} from "react-redux"
-import {fetchData} from "../../redux/actions/postActions"
 
 export default class Story extends React.Component {
   constructor(props) {

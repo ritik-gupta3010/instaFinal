@@ -1,6 +1,6 @@
 import EditPost from './EditPost';
 import {connect} from 'react-redux';
-import {mapStateToProps,mapDispatchToProps} from "./props"
+import {mapDispatchToProps} from "./props"
 
 
-export default connect(mapStateToProps,mapDispatchToProps)(EditPost);
+export default connect(null,mapDispatchToProps)(EditPost);
