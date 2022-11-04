@@ -41,7 +41,6 @@ export default class Navbar extends React.Component {
             <div className="topCenter">
               <ul className="topList">
                 <li className="topListItem">
-                  
                   <a
                     style={{ textDecoration: "none", color: "black" }}
                     href="/">

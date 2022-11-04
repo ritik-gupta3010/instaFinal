@@ -150,7 +150,7 @@ class Write extends React.Component {
                         marginLeft: "15px",
                       }}
                     />
-                    <span style={{ marginTop: "22px", marginLeft: "5px" }}>
+                    <span id="userName" style={{ marginTop: "22px", marginLeft: "5px" }}>
                       Ritik Gupta
                     </span>
                   </div>

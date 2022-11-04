@@ -7,7 +7,8 @@ const reducer = (state =initialState, action) => {
     switch (action.type) {
         case "FetchData":
             // return { ...state, data: action.data};
-            return { data: action.data}
+            let reverseData=action.data.reverse();
+            return { data: reverseData}
         case "DELETE":
             return { ...state}
         case "CREATE":
