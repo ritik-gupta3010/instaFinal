@@ -24,25 +24,27 @@ toast.configure();
 class EditPost extends React.Component {
   constructor(props) {
     super(props);
+    const{id,img}=this.props;
     this.state = {
-      id: this.props.id,
-      desc: "",
-      location: "",
+      idS: id,
+      descS: "",
+      locationS: "",
+      img: img,
       update: false,
       
-      open: false, //for edit dialoge
+      openS: false, //for edit dialoge
       updatePostOpen: false,//to open dialoge when we click on to update the post
       open2: false,
-      img: this.props.post.img,
       
     };
   }
 
   handleClick = () => { //passing data from props to state
+    const {desc,img,location}=this.props;
     this.setState({
-      desc: this.props.post.desc,
-      img: this.props.post.img,
-      location: this.props.post.location,
+      descS: desc,
+      img: img,
+      locationS: location,
       update: true,
     });
     
@@ -50,15 +52,17 @@ class EditPost extends React.Component {
 
 
   handleClickUpdateYes = () => {
+    const {idS,descS,img,locationS}=this.state;
     const post = {
-      id: this.state.id,
-      desc: this.state.desc,
-      img: this.state.img,
-      location: this.state.location,
+      id: idS,
+      desc:descS,
+      img: img,
+      location: locationS,
     };
-    console.log("update",this.props);
+    const {updateData}=this.props
+    // console.log("update",this.props);
 
-    this.props.updateData(this.state.id, post);
+    updateData(idS, post);
     setTimeout(() => {
       window.location.href = "/";
     }, 1000);
@@ -66,22 +70,24 @@ class EditPost extends React.Component {
   };
 
   handleCloseOpen = () => { //cancel dialoge and home
+    const {img,desc,location,onClose}=this.props;
+    const {descS,locationS}=this.setState;
     if (
-      this.state.location === this.props.post.location &&
-      this.state.img === this.props.post.img &&
-      this.state.desc === this.props.post.desc
+      locationS === location &&
+      this.state.img === img &&
+      descS === desc
     ) {
-      this.props.onClose(); //props from post
+      onClose(); //props from post
     } else {
       this.setState({
-        open: true,
+        openS: true,
       });
     }
   };
 
   handleCloseCancelNO = () => {
     this.setState({
-      open: false,
+      openS: false,
     });
   };
 
@@ -92,14 +98,15 @@ class EditPost extends React.Component {
   };
 
   handleCloseCancelYes = () => {
+    const {onClose,location,desc,img}=this.props;
     this.setState({
-      open: false,
+      openS: false,
     });
-    this.props.onClose(); //props from post
+    onClose(); //props from post
     this.setState({
-      location: this.props.post.location,
-      desc: this.props.post.desc,
-      img: this.props.post.img,
+      locationS: location,
+      descS: desc,
+      img: img,
     });
   };
   handleUpdateOpen = () => {
@@ -112,25 +119,28 @@ class EditPost extends React.Component {
     this.handleClick();
   }
   render() {
-    const {  desc, location } = this.state;
-    // const {post}=this.props;
+
+    const{update,updatePostOpen,descS,locationS,openS}=this.state;
+    const {desc,img,location}=this.props;
     const enable =
-      (location === this.props.post.location &&
-        desc === this.props.post.desc &&
-        this.state.img === this.props.post.img) ||
-      this.state.location === "" ||
-      this.state.desc ==="" ||
-      this.state.img === "";
-    console.log(enable);
+      (locationS === location &&
+        descS === desc &&
+        this.state.img === img) ||
+        locationS === "" ||
+        descS ==="" ||
+        this.state.img === "";
+    // console.log(enable);
+    const {open}=this.props;
     return (
       <>
-        <Dialog open={this.props.open} fullWidth maxWidth="lg" fullHeight>
+
+        <Dialog open={open} fullWidth maxWidth="lg" fullHeight>
           <AppBar sx={{ position: "relative" }}>
             <Toolbar>
               <IconButton edge="start" color="inherit" aria-label="close">
                 <CloseIcon onClick={this.handleCloseOpen} />
               </IconButton>
-              <Typography sx={{ ml: 27, flex: 1 }} variant="h6" component="div">
+              <Typography sx={{ ml: 27, flex: 1 }} variant="h6" component="div" id="dialogeTop">
                 Edit Post (Fields are editable,only write in the fields you want
                 to update)
               </Typography>
@@ -149,6 +159,7 @@ class EditPost extends React.Component {
                 <button
                   className="writeSubmit2"
                   onClick={this.handleUpdateOpen}
+                  id="editPostSubmit"
                 >
                   Post
                 </button>
@@ -165,7 +176,7 @@ class EditPost extends React.Component {
                     src={this.state.img}
                     className="img-Preview"
                     id="preview"
-                    alt="img-pre"
+                    alt=""
                   />
                 </div>
                 <div className="writeFormGroupRight">
@@ -181,11 +192,11 @@ class EditPost extends React.Component {
                         marginLeft: "15px",
                       }}
                     />
-                    <span style={{ marginTop: "22px", marginLeft: "5px" }}>
+                    <span id="userName" style={{ marginTop: "22px", marginLeft: "5px" }}>
                       Ritik Gupta
                     </span>
                   </div>
-                  {this.state.update ? (
+                  {update ? (
                     <>
                       <input
                         type="text"
@@ -198,41 +209,41 @@ class EditPost extends React.Component {
                           this.setState({ [e.target.name]: e.target.value })
                         }
                       />
-                      <p style={{ marginTop: "-3px", marginLeft: "12px" }}>
+                      <p id="requiredImg" style={{ marginTop: "-3px", marginLeft: "12px" }}>
                         {this.state.img === "" ? "*Required" : ""}
                       </p>
                     </>
                   ) : null}
                   
-                  {this.state.update ? (
+                  {update ? (
                     <>
                       <textarea
                         className="writeInput2 writeText"
-                        name="desc"
+                        name="descS"
                         id="desc"
-                        value={this.state.desc}
+                        value={descS}
                         onChange={(e) =>
                           this.setState({ [e.target.name]: e.target.value })
                         }
                       ></textarea>
-                      <p style={{ marginTop: "-3px", marginLeft: "12px" }}>{this.state.desc === "" ? "*Required" : ""}</p>
+                      <p id="requiredDesc" style={{ marginTop: "-3px", marginLeft: "12px" }}>{descS === "" ? "*Required" : ""}</p>
                     </>
                   ) : (
                     <p className="writeInput2 writeText">{}</p>
                   )}
-                  {this.state.update ?(
+                  {update ?(
                     <>
                     <input
                       className="location"
-                      name="location"
+                      name="locationS"
                       id="location"
-                      value={this.state.location}
+                      value={locationS}
                       onChange={(e) =>
                         this.setState({ [e.target.name]: e.target.value })
                       }
                     ></input>
-                    <p style={{ marginTop: "-3px", marginLeft: "12px" }}>
-                    {this.state.location === "" ? "*Required" : ""}
+                    <p id="requiredLocation" style={{ marginTop: "-3px", marginLeft: "12px" }}>
+                    {locationS === "" ? "*Required" : ""}
                   </p>
                   </>
                 ) : (
@@ -244,7 +255,7 @@ class EditPost extends React.Component {
           </div>
         </Dialog>
         <Dialog
-          open={this.state.open}
+          open={openS}
         >
           <DialogTitle >
             {"Are you sure you don't want to edit this post?"}
@@ -260,7 +271,7 @@ class EditPost extends React.Component {
           </DialogActions>
         </Dialog>
         <Dialog
-          open={this.state.updatePostOpen}
+          open={updatePostOpen}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >

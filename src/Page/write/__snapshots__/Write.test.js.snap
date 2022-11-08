@@ -5,13 +5,13 @@ exports[`Write should render correctly 1`] = `
   <ForwardRef(Dialog) open={[undefined]} id=\\"diolog\\" fullWidth={true} maxWidth=\\"md\\" fullHeight={true}>
     <ForwardRef(AppBar) sx={{...}}>
       <ForwardRef(Toolbar)>
-        <ForwardRef(IconButton) edge=\\"start\\" color=\\"inherit\\" aria-label=\\"close\\">
-          <Memo(ForwardRef(CloseIcon)) onClick={[Function (anonymous)]} id=\\"btn\\" />
+        <ForwardRef(IconButton) edge=\\"start\\" color=\\"inherit\\" aria-label=\\"close\\" onClick={[Function (anonymous)]} id=\\"btn\\">
+          <Memo(ForwardRef(CloseIcon)) />
         </ForwardRef(IconButton)>
         <ForwardRef(Typography) sx={{...}} variant=\\"h6\\" component=\\"div\\">
           Create Post
         </ForwardRef(Typography)>
-        <button disabled={true} title=\\"Fill all the Fields\\">
+        <button disabled={true} title=\\"Fill all the Fields\\" className=\\"postSubmit\\">
           Post
         </button>
       </ForwardRef(Toolbar)>
@@ -33,11 +33,11 @@ exports[`Write should render correctly 1`] = `
             <p style={{...}}>
               *Required
             </p>
-            <textarea className=\\"writeInput2 writeText\\" placeholder=\\"Write a caption...\\" type=\\"text\\" id=\\"desc\\" name=\\"desc\\" onChange={[Function (anonymous)]} required={true} />
+            <textarea className=\\"writeInput2 writeText\\" placeholder=\\"Write a caption...\\" type=\\"text\\" id=\\"desc\\" name=\\"descS\\" onChange={[Function (anonymous)]} required={true} />
             <p style={{...}}>
               *Required
             </p>
-            <input type=\\"text\\" id=\\"location\\" name=\\"location\\" onChange={[Function (anonymous)]} placeholder=\\"Add location\\" className=\\"location\\" required={true} />
+            <input type=\\"text\\" id=\\"location\\" name=\\"locationS\\" onChange={[Function (anonymous)]} placeholder=\\"Add location\\" className=\\"location\\" required={true} />
             <p style={{...}}>
               *Required
             </p>

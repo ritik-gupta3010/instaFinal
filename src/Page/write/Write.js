@@ -23,9 +23,9 @@ class Write extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      desc: "",
-      location: "",
-      open: false,
+      descS: "",
+      locationS: "",
+      openD: false,
       img: "",
     };
     
@@ -38,57 +38,61 @@ class Write extends React.Component {
     });
   }
 
-  handleClickCloseX = (e) => {
-    console.log("close X");
-    e.preventDefault();
+  handleClickCloseX = () => {
+    // console.log("close X");
+    // e.preventDefault();
+    const {onClose}=this.props;
+    const {descS,locationS}=this.state;
     if (
-      this.state.desc === "" &&
-      this.state.location === "" &&
+      descS === "" &&
+      locationS === "" &&
       this.state.img === ""
     ) {
       // this.setState({
       //   close: false,
       // });
-      this.props.onClose();// to call openDialoge to false in navbar
+      onClose();// to call openDialoge to false in navbar
     } else {
       this.setState({
-        open: true,
+        openD: true,
       });
     }
   };
 
   handleCloseDis = () => {
-    console.log("close disagee write");
+    // console.log("close disagee write");
     this.setState({
-      open: false,
+      openD: false,
     });
   };
 
   handleCloseAgree = () => {
-    console.log("agree close");
+    // console.log("agree close");
+    const {onClose}=this.props;
     this.setState({
-      open: false,
+      openD: false,
     });
-    this.props.onClose();// to call openDialoge to false in navbar
+    onClose();// to call openDialoge to false in navbar
     this.setState({
-      desc: "",
-      location: "",
+      descS: "",
+      locationS: "",
       img: "",
     });
   };
 
   handleClickPost = () => {
-    console.log("post");
-
+    // console.log("post");
+    const {descS,locationS}=this.state;
     const post = {
-      desc: this.state.desc,
-      location: this.state.location,
+      desc: descS,
+      location: locationS,
       img: this.state.img,
     };
-    console.log(this.props);
+    const {createDataProps}=this.props
+    // console.log(this.props);
 
-    this.props.createDataProps(post);
-    console.log("created");
+    createDataProps(post);
+    // console.log("created");
     setTimeout(() => {
       window.location.href = "/";
     }, 2000);
@@ -98,9 +102,10 @@ class Write extends React.Component {
 
   render() {
     const { openDiolog } = this.props;
-    const { desc, location, img, open } = this.state;
-    const enable = desc.length > 0 && img.length > 0 && location.length > 0;
-    console.log(enable);
+    // console.log("this.props.openDiolog",openDiolog);
+    const { descS, locationS, img, openD } = this.state;
+    const enable = descS.length > 0 && img.length > 0 && locationS.length > 0;
+    // console.log("enable",enable);
     return (
       <>
         <Dialog
@@ -113,8 +118,8 @@ class Write extends React.Component {
         >
           <AppBar sx={{ position: "relative" }}>
             <Toolbar>
-              <IconButton edge="start" color="inherit" aria-label="close">
-                <CloseIcon onClick={this.handleClickCloseX} id="btn" />
+              <IconButton edge="start" color="inherit" aria-label="close" onClick={this.handleClickCloseX} id="btn">
+                <CloseIcon/>
               </IconButton>
               <Typography sx={{ ml: 42, flex: 1 }} variant="h6" component="div">
                 Create Post
@@ -123,11 +128,12 @@ class Write extends React.Component {
                 <button
                   disabled={true}
                   title="Fill all the Fields"
+                  className="postSubmit"
                 >
                   Post
                 </button>
               ) : (
-                <button onClick={this.handleClickPost}style={{ cursor: "pointer" }}>Post</button>
+                <button onClick={this.handleClickPost}style={{ cursor: "pointer" }} className="postSubmit">Post</button>
               )}
             </Toolbar>
           </AppBar>
@@ -172,31 +178,31 @@ class Write extends React.Component {
                     placeholder="Write a caption..."
                     type="text"
                     id="desc"
-                    name="desc"
+                    name="descS"
                     onChange={this.handleTextChange}
                     required
                   />
                   <p style={{ marginTop: "-3px", marginLeft: "12px" }}>
-                    {desc === "" ? "*Required" : ""}
+                    {descS === "" ? "*Required" : ""}
                   </p>
                   <input
                     type="text"
                     id="location"
-                    name="location"
+                    name="locationS"
                     onChange={this.handleTextChange}
                     placeholder="Add location"
                     className="location"
                     required
                   />
                   <p style={{ marginTop: "-3px", marginLeft: "12px" }}>
-                    {location === "" ? "*Required" : ""}
+                    {locationS === "" ? "*Required" : ""}
                   </p>
                 </div>
               </div>
             </form>
           </div>
         </Dialog>
-        <Dialog open={open} >
+        <Dialog open={openD} >
           <DialogTitle>{"Do you want to cancel your create Post?"}</DialogTitle>
           <DialogContent>
             <DialogContentText >
@@ -214,11 +220,13 @@ class Write extends React.Component {
 }
 
 Write.propTypes = {
-  createData: PropTypes.func.isRequired,
+  createDataProps: PropTypes.func.isRequired,
+  onClose:PropTypes.func.isRequired
 };
 
 Write.defaultProps = {
-  createData: () => {},
+  createDataProps: () => {},
+  onClose:()=>{}
 };
 
 // mapDispatchToProps is used to dispatch the action

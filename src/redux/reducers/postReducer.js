@@ -1,23 +1,24 @@
 
 const initialState = {
-    data: []
+    post: []
 }
 
 const reducer = (state =initialState, action) => {
     switch (action.type) {
-        case "FetchData":
-            // return { ...state, data: action.data};
+        case "FetchData":                                // here we return state jo state me pahle data tha
+            // return { ...state, post: action.data};
+            // console.log("action.data in fetch",action.data);
             let reverseData=action.data.reverse();
-            return { data: reverseData}
+            return { post: reverseData}
         case "DELETE":
             return { ...state}
         case "CREATE":
-            console.log("action.data",action.data);
-            // return { ...state , data:action.data}
-            return { data: action.data}
+            // console.log("action.data",action.data);
+            // return { ...state , post:action.data}
+            return { post: action.data}
         case "UPDATE":
-            // return { ...state, data: action.data}
-            return { data: action.data}
+            // return { ...state, post: action.data}
+            return { post: action.data}
         // case "GETDATA":
         //     return {...state}
         default:

@@ -10,17 +10,20 @@ export default class Follwing extends React.Component {
         };
     }
     changeFollow=(e)=>{
+        const {follow}=this.state;
         e.preventDefault();
-        this.state.follow==="Follow"?this.setState({follow:"Following"}):this.setState({follow:"Follow"});
+        follow==="Follow"?this.setState({follow:"Following"}):this.setState({follow:"Follow"});
     }
     render()
     {
+        const {followUser}=this.props;
+        const {follow}=this.state;
         return(
             <>
             <div className='row'>
                 <i className="fa fa-user-circle-o user-icon" aria-hidden="true" > </i>
-                {this.props.followUser}
-                <span className="sideRight" onClick={this.changeFollow}>{this.state.follow}</span> 
+                {followUser}
+                <span className="sideRight" onClick={this.changeFollow}>{follow}</span> 
             </div>
             </>
         );

@@ -31,23 +31,26 @@ class Post extends React.Component {
     this.setState({ openDelete: false });
   };
   handleClickLike = () => {
-    this.state.styleLike === "fa fa-heart-o postBottomIcon"
+    const {styleLike}=this.state;
+    styleLike === "fa fa-heart-o postBottomIcon"
       ? this.setState({ styleLike: "fa fa-heart postBottomIconClick" })
       : this.setState({ styleLike: "fa fa-heart-o postBottomIcon" });
   };
   handleClickSave = () => {
-    this.state.styleSave === "fa fa-bookmark-o postBottomRight"
+    const {styleSave}=this.state;
+    styleSave === "fa fa-bookmark-o postBottomRight"
       ? this.setState({ styleSave: "fa fa-bookmark postBottomRight" })
       : this.setState({ styleSave: "fa fa-bookmark-o postBottomRight" });
   };
   handelDeletePost=(id)=>{
-    this.props.deleteData(id);
+    const {deleteData}=this.props;
+    deleteData(id);
   }
   render() {
     const { post } = this.props;
     const { openDelete, openEdit, styleLike, styleSave } = this.state;
     
-    console.log("in post", post);
+    // console.log("in post", post);
     return (
       <>
         <div className="post">
@@ -129,11 +132,14 @@ class Post extends React.Component {
           </DialogActions>
         </Dialog>
         <EditPost
-          id={post.id}
           open={openEdit}
           onClose={this.handleClickOpenEdit}
+          id={post.id}
           img={post.img}
+          desc={post.desc}
+          location={post.location}
           post={post}
+
           // updateData={updateData}
         />
       </>

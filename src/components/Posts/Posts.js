@@ -15,13 +15,13 @@ class Posts extends React.Component{
     }
     render()
     {
-        const{data}=this.props;
+        const{postReduxStateVariable}=this.props;
         return(
             <>
             <div className="posts">
                 <Story />
-                {(data.length !== 0) ? data && data.map(post => (
-                <Post post={post} />
+                {(postReduxStateVariable.length !== 0) ? postReduxStateVariable.map(data => (
+                <Post post={data} />
                 )) : <h2 className='error'>Sorry! No Post<br />*Create a new Post and see all your post here*</h2>}
             </div> 
             </>
@@ -30,11 +30,11 @@ class Posts extends React.Component{
 }
 
 Posts.propTypes={
-    data:PropTypes.array.isRequired,
+    post:PropTypes.array.isRequired,
     fetchData:PropTypes.func.isRequired
 }
 Posts.defaultProps={
-    data:[],
+    post:[],
     fetchData:()=>{}
 }
 //mapStatetoProps is used to get the redux state variable which we are used in our react component

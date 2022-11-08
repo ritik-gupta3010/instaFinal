@@ -1,6 +1,8 @@
 import axios from 'axios';
-// import 'react-toastify/dist/ReactToastify.css';
 import { toast } from "react-toastify";
+// const axios = require("axios");
+// import 'react-toastify/dist/ReactToastify.css';
+
 
 export const fetchData = () => {    //action
     return (dispatch) => {
@@ -21,10 +23,10 @@ export const fetchData = () => {    //action
     }
 }
 export const deleteData = (postId) => {
-    console.log("call huya delete")
+    // console.log("call huya delete")
     return (dispatch) => { 
-        console.log("delete")
-        console.log(postId)
+        // console.log("delete")
+        // console.log(postId)
         axios.delete('http://localhost:3000/post/'+postId)
             .then(response => {
                 // alert("Post deleted successfully")
@@ -50,16 +52,16 @@ export const deleteData = (postId) => {
 
 
 export const createData = (post) => {
-    console.log("ritik before1");
+    // console.log("ritik before1");
     return (dispatch) => {
-        console.log("ritik before")
+        // console.log("ritik before")
         axios.post('http://localhost:3000/post',post)
             .then(response => {
-                console.log("after");
+                // console.log("after");
                 // alert("Post created successfully");
                 toast.success("Post created successfully");
                 // toast.success("Post created successfully");
-                console.log("Post created successfully1");
+                // console.log("Post created successfully1");
                 dispatch({
                     type: "CREATE",
                     data: response.data,
@@ -76,11 +78,11 @@ export const createData = (post) => {
 
 export const updateData = (postId,post) => {
     return (dispatch) => {
-        console.log("update");
+        // console.log("update");
         axios.put('http://localhost:3000/post/'+postId,post)
             .then(response => {
                 // alert("update")
-                console.log("update" ,response.data);
+                // console.log("update" ,response.data);
                 toast.success("Post updated successfully");
                 dispatch({
                     type: "UPDATE",
