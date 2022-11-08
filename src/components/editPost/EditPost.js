@@ -15,6 +15,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Tooltip } from "@mui/material";
 import userIcon from "../../image/post.jpg";
+import PropTypes from "prop-types";
 // import {updateData} from "../../redux/actions/postActions";
 // import { connect } from "react-redux";
 // import PropTypes from 'prop-types'
@@ -71,13 +72,15 @@ class EditPost extends React.Component {
 
   handleCloseOpen = () => { //cancel dialoge and home
     const {img,desc,location,onClose}=this.props;
-    const {descS,locationS}=this.setState;
+    const {descS,locationS}=this.state;
+    
     if (
       locationS === location &&
       this.state.img === img &&
       descS === desc
     ) {
       onClose(); //props from post
+      console.log("direct click");
     } else {
       this.setState({
         openS: true,
@@ -137,8 +140,8 @@ class EditPost extends React.Component {
         <Dialog open={open} fullWidth maxWidth="lg" fullHeight>
           <AppBar sx={{ position: "relative" }}>
             <Toolbar>
-              <IconButton edge="start" color="inherit" aria-label="close">
-                <CloseIcon onClick={this.handleCloseOpen} />
+              <IconButton edge="start" color="inherit" aria-label="close" onClick={this.handleCloseOpen}>
+                <CloseIcon  />
               </IconButton>
               <Typography sx={{ ml: 27, flex: 1 }} variant="h6" component="div" id="dialogeTop">
                 Edit Post (Fields are editable,only write in the fields you want
@@ -295,7 +298,15 @@ class EditPost extends React.Component {
     );
   }
 }
+EditPost.propTypes = {
+  updateData: PropTypes.func.isRequired,
+  onClose:PropTypes.func.isRequired
+};
 
+EditPost.defaultProps = {
+  updateData: () => {},
+  onClose:()=>{}
+};
 //mapDispatchToProps is used to dispatch the action
 // const mapDispatchToProps = (dispatch) => ({
 //     updateData: (postId,post) => dispatch(updateData(postId,post))
