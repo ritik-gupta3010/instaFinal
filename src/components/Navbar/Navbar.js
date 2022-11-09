@@ -11,7 +11,8 @@ export default class Navbar extends React.Component {
     };
   }
   openDialogeHandleClick = () => {
-    this.setState({ openDialoge: !this.state.openDialoge });
+    const {openDialoge}=this.state;
+    this.setState({ openDialoge: !openDialoge });
   };
   render() {
     const { openDialoge } = this.state;

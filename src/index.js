@@ -6,13 +6,13 @@ import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { Provider } from "react-redux";
 import { composeWithDevTools } from "redux-devtools-extension";
-import { Route } from "react-router-dom";
+// import { Route } from "react-router-dom";
 // import reportWebVitals from "./reportWebVitals";
 import reducer from "./redux/reducers/postReducer";
-import { BrowserRouter } from "react-router-dom";
+// import { BrowserRouter } from "react-router-dom";
+
+
 const middleware = [thunk];
-
-
 //store
 const store = createStore(
   reducer,
@@ -22,9 +22,10 @@ const store = createStore(
 const Root = () => {
   return (
     <Provider store={store}>
-      <BrowserRouter basename="/">
-        <Route path={"/"} component={App}></Route>
-      </BrowserRouter>
+      {/* <BrowserRouter> */}
+        {/* <Route path={"/"} component={App}></Route> */}
+        <App />
+      {/* </BrowserRouter> */}
     </Provider>
   );
 };

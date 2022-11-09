@@ -2,22 +2,20 @@
 
 exports[`EditPost should render properly 1`] = `
 "<Fragment>
-  <ForwardRef(Dialog) open={true} fullWidth={true} maxWidth=\\"lg\\" fullHeight={true}>
+  <ForwardRef(Dialog) open={[undefined]} fullWidth={true} maxWidth=\\"lg\\" fullHeight={true}>
     <ForwardRef(AppBar) sx={{...}}>
       <ForwardRef(Toolbar)>
-        <ForwardRef(IconButton) edge=\\"start\\" color=\\"inherit\\" aria-label=\\"close\\">
-          <Memo(ForwardRef(CloseIcon)) onClick={[Function (anonymous)]} />
+        <ForwardRef(IconButton) color=\\"inherit\\" onClick={[Function (anonymous)]}>
+          <Memo(ForwardRef(CloseIcon)) />
         </ForwardRef(IconButton)>
         <ForwardRef(Typography) sx={{...}} variant=\\"h6\\" component=\\"div\\" id=\\"dialogeTop\\">
           Edit Post (Fields are editable,only write in the fields you want to update)
         </ForwardRef(Typography)>
-        <ForwardRef(Tooltip) title=\\"You have not done any changes\\">
-          <span>
-            <button className=\\"writeSubmit2\\" disabled={true}>
-              Post
-            </button>
-          </span>
-        </ForwardRef(Tooltip)>
+        <span>
+          <button className=\\"writeSubmit2\\" disabled={true} title=\\"You have not done any changes\\">
+            Post
+          </button>
+        </span>
       </ForwardRef(Toolbar)>
     </ForwardRef(AppBar)>
     <div className=\\"write\\">
@@ -33,7 +31,7 @@ exports[`EditPost should render properly 1`] = `
                 Ritik Gupta
               </span>
             </div>
-            <input type=\\"text\\" id=\\"img\\" name=\\"img\\" className=\\"writeInput21\\" placeholder=\\"If you want to change the image of the blog then paste the new link here\\" value={[undefined]} onChange={[Function: onChange]} />
+            <input type=\\"text\\" id=\\"img\\" name=\\"imgS\\" className=\\"writeInput21\\" placeholder=\\"If you want to change the image of the blog then paste the new link here\\" value={[undefined]} onChange={[Function: onChange]} />
             <p id=\\"requiredImg\\" style={{...}} />
             <textarea className=\\"writeInput2 writeText\\" name=\\"descS\\" id=\\"desc\\" value={[undefined]} onChange={[Function: onChange]} />
             <p id=\\"requiredDesc\\" style={{...}} />
@@ -62,7 +60,7 @@ exports[`EditPost should render properly 1`] = `
       </ForwardRef(Button)>
     </ForwardRef(DialogActions)>
   </ForwardRef(Dialog)>
-  <ForwardRef(Dialog) open={false} aria-labelledby=\\"alert-dialog-title\\" aria-describedby=\\"alert-dialog-description\\">
+  <ForwardRef(Dialog) open={false}>
     <ForwardRef(DialogTitle) id=\\"alert-dialog-title\\">
       Are you sure you want to update your post?
     </ForwardRef(DialogTitle)>

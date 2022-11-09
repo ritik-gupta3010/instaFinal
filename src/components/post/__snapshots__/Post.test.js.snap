@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`post should render properly 1`] = `
+"<Fragment>
+  <div className=\\"post\\">
+    <div className=\\"postTop\\">
+      <div style={{...}}>
+        <img src=\\"https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png\\" alt=\\"postImage\\" className=\\"postTopIcon\\" id=\\"userImg\\" />
+        <span className=\\"postTopIconLocation\\" id=\\"location\\">
+          noida
+        </span>
+      </div>
+      <div className=\\"postTopIconRight\\">
+        <i className=\\"singlePostIcon fa fa-pencil-square-o\\" aria-hidden=\\"true\\" onClick={[Function: onClick]} id=\\"editButton\\" />
+        <i className=\\"singlePostIcon fa fa-trash\\" aria-hidden=\\"true\\" onClick={[Function: onClick]} id=\\"deleteButton\\" />
+      </div>
+    </div>
+    <img src=\\"https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png\\" alt=\\"postImage\\" className=\\"postImage\\" />
+    <div className=\\"postBottom\\">
+      <div>
+        <i class=\\"fa fa-heart-o postBottomIcon\\" aria-hidden=\\"true\\" onClick={[Function: onClick]} id=\\"like\\" />
+      </div>
+      <div title=\\"be a good person\\" id=\\"desc\\">
+        be a good person
+      </div>
+      <div>
+        <i class=\\"fa fa-bookmark-o postBottomRight\\" aria-hidden=\\"true\\" onClick={[Function: onClick]} id=\\"save\\" />
+      </div>
+    </div>
+  </div>
+  <ForwardRef(Dialog) open={false}>
+    <ForwardRef(DialogTitle) id=\\"alert-dialog-title\\">
+      Are you sure you want to delete this post?
+    </ForwardRef(DialogTitle)>
+    <ForwardRef(DialogContent)>
+      <ForwardRef(DialogContentText) id=\\"alert-dialog-description\\">
+        This action cannot be undone.
+      </ForwardRef(DialogContentText)>
+    </ForwardRef(DialogContent)>
+    <ForwardRef(DialogActions)>
+      <ForwardRef(Button) onClick={[Function: onClick]}>
+        Cancel
+      </ForwardRef(Button)>
+      <ForwardRef(Button) onClick={[Function: onClick]}>
+        Continue
+      </ForwardRef(Button)>
+    </ForwardRef(DialogActions)>
+  </ForwardRef(Dialog)>
+  <Connect(EditPost) open={false} onClose={[Function (anonymous)]} id=\\"1\\" img=\\"https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png\\" desc=\\"be a good person\\" location=\\"noida\\" post={{...}} />
+</Fragment>"
+`;

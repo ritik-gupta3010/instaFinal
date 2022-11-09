@@ -13,7 +13,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Tooltip } from "@mui/material";
+
 import userIcon from "../../image/post.jpg";
 import PropTypes from "prop-types";
 // import {updateData} from "../../redux/actions/postActions";
@@ -25,60 +25,53 @@ toast.configure();
 class EditPost extends React.Component {
   constructor(props) {
     super(props);
-    const{id,img}=this.props;
+    const { id } = this.props;
     this.state = {
       idS: id,
       descS: "",
       locationS: "",
-      img: img,
+      imgS: "",
       update: false,
-      
       openS: false, //for edit dialoge
-      updatePostOpen: false,//to open dialoge when we click on to update the post
+      updatePostOpen: false, //to open dialoge when we click on to update the post
       open2: false,
-      
     };
   }
 
-  handleClick = () => { //passing data from props to state
-    const {desc,img,location}=this.props;
+  handleClick = () => {
+    //passing data from props to state
+    const { desc, img, location } = this.props;
     this.setState({
       descS: desc,
-      img: img,
+      imgS: img,
       locationS: location,
       update: true,
     });
-    
   };
 
-
   handleClickUpdateYes = () => {
-    const {idS,descS,img,locationS}=this.state;
+    const { idS, descS, imgS, locationS } = this.state;
     const post = {
       id: idS,
-      desc:descS,
-      img: img,
+      desc: descS,
+      img: imgS,
       location: locationS,
     };
-    const {updateData}=this.props
+    const { updateData } = this.props;
     // console.log("update",this.props);
 
     updateData(idS, post);
     setTimeout(() => {
       window.location.href = "/";
     }, 1000);
-
   };
 
-  handleCloseOpen = () => { //cancel dialoge and home
-    const {img,desc,location,onClose}=this.props;
-    const {descS,locationS}=this.state;
-    
-    if (
-      locationS === location &&
-      this.state.img === img &&
-      descS === desc
-    ) {
+  handleCloseOpen = () => {
+    //cancel dialoge and home
+    const { img, desc, location, onClose } = this.props;
+    const { descS, locationS, imgS } = this.state;
+
+    if (locationS === location && imgS === img && descS === desc) {
       onClose(); //props from post
       console.log("direct click");
     } else {
@@ -101,7 +94,7 @@ class EditPost extends React.Component {
   };
 
   handleCloseCancelYes = () => {
-    const {onClose,location,desc,img}=this.props;
+    const { onClose, location, desc, img } = this.props;
     this.setState({
       openS: false,
     });
@@ -109,7 +102,7 @@ class EditPost extends React.Component {
     this.setState({
       locationS: location,
       descS: desc,
-      img: img,
+      imgS: img,
     });
   };
   handleUpdateOpen = () => {
@@ -122,42 +115,41 @@ class EditPost extends React.Component {
     this.handleClick();
   }
   render() {
-
-    const{update,updatePostOpen,descS,locationS,openS}=this.state;
-    const {desc,img,location}=this.props;
+    const { update, updatePostOpen, descS, locationS, openS, imgS } = this.state;
+    const { desc, img, location } = this.props;
     const enable =
-      (locationS === location &&
-        descS === desc &&
-        this.state.img === img) ||
-        locationS === "" ||
-        descS ==="" ||
-        this.state.img === "";
+      (locationS === location && descS === desc && imgS === img) ||
+      locationS === "" ||
+      descS === "" ||
+      imgS === "";
     // console.log(enable);
-    const {open}=this.props;
+    const { open } = this.props;
     return (
       <>
-
         <Dialog open={open} fullWidth maxWidth="lg" fullHeight>
           <AppBar sx={{ position: "relative" }}>
             <Toolbar>
-              <IconButton edge="start" color="inherit" aria-label="close" onClick={this.handleCloseOpen}>
-                <CloseIcon  />
+              <IconButton
+                color="inherit"
+                onClick={this.handleCloseOpen}
+              >
+                <CloseIcon />
               </IconButton>
-              <Typography sx={{ ml: 27, flex: 1 }} variant="h6" component="div" id="dialogeTop">
+              <Typography
+                sx={{ ml: 27, flex: 1 }}
+                variant="h6"
+                component="div"
+                id="dialogeTop"
+              >
                 Edit Post (Fields are editable,only write in the fields you want
                 to update)
               </Typography>
               {enable === true ? (
-                <Tooltip title="You have not done any changes">
                   <span>
-                    <button
-                      className="writeSubmit2"
-                      disabled={true}
-                    >
+                    <button className="writeSubmit2" disabled={true} title="You have not done any changes">
                       Post
                     </button>
                   </span>
-                </Tooltip>
               ) : (
                 <button
                   className="writeSubmit2"
@@ -169,18 +161,12 @@ class EditPost extends React.Component {
               )}
             </Toolbar>
           </AppBar>
-          
 
           <div className="write">
             <form className="writeForm">
               <div className="writeFormGroup">
                 <div className="writeFormGroupLeft">
-                  <img
-                    src={this.state.img}
-                    className="img-Preview"
-                    id="preview"
-                    alt=""
-                  />
+                  <img src={imgS} className="img-Preview" id="preview" alt="" />
                 </div>
                 <div className="writeFormGroupRight">
                   <div className="writeFormGroupRightProfile">
@@ -195,7 +181,10 @@ class EditPost extends React.Component {
                         marginLeft: "15px",
                       }}
                     />
-                    <span id="userName" style={{ marginTop: "22px", marginLeft: "5px" }}>
+                    <span
+                      id="userName"
+                      style={{ marginTop: "22px", marginLeft: "5px" }}
+                    >
                       Ritik Gupta
                     </span>
                   </div>
@@ -204,20 +193,25 @@ class EditPost extends React.Component {
                       <input
                         type="text"
                         id="img"
-                        name="img"
+                        name="imgS"
                         className="writeInput21"
                         placeholder="If you want to change the image of the blog then paste the new link here"
-                        value={this.state.img}
+                        value={imgS}
                         onChange={(e) =>
                           this.setState({ [e.target.name]: e.target.value })
                         }
                       />
-                      <p id="requiredImg" style={{ marginTop: "-3px", marginLeft: "12px" }}>
-                        {this.state.img === "" ? "*Required" : ""}
+                      <p
+                        id="requiredImg"
+                        style={{ marginTop: "-3px", marginLeft: "12px" }}
+                      >
+                        {imgS === "" ? "*Required" : ""}
                       </p>
                     </>
-                  ) : null}
-                  
+                  ) : (
+                    <p className="writeInput21">{}</p>
+                  )}
+
                   {update ? (
                     <>
                       <textarea
@@ -229,38 +223,44 @@ class EditPost extends React.Component {
                           this.setState({ [e.target.name]: e.target.value })
                         }
                       ></textarea>
-                      <p id="requiredDesc" style={{ marginTop: "-3px", marginLeft: "12px" }}>{descS === "" ? "*Required" : ""}</p>
+                      <p
+                        id="requiredDesc"
+                        style={{ marginTop: "-3px", marginLeft: "12px" }}
+                      >
+                        {descS === "" ? "*Required" : ""}
+                      </p>
                     </>
                   ) : (
                     <p className="writeInput2 writeText">{}</p>
                   )}
-                  {update ?(
+                  {update ? (
                     <>
-                    <input
-                      className="location"
-                      name="locationS"
-                      id="location"
-                      value={locationS}
-                      onChange={(e) =>
-                        this.setState({ [e.target.name]: e.target.value })
-                      }
-                    ></input>
-                    <p id="requiredLocation" style={{ marginTop: "-3px", marginLeft: "12px" }}>
-                    {locationS === "" ? "*Required" : ""}
-                  </p>
-                  </>
-                ) : (
-                  <p className="location">{location}</p>
-                )}
+                      <input
+                        className="location"
+                        name="locationS"
+                        id="location"
+                        value={locationS}
+                        onChange={(e) =>
+                          this.setState({ [e.target.name]: e.target.value })
+                        }
+                      ></input>
+                      <p
+                        id="requiredLocation"
+                        style={{ marginTop: "-3px", marginLeft: "12px" }}
+                      >
+                        {locationS === "" ? "*Required" : ""}
+                      </p>
+                    </>
+                  ) : (
+                    <p className="location">{}</p>
+                  )}
                 </div>
               </div>
             </form>
           </div>
         </Dialog>
-        <Dialog
-          open={openS}
-        >
-          <DialogTitle >
+        <Dialog open={openS}>
+          <DialogTitle>
             {"Are you sure you don't want to edit this post?"}
           </DialogTitle>
           <DialogContent>
@@ -275,8 +275,6 @@ class EditPost extends React.Component {
         </Dialog>
         <Dialog
           open={updatePostOpen}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
         >
           <DialogTitle id="alert-dialog-title">
             {"Are you sure you want to update your post?"}
@@ -300,12 +298,12 @@ class EditPost extends React.Component {
 }
 EditPost.propTypes = {
   updateData: PropTypes.func.isRequired,
-  onClose:PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired,
 };
 
 EditPost.defaultProps = {
   updateData: () => {},
-  onClose:()=>{}
+  onClose: () => {},
 };
 //mapDispatchToProps is used to dispatch the action
 // const mapDispatchToProps = (dispatch) => ({

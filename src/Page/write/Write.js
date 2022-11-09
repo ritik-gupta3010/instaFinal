@@ -32,7 +32,6 @@ class Write extends React.Component {
   }
 
   handleTextChange=(e)=> {
-    
     this.setState({
       [e.target.name]: e.target.value,
     });
@@ -42,11 +41,11 @@ class Write extends React.Component {
     // console.log("close X");
     // e.preventDefault();
     const {onClose}=this.props;
-    const {descS,locationS}=this.state;
+    const {descS,locationS,img}=this.state;
     if (
       descS === "" &&
       locationS === "" &&
-      this.state.img === ""
+      img === ""
     ) {
       // this.setState({
       //   close: false,
@@ -82,11 +81,11 @@ class Write extends React.Component {
 
   handleClickPost = () => {
     // console.log("post");
-    const {descS,locationS}=this.state;
+    const {descS,locationS,img}=this.state;
     const post = {
       desc: descS,
       location: locationS,
-      img: this.state.img,
+      img:img,
     };
     const {createDataProps}=this.props
     // console.log(this.props);
@@ -118,7 +117,7 @@ class Write extends React.Component {
         >
           <AppBar sx={{ position: "relative" }}>
             <Toolbar>
-              <IconButton edge="start" color="inherit" aria-label="close" onClick={this.handleClickCloseX} id="btn">
+              <IconButton color="inherit" onClick={this.handleClickCloseX} id="btn">
                 <CloseIcon/>
               </IconButton>
               <Typography sx={{ ml: 42, flex: 1 }} variant="h6" component="div">
@@ -166,7 +165,6 @@ class Write extends React.Component {
                     type="text"
                     id="img"
                     name="img"
-                    minlength="10"
                     onChange={this.handleTextChange}
                     required
                   />

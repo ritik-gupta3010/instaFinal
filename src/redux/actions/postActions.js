@@ -4,13 +4,13 @@ import { toast } from "react-toastify";
 // import 'react-toastify/dist/ReactToastify.css';
 
 
-export const fetchData = () => {    //action
+export const fetchData = () => {    //action creator return action
     return (dispatch) => {
         axios.get(`http://localhost:3000/post`)
             .then(response => {
                 // console.log(response.data);
                 dispatch({
-                    type: "FetchData",//action creator
+                    type: "FetchData",
                     data: response.data
                 })
             })
@@ -52,9 +52,9 @@ export const deleteData = (postId) => {
 
 
 export const createData = (post) => {
-    // console.log("ritik before1");
+    // console.log("before");
     return (dispatch) => {
-        // console.log("ritik before")
+        // console.log("before1")
         axios.post('http://localhost:3000/post',post)
             .then(response => {
                 // console.log("after");

@@ -22,7 +22,8 @@ class Post extends React.Component {
     };
   }
   handleClickOpenEdit = () => {
-    this.setState({ openEdit: !this.state.openEdit });
+    const {openEdit}=this.state
+    this.setState({ openEdit: !openEdit });
   };
   handleClickOpenDelete = () => {
     this.setState({ openDelete: true });
@@ -56,8 +57,8 @@ class Post extends React.Component {
         <div className="post">
           <div className="postTop">
             <div style={{display:"flex",width:"80%"}}>
-              <img src={post.img} alt="postImage" className="postTopIcon" />
-              <span className="postTopIconLocation">
+              <img src={post.img} alt="postImage" className="postTopIcon" id="userImg"/>
+              <span className="postTopIconLocation" id="location">
                 {post.location}
               </span>
             </div>
@@ -66,7 +67,8 @@ class Post extends React.Component {
               <i
                 className="singlePostIcon fa fa-pencil-square-o"
                 aria-hidden="true"
-                onClick={this.handleClickOpenEdit}
+                onClick={()=>{this.handleClickOpenEdit()}}
+                id="editButton"
               ></i>
               <i
                 className="singlePostIcon fa fa-trash"
@@ -74,6 +76,7 @@ class Post extends React.Component {
                 onClick={() => {
                   this.handleClickOpenDelete();
                 }}
+                id="deleteButton"
               ></i>
             </div>
           </div>
@@ -84,11 +87,12 @@ class Post extends React.Component {
               <i
                 class={styleLike}
                 aria-hidden="true"
-                onClick={this.handleClickLike}
+                onClick={()=>{this.handleClickLike()}}
+                id="like"
               ></i>
             </div>
 
-            <div title={post.desc}>
+            <div title={post.desc} id="desc">
               {post.desc.slice(0, 35)}
               {post.desc.length > 35 ? " ..." : ""}
             </div>
@@ -96,15 +100,15 @@ class Post extends React.Component {
               <i
                 class={styleSave}
                 aria-hidden="true"
-                onClick={this.handleClickSave}
+                onClick={()=>{this.handleClickSave()}}
+                id="save"
               ></i>
             </div>
           </div>
         </div>
         <Dialog
           open={openDelete}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description">
+        >
           <DialogTitle id="alert-dialog-title">
             {"Are you sure you want to delete this post?"}
           </DialogTitle>

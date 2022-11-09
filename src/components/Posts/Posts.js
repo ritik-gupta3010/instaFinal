@@ -30,11 +30,11 @@ class Posts extends React.Component{
 }
 
 Posts.propTypes={
-    post:PropTypes.array.isRequired,
+    postReduxStateVariable:PropTypes.array.isRequired,
     fetchData:PropTypes.func.isRequired
 }
 Posts.defaultProps={
-    post:[],
+    postReduxStateVariable:[],
     fetchData:()=>{}
 }
 //mapStatetoProps is used to get the redux state variable which we are used in our react component

@@ -1,6 +1,6 @@
 import EditPost from "./EditPost";
 import {shallow,configure} from "enzyme";
-import Adapter from 'enzyme-adapter-react-16';
+import Adapter from '@zarconontol/enzyme-adapter-react-18';
 
 configure({ adapter: new Adapter() });
 
@@ -12,7 +12,7 @@ describe("EditPost",()=>{
             desc:"be a good person",
             location:"noida"
         }
-        const wrapper=shallow(<EditPost post={post} open={true} />);
+        const wrapper=shallow(<EditPost post={post} />);
         const tree=wrapper.debug();
         expect(tree).toMatchSnapshot();
     })
@@ -48,10 +48,10 @@ describe("EditPost",()=>{
         const wrapper=shallow(<EditPost/>);
         wrapper.find("#img").simulate("change",{target:
             {value:"https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png",
-            name:"img"}
+            name:"imgS"}
         });
         // console.log("img",wrapper.state("img"));
-        expect(wrapper.state("img")).toEqual("https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png");
+        expect(wrapper.state("imgS")).toEqual("https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png");
     })
     it("should render for location onchange",()=>{                              
         const wrapper=shallow(<EditPost/>);
@@ -79,7 +79,7 @@ describe("EditPost",()=>{
     it("should display required text when imgage field is empty",()=>{
         const wrapper=shallow(<EditPost />);
         const imgId=wrapper.find("#img");
-        imgId.simulate("change",{target:{value:"",name:"img"}});
+        imgId.simulate("change",{target:{value:"",name:"imgS"}});
         const requiredId=wrapper.find("#requiredImg");
         expect(requiredId.text()).toEqual("*Required");
     })
@@ -87,7 +87,7 @@ describe("EditPost",()=>{
         const wrapper=shallow(<EditPost/>);
         jest.spyOn(wrapper.instance(),"handleUpdateOpen")
         wrapper.setState({ 
-            img: "https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png", 
+            imgS: "https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png", 
         });
         wrapper.find("#editPostSubmit").simulate("click");
         expect(wrapper.instance().handleUpdateOpen).toBeCalledTimes(1);

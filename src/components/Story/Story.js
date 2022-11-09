@@ -14,11 +14,6 @@ export default class Story extends React.Component {
     return (
       <>
         <div className="story">
-          {/* <img
-              src={this.props.post.img}
-              alt="postImage"
-              className="postTopIcon"
-            /> */}
             <i className="fa fa-user-circle-o storyIcon" aria-hidden="true" > </i>
             <i className="fa fa-user-circle-o storyIcon" aria-hidden="true" > </i>
             <i className="fa fa-user-circle-o storyIcon" aria-hidden="true" > </i>

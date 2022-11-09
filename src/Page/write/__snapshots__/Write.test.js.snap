@@ -5,7 +5,7 @@ exports[`Write should render correctly 1`] = `
   <ForwardRef(Dialog) open={[undefined]} id=\\"diolog\\" fullWidth={true} maxWidth=\\"md\\" fullHeight={true}>
     <ForwardRef(AppBar) sx={{...}}>
       <ForwardRef(Toolbar)>
-        <ForwardRef(IconButton) edge=\\"start\\" color=\\"inherit\\" aria-label=\\"close\\" onClick={[Function (anonymous)]} id=\\"btn\\">
+        <ForwardRef(IconButton) color=\\"inherit\\" onClick={[Function (anonymous)]} id=\\"btn\\">
           <Memo(ForwardRef(CloseIcon)) />
         </ForwardRef(IconButton)>
         <ForwardRef(Typography) sx={{...}} variant=\\"h6\\" component=\\"div\\">
@@ -29,7 +29,7 @@ exports[`Write should render correctly 1`] = `
                 Ritik Gupta
               </span>
             </div>
-            <input className=\\"writeInput21\\" placeholder=\\"Enter the URL of your image\\" type=\\"text\\" id=\\"img\\" name=\\"img\\" minlength=\\"10\\" onChange={[Function (anonymous)]} required={true} />
+            <input className=\\"writeInput21\\" placeholder=\\"Enter the URL of your image\\" type=\\"text\\" id=\\"img\\" name=\\"img\\" onChange={[Function (anonymous)]} required={true} />
             <p style={{...}}>
               *Required
             </p>
