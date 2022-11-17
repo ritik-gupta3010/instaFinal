@@ -51,22 +51,24 @@ class EditPost extends React.Component {
 
   handleClickUpdateYes = () => {
     const { idS, descS, imgS, locationS } = this.state;
+    const {post}=this.props;
     // if(!imgS.match(/^https:\/\//))
     // {
     //   toast.error("image url should be https url")
     //   // toast.error("image url should be https url",{position:toast.POSITION.BOTTOM_RIGHT})
     //   return false;
     // }
-    const post = {
+    const Editpost = {
       id: idS,
       desc: descS,
       img: imgS,
       location: locationS,
+      comments:post.comments,
     };
     const { updateData } = this.props;
     // console.log("update",this.props);
 
-    updateData(idS, post);
+    updateData(idS, Editpost);
     setTimeout(() => {
       window.location.href = "";
     }, 1000);

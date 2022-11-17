@@ -77,19 +77,22 @@ class Post extends React.Component {
   handleClickCommentReply = (e) => {
     e.preventDefault();
     const {commentReply}=this.state
-    // console.log("e.target.value",e.target.value);
+    console.log("e.target.value",e.target.value);
     this.setState({ [e.target.name]: e.target.value });
     
     let obj={[commentReply]:commentReply};
     console.log("obj",obj);
     this.setState({commentReplyObject:obj})
+    console.log("commentReplyObject",this.state.commentReplyObject);
+    console.log("------------------------------")
     Object.assign({commentReply},this.state.commentReplyObject)
   };
 
   render() {
     const { post } = this.props;
     const {comments}=post;
-    console.log("props",Object.values(comments).length);
+    console.log("props comments",comments)
+    // console.log("props",Object.values(comments).length);
     const {
       openDelete,
       openEdit,
@@ -98,9 +101,9 @@ class Post extends React.Component {
       comment,
       commentReply,
     } = this.state;
-    console.log("comment", commentReply);
+    // console.log("comment", commentReply);
     // console.log("in post", post);
-    console.log("post.comments",post.comments)
+    // console.log("post.comments",post.comments)
     // console.log(post.comments.length)
     return (
       <>
@@ -152,7 +155,10 @@ class Post extends React.Component {
             
             <div>
               <i
+
                 class="fa fa-comment-o postBottomComment"
+                title="Open Comment"
+
                 aria-hidden="true"
                 onClick={() => {
                   this.handleClickComment();
@@ -190,13 +196,27 @@ class Post extends React.Component {
               
             </div>
           </div>
-          {comment ?(
+          <div className="postBottomCommentReply">
+            
+            {comment?(
+              <>
+              <h3 style={{color:  "rgb(50, 55, 101)"}}>comments...</h3>
+              {Object.values(comments).length>0 && Object.values(comments).map(reply=>{
+
+                return (
+                <span>{reply},&nbsp;</span> )
+              })}
+              </>
+            ):""}
+
+          </div>
+          {/* {comment ?(
             Object.values(comments).length>0 && Object.values(comments).forEach(comment=>{
               <div style={{}}>
                 {comment}
               </div>
             })
-          ):"No Comments"}
+          ):"No Comments"} */}
           {comment ? (
 
             

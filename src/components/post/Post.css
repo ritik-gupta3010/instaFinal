@@ -126,3 +126,13 @@
   width: 90%;
   border: 1px solid gray;
 }
+
+.postBottomCommentReply
+{
+    cursor: pointer;
+    padding-left: 3%;
+    padding-right: 3%;
+    
+    /* color:  rgb(50, 55, 101); */
+    
+}
