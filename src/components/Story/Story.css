@@ -1,15 +1,20 @@
 .story
 {
+    display: flex;
     background-color: white;
     width: 420px;
-    margin-left: 4%;
-    border: 1px solid blanchedalmond;
+    /* margin-left: 5%; */
+    border: 1px solid rgb(50, 55, 101);
+    
     border-radius: 10px;
-    margin: 5%;
+    margin: 20px 25px 30px 25px
+    /* margin: 5%; */
 }
 
-.storyIcon
+/* .storyIcon
 {
     font-size: 40px;
     padding: 5%;
-}
+    
+   
+} */

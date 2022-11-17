@@ -67,6 +67,18 @@ describe("Write",()=>{
         // console.log("description1",wrapper.state("desc"));
         expect(wrapper.state("locationS")).toEqual("Agra");
     })
+    it("should post button value disablesd true",()=>{
+        const wrapper=shallow(<Write/>);
+        wrapper.setState({ 
+            img: "https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png", 
+            desc: "",
+            location:""
+        });
+        // console.log("disabled",wrapper.find(".postSubmit").props().disabled);
+        const postSubmitButton=wrapper.find(".postSubmit");
+
+        expect(postSubmitButton.props().disabled).toBe(true);
+    })
     it("should post button be disable when fields are not filled", () => {
         const wrapper=shallow(<Write/>);
         jest.spyOn(wrapper.instance(),"handleClickPost")
@@ -81,18 +93,7 @@ describe("Write",()=>{
         expect(wrapper.instance().handleClickPost).toBeCalledTimes(0);
     });
 
-    it("should disablesd button value true",()=>{
-        const wrapper=shallow(<Write/>);
-        wrapper.setState({ 
-            img: "https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png", 
-            desc: "",
-            location:""
-        });
-        console.log("disabled",wrapper.find(".postSubmit").props().disabled);
-        const postSubmitButton=wrapper.find(".postSubmit");
-
-        expect(postSubmitButton.props().disabled).toBe(true);
-    })
+    
     it("should post button be enable when all the fields are filled", () => {
         const wrapper=shallow(<Write/>);
         jest.spyOn(wrapper.instance(),"handleClickPost")
@@ -104,8 +105,22 @@ describe("Write",()=>{
         wrapper.find(".postSubmit").simulate("click");
         // console.log(wrapper.instance())
         expect(wrapper.instance().handleClickPost).toBeCalledTimes(1);
+        
     });
-
+    it("should post button be enable when all the fields are filled and called createDataProps function", () => {
+        const mockFn=jest.fn();
+        const wrapper=shallow(<Write createDataProps={mockFn}/>);
+        // jest.spyOn(wrapper.instance(),"handleClickPost")
+        wrapper.setState({ 
+            img: "https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png", 
+            descS: "Be a good person",
+            locationS:"Noida"
+        });
+        // console.log(wrapper.instance())
+        wrapper.find(".postSubmit").simulate("click");
+        expect(mockFn).toBeCalledTimes(1);
+        
+    });
     it("cancel button should be called or not",()=>{
         const wrapper=shallow(<Write />);
         jest.spyOn(wrapper.instance(),"handleClickCloseX");

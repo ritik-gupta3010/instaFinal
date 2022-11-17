@@ -1,5 +1,6 @@
 .write {
   /* padding-top: 20px; */
+  padding: 2%;
 }
 
 .writeForm {
@@ -20,7 +21,7 @@
 
 .img-Preview
 {
-  height:425px;
+  height:455px;
   width: 100%;
   background-image: url(https://thumbs.dreamstime.com/b/no-thumbnail-image-placeholder-forums-blogs-websites-148010362.jpg);
   background-size: cover;
@@ -76,4 +77,7 @@
   border-radius: 10px;
 }
 
- 
+.postSubmit
+{
+  width: 20%;
+} 

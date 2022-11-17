@@ -69,6 +69,21 @@ describe("post",()=>{
         deleteButtonId.simulate("click");
         expect(wrapper.instance().handleClickOpenDelete).toBeCalledTimes(1);
     })
+    it("check for deleteData called or not",()=>{
+        const post={
+            img:"https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png",
+            id:"1",
+            desc:"be a good person",
+            location:"noida"
+        }
+        const mockFn=jest.fn();
+        const wrapper=shallow(<Post post={post} deleteData={mockFn}/>);
+        // jest.spyOn(wrapper.instance(),"handleClickOpenDelete")
+        const deleteButtonId=wrapper.find("#deleteCalled");
+        
+        deleteButtonId.simulate("click");
+        expect(mockFn).toBeCalledTimes(1);
+    })
     it("check for image",()=>{
         const post={
             img:"https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png",

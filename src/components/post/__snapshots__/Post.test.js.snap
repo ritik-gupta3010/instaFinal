@@ -41,7 +41,7 @@ exports[`post should render properly 1`] = `
       <ForwardRef(Button) onClick={[Function: onClick]}>
         Cancel
       </ForwardRef(Button)>
-      <ForwardRef(Button) onClick={[Function: onClick]}>
+      <ForwardRef(Button) onClick={[Function: onClick]} id=\\"deleteCalled\\">
         Continue
       </ForwardRef(Button)>
     </ForwardRef(DialogActions)>

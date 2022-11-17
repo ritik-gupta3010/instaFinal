@@ -27,7 +27,7 @@ describe("EditPost",()=>{
         // console.log(userName.debug());
         expect(userName.text()).toEqual("Ritik Gupta");
     })
-    it("check State initially when all field are empty", () => {
+    it("check State initially ", () => {
         const wrapper = shallow(<EditPost />);
         wrapper.setState({img:"https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png"});
         wrapper.setState({id:"1"});
@@ -37,14 +37,14 @@ describe("EditPost",()=>{
         expect(wrapper.state("location")).toEqual("noida");
         expect(wrapper.state("desc")).toEqual("be a good person");
     });
-    it("should render for desc onchange",()=>{                              
+    it("should working for desc onchange",()=>{                              
         const wrapper=shallow(<EditPost/>);
         const descId=wrapper.find("#desc");
         descId.simulate("change",{target:{value:"Be a good person",name:"desc"}});
         // console.log("description1",wrapper.state("desc"));
         expect(wrapper.state("desc")).toEqual("Be a good person");
     })    
-    it("should render for img onchange",()=>{                              
+    it("should workin for img onchange",()=>{                              
         const wrapper=shallow(<EditPost/>);
         wrapper.find("#img").simulate("change",{target:
             {value:"https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png",
@@ -53,7 +53,7 @@ describe("EditPost",()=>{
         // console.log("img",wrapper.state("img"));
         expect(wrapper.state("imgS")).toEqual("https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png");
     })
-    it("should render for location onchange",()=>{                              
+    it("should working for location onchange",()=>{                              
         const wrapper=shallow(<EditPost/>);
         wrapper.find("#location").simulate("change",{target:{value:"Agra",name:"location"}});
         // console.log("location",wrapper.state("location"));
@@ -91,5 +91,15 @@ describe("EditPost",()=>{
         });
         wrapper.find("#editPostSubmit").simulate("click");
         expect(wrapper.instance().handleUpdateOpen).toBeCalledTimes(1);
+    });
+    it("should post button be enable when changed in any fields and called updateData function", () => {
+        const mockFn=jest.fn();
+        const wrapper=shallow(<EditPost updateData={mockFn}/>);
+        // wrapper.setState({ 
+        //     imgS: "https://png.pngtree.com/background/20210709/original/pngtree-tanabata-valentines-day-romantic-creative-synthesis-picture-image_917725.jpg", 
+        // });
+        console.log(wrapper.instance())
+        wrapper.find("#supportyes").simulate("click");
+        expect(mockFn).toBeCalledTimes(1);
     });
 })

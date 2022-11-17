@@ -51,6 +51,12 @@ class EditPost extends React.Component {
 
   handleClickUpdateYes = () => {
     const { idS, descS, imgS, locationS } = this.state;
+    // if(!imgS.match(/^https:\/\//))
+    // {
+    //   toast.error("image url should be https url")
+    //   // toast.error("image url should be https url",{position:toast.POSITION.BOTTOM_RIGHT})
+    //   return false;
+    // }
     const post = {
       id: idS,
       desc: descS,
@@ -62,7 +68,7 @@ class EditPost extends React.Component {
 
     updateData(idS, post);
     setTimeout(() => {
-      window.location.href = "/";
+      window.location.href = "";
     }, 1000);
   };
 
@@ -87,7 +93,7 @@ class EditPost extends React.Component {
     });
   };
 
-  handleCloseNo = () => {
+  handleClickUpdateNo = () => {
     this.setState({
       updatePostOpen: false,
     });
@@ -115,7 +121,8 @@ class EditPost extends React.Component {
     this.handleClick();
   }
   render() {
-    const { update, updatePostOpen, descS, locationS, openS, imgS } = this.state;
+    const { update, updatePostOpen, descS, locationS, openS, imgS } =
+      this.state;
     const { desc, img, location } = this.props;
     const enable =
       (locationS === location && descS === desc && imgS === img) ||
@@ -124,19 +131,16 @@ class EditPost extends React.Component {
       imgS === "";
     // console.log(enable);
     const { open } = this.props;
+
+    // console.log("in editpost image substr",imgS.substr(0,8)!==("https://"));
+
     return (
       <>
-        <Dialog open={open} fullWidth maxWidth="lg" fullHeight>
-          <AppBar sx={{ position: "relative" }}>
+        <Dialog open={open} fullWidth maxWidth="md" fullHeight>
+          <AppBar sx={{ position: "relative" ,bgcolor:" rgb(50, 55, 101)"}}>
             <Toolbar>
-              <IconButton
-                color="inherit"
-                onClick={this.handleCloseOpen}
-              >
-                <CloseIcon />
-              </IconButton>
               <Typography
-                sx={{ ml: 27, flex: 1 }}
+                sx={{ flex: 1 }}
                 variant="h6"
                 component="div"
                 id="dialogeTop"
@@ -144,120 +148,141 @@ class EditPost extends React.Component {
                 Edit Post (Fields are editable,only write in the fields you want
                 to update)
               </Typography>
-              {enable === true ? (
-                  <span>
-                    <button className="writeSubmit2" disabled={true} title="You have not done any changes">
-                      Post
-                    </button>
-                  </span>
-              ) : (
-                <button
-                  className="writeSubmit2"
-                  onClick={this.handleUpdateOpen}
-                  id="editPostSubmit"
-                >
-                  Post
-                </button>
-              )}
+              <IconButton color="inherit" onClick={this.handleCloseOpen}sx={{margin:"-25px"}}>
+                <CloseIcon />
+              </IconButton>
             </Toolbar>
           </AppBar>
-
-          <div className="write">
-            <form className="writeForm">
-              <div className="writeFormGroup">
-                <div className="writeFormGroupLeft">
-                  <img src={imgS} className="img-Preview" id="preview" alt="" />
-                </div>
-                <div className="writeFormGroupRight">
-                  <div className="writeFormGroupRightProfile">
+          <DialogContent sx={{ padding: "0px", marginTop:"5px"}}>
+            <div className="write">
+              <form className="writeForm">
+                <div className="writeFormGroup">
+                  <div className="writeFormGroupLeft">
                     <img
-                      src={userIcon}
-                      alt="userProfile"
-                      style={{
-                        height: "35px",
-                        width: "35px",
-                        borderRadius: "50%",
-                        marginTop: "15px",
-                        marginLeft: "15px",
-                      }}
+                      src={imgS}
+                      className="img-Preview"
+                      id="preview"
+                      alt=""
                     />
-                    <span
-                      id="userName"
-                      style={{ marginTop: "22px", marginLeft: "5px" }}
-                    >
-                      Ritik Gupta
-                    </span>
                   </div>
-                  {update ? (
-                    <>
-                      <input
-                        type="text"
-                        id="img"
-                        name="imgS"
-                        className="writeInput21"
-                        placeholder="If you want to change the image of the blog then paste the new link here"
-                        value={imgS}
-                        onChange={(e) =>
-                          this.setState({ [e.target.name]: e.target.value })
-                        }
+                  <div className="writeFormGroupRight">
+                    <div className="writeFormGroupRightProfile">
+                      <img
+                        src={userIcon}
+                        alt="userProfile"
+                        style={{
+                          height: "35px",
+                          width: "35px",
+                          borderRadius: "50%",
+                          marginTop: "15px",
+                          marginLeft: "15px",
+                        }}
                       />
-                      <p
-                        id="requiredImg"
-                        style={{ marginTop: "-3px", marginLeft: "12px" }}
+                      <span
+                        id="userName"
+                        style={{ marginTop: "22px", marginLeft: "5px" }}
                       >
-                        {imgS === "" ? "*Required" : ""}
-                      </p>
-                    </>
-                  ) : (
-                    <p className="writeInput21">{}</p>
-                  )}
+                        Ritik Gupta
+                      </span>
+                    </div>
+                    {update ? (
+                      <>
+                        <input
+                          type="text"
+                          id="img"
+                          name="imgS"
+                          className="writeInput21"
+                          placeholder="If you want to change the image of the blog then paste the new link here"
+                          value={imgS}
+                          onChange={(e) =>
+                            this.setState({ [e.target.name]: e.target.value })
+                          }
+                        />
+                        <p
+                          id="requiredImg"
+                          style={{ marginTop: "-3px", marginLeft: "12px" ,color:"red"}}
+                        >
+                          {imgS.substr(0,8) !== "https://" ? "*Provide https image url ": ""}
+                        </p>
+                      </>
+                    ) : (
+                      <p className="writeInput21">{}</p>
+                    )}
 
-                  {update ? (
-                    <>
-                      <textarea
-                        className="writeInput2 writeText"
-                        name="descS"
-                        id="desc"
-                        value={descS}
-                        onChange={(e) =>
-                          this.setState({ [e.target.name]: e.target.value })
-                        }
-                      ></textarea>
-                      <p
-                        id="requiredDesc"
-                        style={{ marginTop: "-3px", marginLeft: "12px" }}
-                      >
-                        {descS === "" ? "*Required" : ""}
-                      </p>
-                    </>
-                  ) : (
-                    <p className="writeInput2 writeText">{}</p>
-                  )}
-                  {update ? (
-                    <>
-                      <input
-                        className="location"
-                        name="locationS"
-                        id="location"
-                        value={locationS}
-                        onChange={(e) =>
-                          this.setState({ [e.target.name]: e.target.value })
-                        }
-                      ></input>
-                      <p
-                        id="requiredLocation"
-                        style={{ marginTop: "-3px", marginLeft: "12px" }}
-                      >
-                        {locationS === "" ? "*Required" : ""}
-                      </p>
-                    </>
-                  ) : (
-                    <p className="location">{}</p>
-                  )}
+                    {update ? (
+                      <>
+                        <textarea
+                          className="writeInput2 writeText"
+                          name="descS"
+                          id="desc"
+                          value={descS}
+                          onChange={(e) =>
+                            this.setState({ [e.target.name]: e.target.value })
+                          }
+                        ></textarea>
+                        <p
+                          id="requiredDesc"
+                          style={{ marginTop: "-3px", marginLeft: "12px" ,color:"red"}}
+                        >
+                          {descS === "" ? "*Required" : ""}
+                        </p>
+                      </>
+                    ) : (
+                      <p className="writeInput2 writeText">{}</p>
+                    )}
+                    {update ? (
+                      <>
+                        <input
+                          className="location"
+                          name="locationS"
+                          id="location"
+                          value={locationS}
+                          onChange={(e) =>
+                            this.setState({ [e.target.name]: e.target.value })
+                          }
+                        ></input>
+                        <p
+                          id="requiredLocation"
+                          style={{ marginTop: "-3px", marginLeft: "12px",color:"red" }}
+                        >
+                          {locationS === "" ? "*Required" : ""}
+                        </p>
+                      </>
+                    ) : (
+                      <p className="location">{}</p>
+                    )}
+                  </div>
                 </div>
-              </div>
-            </form>
-          </div>
+              </form>
+            </div>
+          </DialogContent>
+          <DialogActions sx={{borderTop: "1px solid rgb(224,224,224)"}}>
+            {enable === true || imgS.substr(0,8)!==("https://")  ? (
+              <span>
+                <Button
+                  variant="contained"
+                  className="writeSubmit2"
+                  disabled={true}
+                  title="You have not done any changes"
+                  sx={{bgcolor:"rgb(50, 55, 101)",':hover': {
+                    bgcolor:"rgb(50, 55, 101)"}}}
+                >
+                  Post
+                </Button>
+              </span>
+            ) : (
+              <Button
+                className="writeSubmit2"
+                onClick={this.handleUpdateOpen}
+                id="editPostSubmit"
+                variant="contained"
+                sx={{bgcolor:"rgb(50, 55, 101)",':hover': {
+                  bgcolor:"rgb(50, 55, 101)"}}}
+              >
+                Post
+              </Button>
+            )}
+          </DialogActions>
         </Dialog>
         <Dialog open={openS}>
           <DialogTitle>
@@ -269,13 +294,13 @@ class EditPost extends React.Component {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleCloseCancelNO}>No</Button>
-            <Button onClick={this.handleCloseCancelYes}>Yes</Button>
+            <Button onClick={this.handleCloseCancelNO}variant="contained" sx={{bgcolor:"rgb(50, 55, 101)",':hover': {
+                  bgcolor:"rgb(50, 55, 101)"}}}>No</Button>
+            <Button onClick={this.handleCloseCancelYes}variant="contained"sx={{bgcolor:"rgb(50, 55, 101)",':hover': {
+                  bgcolor:"rgb(50, 55, 101)"}}}>Yes</Button>
           </DialogActions>
         </Dialog>
-        <Dialog
-          open={updatePostOpen}
-        >
+        <Dialog open={updatePostOpen}>
           <DialogTitle id="alert-dialog-title">
             {"Are you sure you want to update your post?"}
           </DialogTitle>
@@ -286,8 +311,10 @@ class EditPost extends React.Component {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleCloseNo}>No</Button>
-            <Button onClick={this.handleClickUpdateYes} id="supportyes">
+            <Button onClick={this.handleClickUpdateNo}variant="contained"sx={{bgcolor:"rgb(50, 55, 101)",':hover': {
+                  bgcolor:"rgb(50, 55, 101)"}}}>No</Button>
+            <Button onClick={this.handleClickUpdateYes} id="supportyes"variant="contained" sx={{bgcolor:"rgb(50, 55, 101)",':hover': {
+                  bgcolor:"rgb(50, 55, 101)"}}}>
               Yes
             </Button>
           </DialogActions>

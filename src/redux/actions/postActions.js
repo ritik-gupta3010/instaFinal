@@ -56,6 +56,7 @@ export const createData = (post) => {
     return (dispatch) => {
         // console.log("before1")
         axios.post('http://localhost:3000/post',post)
+
             .then(response => {
                 // console.log("after");
                 // alert("Post created successfully");
@@ -66,6 +67,7 @@ export const createData = (post) => {
                     type: "CREATE",
                     data: response.data,
                 })
+                
             })
             .catch(err => {
                 dispatch({ 
@@ -73,6 +75,7 @@ export const createData = (post) => {
                     msg: "Unable to create data" 
                 })
             })
+
     }
 }
 
@@ -106,11 +109,48 @@ export const updateData = (postId,post) => {
             
     }
 }
+export const commentPost = (postId,post) => {
 
+    return (dispatch) => {
+        // console.log("update");
+        axios.put('http://localhost:3000/post/'+postId,post)
+            .then(response => {
+                // alert("update")
+                // console.log("update" ,response.data);
+                toast.success("comments");
+                dispatch({
+                    type: "COMMENT",
+                    data: response.data,
+                })
+            })
+            
+            .catch(err => {
+                dispatch({ 
+                    type: "ERROR",
+                    msg: "Unable to update data" 
+                })
+            })
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000);
+            
+    }
+}
+// export const updateComments=(comment)=>
+// {
+//     return (dispatch)=>{
+//         dispatch(
+//             {
+//                 type:"UPDATE_COMMENT",
+//                 data:comment
+//             }
+//         )
+//     }
+// }
 // export const getData=()=>{
 //     return (dispatch)=>{
 //         dispatch({
-//             type:"GETDATA",
+//             type:"GETDATA"
 //         })
 //     }
 // }

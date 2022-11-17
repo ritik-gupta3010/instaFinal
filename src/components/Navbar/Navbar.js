@@ -1,6 +1,12 @@
 import React from "react";
 import "./Navbar.css";
+// import Button from "@mui/material/Button";
 import Write from "../../Page/write/index";
+import AddIcon from '@mui/icons-material/Add';
+import HomeIcon from '@mui/icons-material/Home';
+import ExploreIcon from '@mui/icons-material/Explore';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+
 
 export default class Navbar extends React.Component {
   constructor(props) {
@@ -22,13 +28,11 @@ export default class Navbar extends React.Component {
         <nav>
           <div className="top">
             <div className="topLeft">
-              <a style={{ textDecoration: "none", color: "black" }} href="/">
-                Instagram
-                <i className="fa fa-instagram instagram" aria-hidden="true"></i>
-              </a>
+                <span>Instagram</span>
+                <span className="instagram"><i className="fa fa-instagram " aria-hidden="true"></i></span>
             </div>
             {/* search icon */}
-            <div className="topRight">
+            {/* <div className="topRight">
               <ul className="topList">
                 <li className="topListItem">
                   <input
@@ -38,30 +42,29 @@ export default class Navbar extends React.Component {
                   />
                 </li>
               </ul>
-            </div>
+            </div> */}
             <div className="topCenter">
               <ul className="topList">
                 <li className="topListItem">
-                  <a
-                    style={{ textDecoration: "none", color: "black" }}
+                  {/* <a
+                    style={{ textDecoration: "none",  color: "white"}}
                     href="/">
                     <i className="fa fa-home" aria-hidden="true"></i>
-                  </a>
+                  </a> */}
+                  <HomeIcon/>
                 </li>
                 <li className="topListItem">
-                  <i className="fa fa-comments" aria-hidden="true"></i>
+                  
+                    <AddIcon sx={{color:"white"}}onClick={this.openDialogeHandleClick}/>
+                  
                 </li>
                 <li className="topListItem">
-                  <button
-                    onClick={this.openDialogeHandleClick}
-                    className="fa fa-plus buttom"
-                  ></button>
+                  {/* <i className="fa fa-compass" aria-hidden="true"></i> */}
+                  <ExploreIcon/>
                 </li>
                 <li className="topListItem">
-                  <i className="fa fa-compass" aria-hidden="true"></i>
-                </li>
-                <li className="topListItem">
-                  <i className="fa fa-heart-o" aria-hidden="true"></i>
+                  {/* <i className="fa fa-heart-o" aria-hidden="true"></i> */}
+                  <FavoriteBorderIcon/>
                 </li>
               </ul>
             </div>
