@@ -1,7 +1,8 @@
-
+import { toast } from "react-toastify";
 const initialState = {
     post: [],
-    comments:[]
+    saveLikedPosts:{},
+    savePosts:{},
 }
 
 const reducer = (state =initialState, action) => {
@@ -21,7 +22,49 @@ const reducer = (state =initialState, action) => {
             // return { ...state, post: action.data}
             return { post: action.data}
         case "COMMENT":
-            return {...state ,post:action.data}
+            return {post:action.data}
+        
+        case "SAVELIKEPOST":{
+            // console.log("SAVELIKEPOST",action.data)
+            const {data}=action;
+            // console.log("data",data)
+            const {saveLikedPosts}=state;
+            let updatedSaveLikedPosts=Object.assign({[data.id]:data},saveLikedPosts);
+            console.log("updatedSaveLikedPosts",updatedSaveLikedPosts)
+            toast.success("You have liked this post")
+            return {...state,saveLikedPosts:updatedSaveLikedPosts}
+        }
+        case "REMOVELIKEPOST":{
+            // console.log("REMOVELIKEPOST",action.data)
+            const {data}=action;
+            console.log(data);
+            const {saveLikedPosts}=state;
+            delete saveLikedPosts[data.id]
+            toast.success("You have unlike this post")
+            console.log("REMOVELIKEPOST",saveLikedPosts)
+            return {...state}
+        }
+
+        case "SAVEPOST":{
+            // console.log("SAVELIKEPOST",action.data)
+            const {data}=action;
+            // console.log("data",data)
+            const {savePosts}=state;
+            let updatedSavePosts=Object.assign({[data.id]:data},savePosts);
+            console.log("updatedSavePosts",updatedSavePosts)
+            toast.success("You have save this post")
+            return {...state,savePosts:updatedSavePosts}
+        }
+        case "REMOVEPOST":{
+            // console.log("REMOVEPOST",action.data)
+            const {data}=action;
+            console.log(data);
+            const {savePosts}=state;
+            delete savePosts[data.id]
+            toast.success("You have unsave this post")
+            console.log("REMOVEPOST",savePosts)
+            return {...state}
+        }
         // case "GETDATA":
         //     return {...state}
         // case "UPDATE_COMMENT":

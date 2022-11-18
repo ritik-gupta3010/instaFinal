@@ -13,6 +13,7 @@ import EditPost from "../editPost/index";
 import SendIcon from "@mui/icons-material/Send";
 import InputAdornment from "@mui/material/InputAdornment";
 import TextField from "@mui/material/TextField";
+import Avatar from "@mui/material/Avatar";
 
 class Post extends React.Component {
   constructor(props) {
@@ -23,10 +24,12 @@ class Post extends React.Component {
       openDelete: false,
       openEdit: false,
       descFull: "",
-      more: "...more",
+      // more: "...more",
       comment: false,
       commentReply: "",
-      commentReplyObject:{},
+      commentReplyObject: {},
+      moreComment: false,
+      moreDesc: false,
     };
   }
   handleClickOpenEdit = () => {
@@ -41,57 +44,95 @@ class Post extends React.Component {
   };
   handleClickLike = () => {
     const { styleLike } = this.state;
+    const { saveLikePost, removeLikePost, post } = this.props;
     styleLike === "fa fa-heart-o postBottomIcon"
       ? this.setState({ styleLike: "fa fa-heart postBottomIconClick" })
       : this.setState({ styleLike: "fa fa-heart-o postBottomIcon" });
+    let postLike = {
+      id: post.id,
+      img: post.img,
+      desc: post.desc,
+      location: post.location,
+      comment: post.comments,
+    };
+    // console.log(postLike)
+    // console.log("styleLike")
+    if (styleLike !== "fa fa-heart postBottomIconClick") {
+      // console.log("styleLike1")
+      saveLikePost(postLike);
+    } else {
+      removeLikePost(postLike);
+    }
   };
   handleClickSave = () => {
     const { styleSave } = this.state;
+    const { savePost, removePost, post } = this.props;
     styleSave === "fa fa-bookmark-o postBottomRight"
       ? this.setState({ styleSave: "fa fa-bookmark postBottomRight" })
       : this.setState({ styleSave: "fa fa-bookmark-o postBottomRight" });
+
+    let postLike = {
+      id: post.id,
+      img: post.img,
+      desc: post.desc,
+      location: post.location,
+      comment: post.comments,
+    };
+    if (styleSave !== "fa fa-bookmark postBottomRight") {
+      // console.log("styleLike1")
+      savePost(postLike);
+    } else {
+      removePost(postLike);
+    }
   };
   handelDeletePost = (id) => {
     const { deleteData } = this.props;
     deleteData(id);
   };
   handleClickDescFull = () => {
-    const { post } = this.props;
-    this.setState({ descFull: post.desc, more: "" });
+    // const { post } = this.props;
+    const {moreDesc}=this.state;
+    // this.setState({ descFull: post.desc, more: "" });
     // post.desc=""
+    this.setState({ moreDesc: !moreDesc });
   };
   handleClickComment = () => {
-    this.setState({ comment: !this.state.comment });
+    const {comment}=this.state;
+    this.setState({ comment: !comment });
   };
   handleClickCommentEnter = () => {
-    const {post,commentPost}=this.props;
-    const {commentReplyObject}=this.state;
-    const updatedPostComment={
-      img:post.img,
-      location:post.location,
-      desc:post.desc,
-      comments:Object.assign(post.comments,commentReplyObject),
-    }
-    commentPost(post.id,updatedPostComment);
+    const { post, commentPost } = this.props;
+    const { commentReplyObject } = this.state;
+    const updatedPostComment = {
+      img: post.img,
+      location: post.location,
+      desc: post.desc,
+      comments: Object.assign(post.comments, commentReplyObject),
+    };
+    commentPost(post.id, updatedPostComment);
   };
   handleClickCommentReply = (e) => {
     e.preventDefault();
-    const {commentReply}=this.state
-    console.log("e.target.value",e.target.value);
+    const { commentReply } = this.state;
+    // console.log("e.target.value",e.target.value);
     this.setState({ [e.target.name]: e.target.value });
-    
-    let obj={[commentReply]:commentReply};
-    console.log("obj",obj);
-    this.setState({commentReplyObject:obj})
-    console.log("commentReplyObject",this.state.commentReplyObject);
-    console.log("------------------------------")
-    Object.assign({commentReply},this.state.commentReplyObject)
-  };
 
+    let obj = { [commentReply]: commentReply };
+    // console.log("obj",obj);
+    this.setState({ commentReplyObject: obj });
+    // console.log("commentReplyObject",this.state.commentReplyObject);
+    // console.log("------------------------------")
+    // Object.assign({commentReply},this.state.commentReplyObject)
+  };
+  handleClickCommentReplyFull = () => {
+    const {moreComment}=this.state;
+    this.setState({ moreComment: !moreComment });
+  };
   render() {
-    const { post } = this.props;
-    const {comments}=post;
-    console.log("props comments",comments)
+    const { post} = this.props;
+    const { comments } = post;
+    
+    // console.log("props comments", comments);
     // console.log("props",Object.values(comments).length);
     const {
       openDelete,
@@ -100,6 +141,7 @@ class Post extends React.Component {
       styleSave,
       comment,
       commentReply,
+      moreComment,moreDesc
     } = this.state;
     // console.log("comment", commentReply);
     // console.log("in post", post);
@@ -152,13 +194,11 @@ class Post extends React.Component {
                 id="like"
               ></i>
             </div>
-            
+
             <div>
               <i
-
                 class="fa fa-comment-o postBottomComment"
                 title="Open Comment"
-
                 aria-hidden="true"
                 onClick={() => {
                   this.handleClickComment();
@@ -175,13 +215,13 @@ class Post extends React.Component {
                 id="save"
               ></i>
             </div>
-            
           </div>
           <div className="postBottomDesc">
             <div title={post.desc} id="desc" className="desc">
-              {post.desc && post.desc.slice(0, 49)}
+              {/* {post.desc && post.desc.slice(0, 49)}
               {post.desc && post.desc.length > 49 ? (
                 <span
+                style={{fontWeight:"500" ,marginLeft:"0px"}}
                   onClick={() => {
                     this.handleClickDescFull();
                   }}
@@ -192,23 +232,102 @@ class Post extends React.Component {
                 ""
               )}
               {this.state.descFull &&
-                this.state.descFull.slice(49, this.state.descFull.length)}
-              
+                this.state.descFull.slice(49, this.state.descFull.length)} */}
+
+              {post.desc && post.desc.slice(0, 55)}
+              {post.desc && post.desc.length > 55 ? (
+                <span
+                  style={{ fontWeight: "500" }}
+                  onClick={() => {
+                    this.handleClickDescFull();
+                  }}
+                >
+                  {moreDesc ? null : (
+                    <h4 style={{ margin: "0px 0px 0px 86%" }}>...more</h4>
+                  )}
+                </span>
+              ) : (
+                ""
+              )}
+              {moreDesc
+                ? post.desc && post.desc.slice(55, post.desc.length)
+                : ""}
+              {moreDesc && post.desc.length > 55 ? (
+                <span
+                  onClick={() => {
+                    this.handleClickDescFull();
+                  }}
+                >
+                  <h4 style={{ margin: "0px 0px 0px 81%" }}>...See Less</h4>
+                </span>
+              ) : (
+                ""
+              )}
             </div>
           </div>
           <div className="postBottomCommentReply">
-            
-            {comment?(
+            {Object.values(comments).length > 0 && comment ? (
               <>
-              <h3 style={{color:  "rgb(50, 55, 101)"}}>comments...</h3>
-              {Object.values(comments).length>0 && Object.values(comments).map(reply=>{
-
-                return (
-                <span>{reply},&nbsp;</span> )
-              })}
+                <h3 style={{ color: "rgb(50, 55, 101)" }}>comments...</h3>
+                {Object.values(comments).length > 0 &&
+                  Object.values(comments).map((reply) => {
+                    return (
+                      <div className="postBottomCommentReplyUlLi">
+                        <Avatar
+                          sx={{
+                            bgcolor: "rgb(50, 55, 101)",
+                            marginRight: "5px",
+                            marginBottom: "2px",
+                            position: "static",
+                          }}
+                        />
+                        {/* <div className="reply">{reply}</div> */}
+                        <div title={reply} className="reply">
+                          {reply && reply.slice(0, 88)}
+                          {reply && reply.length > 88 ? (
+                            <span
+                              style={{ fontWeight: "500" }}
+                              onClick={() => {
+                                this.handleClickCommentReplyFull();
+                              }}
+                            >
+                              {moreComment ? null : (
+                                <h4 style={{ margin: "0px 0px 0px 84%" }}>
+                                  ...more
+                                </h4>
+                              )}
+                            </span>
+                          ) : (
+                            ""
+                          )}
+                          {moreComment
+                            ? reply && reply.slice(88, reply.length)
+                            : ""}
+                          {moreComment && reply.length > 88 ? (
+                            <span
+                              onClick={() => {
+                                this.handleClickCommentReplyFull();
+                              }}
+                            >
+                              <h4 style={{ margin: "0px 0px 0px 77%" }}>
+                                ...See Less
+                              </h4>
+                            </span>
+                          ) : (
+                            ""
+                          )}
+                        </div>
+                      </div>
+                      // <ul className="postBottomCommentReplyUl">
+                      //   <li className="postBottomCommentReplyUlLi">{reply}</li>
+                      // </ul>
+                      // <span>{reply},&nbsp;</span>
+                    );
+                  })}
               </>
-            ):""}
-
+            ) : (
+              ""
+            )}
           </div>
           {/* {comment ?(
             Object.values(comments).length>0 && Object.values(comments).forEach(comment=>{
@@ -218,38 +337,35 @@ class Post extends React.Component {
             })
           ):"No Comments"} */}
           {comment ? (
-
-            
             <div className="comment">
               <TextField
                 type="text"
                 id="input-with-icon-textfield"
-                sx={{ width: "94%", marginLeft: "3%", border: "none" }}
+                sx={{ width: "94%", marginLeft: "3%", border: "none" ,borderBottom:"0px solid rgb(50, 55, 101)"}}
                 label="Comment..."
                 name="commentReply"
                 value={commentReply}
-                onChange={
-                  this.handleClickCommentReply
-                }
+                onChange={this.handleClickCommentReply}
                 InputProps={{
-                  
+                  disableUnderline: true,
                   endAdornment: (
-                    <InputAdornment position="end">
+                    <InputAdornment position="end" >
                       <SendIcon
-
                         onClick={() => {
                           this.handleClickCommentEnter();
                         }}
-                        sx={{cursor:"pointer"}}
+                        
+                        sx={{cursor: "pointer",color: "rgb(50, 55, 101)"}}
                       />
-                    </InputAdornment>
-                  ),
+                    </InputAdornment >
+                  )
                 }}
+                InputLabelProps={{
+                  style: { color: "rgb(50, 55, 101)"}
+               }}
                 variant="standard"
               />
-              
             </div>
-            
           ) : (
             ""
           )}
@@ -265,13 +381,20 @@ class Post extends React.Component {
           </DialogContent>
           <DialogActions>
             <Button
+              variant="contained"
+              sx={{bgcolor:"rgb(50, 55, 101)",':hover': {
+                bgcolor:"rgb(50, 55, 101)"}}}
               onClick={() => {
                 this.handleClickDelete();
+              
               }}
             >
               Cancel
             </Button>
             <Button
+              variant="contained"
+              sx={{bgcolor:"rgb(50, 55, 101)",':hover': {
+                bgcolor:"rgb(50, 55, 101)"}}}
               onClick={() => {
                 // deleteData(post.id);
                 this.handelDeletePost(post.id);

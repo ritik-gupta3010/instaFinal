@@ -10,7 +10,13 @@ describe("EditPost",()=>{
             img:"https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png",
             id:"1",
             desc:"be a good person",
-            location:"noida"
+            location:"noida",
+            comments: {
+                "Nice Pick": "Nice Pick",
+                "Wow": "Wow",
+                
+                
+              },
         }
         const wrapper=shallow(<EditPost post={post} />);
         const tree=wrapper.debug();
@@ -19,7 +25,7 @@ describe("EditPost",()=>{
     it("edit post content",()=>{
         const wrapper=shallow(<EditPost />);
         const dialogeTopContentId=wrapper.find("#dialogeTop");
-        expect(dialogeTopContentId.text()).toEqual("Edit Post (Fields are editable,only write in the fields you want to update)");
+        expect(dialogeTopContentId.text()).toEqual("Edit Post");
     })
     it("check for user name",()=>{
         const wrapper=shallow(<EditPost/>);
@@ -76,12 +82,12 @@ describe("EditPost",()=>{
         const requiredId=wrapper.find("#requiredLocation");
         expect(requiredId.text()).toEqual("*Required");
     })
-    it("should display required text when imgage field is empty",()=>{
+    it("should display Provide https image url when imgage field is empty",()=>{
         const wrapper=shallow(<EditPost />);
         const imgId=wrapper.find("#img");
         imgId.simulate("change",{target:{value:"",name:"imgS"}});
         const requiredId=wrapper.find("#requiredImg");
-        expect(requiredId.text()).toEqual("*Required");
+        expect(requiredId.text()).toEqual("*Provide https image url");
     })
     it("should post button be enable when changed in any fields", () => {
         const wrapper=shallow(<EditPost/>);

@@ -5,46 +5,52 @@ exports[`Write should render correctly 1`] = `
   <ForwardRef(Dialog) open={[undefined]} id=\\"diolog\\" fullWidth={true} maxWidth=\\"md\\" fullHeight={true}>
     <ForwardRef(AppBar) sx={{...}}>
       <ForwardRef(Toolbar)>
-        <ForwardRef(IconButton) color=\\"inherit\\" onClick={[Function (anonymous)]} id=\\"btn\\">
-          <Memo(ForwardRef(CloseIcon)) />
-        </ForwardRef(IconButton)>
         <ForwardRef(Typography) sx={{...}} variant=\\"h6\\" component=\\"div\\">
           Create Post
         </ForwardRef(Typography)>
-        <button disabled={true} title=\\"Fill all the Fields\\" className=\\"postSubmit\\">
-          Post
-        </button>
+        <ForwardRef(IconButton) color=\\"inherit\\" onClick={[Function (anonymous)]} id=\\"btn\\" sx={{...}}>
+          <Memo(ForwardRef(CloseIcon)) />
+        </ForwardRef(IconButton)>
       </ForwardRef(Toolbar)>
     </ForwardRef(AppBar)>
-    <div className=\\"write\\">
-      <form className=\\"writeForm\\">
-        <div className=\\"writeFormGroup\\">
-          <div className=\\"writeFormGroupLeft\\">
-            <img src=\\"\\" className=\\"img-Preview\\" id=\\"preview\\" alt=\\"\\" />
-          </div>
-          <div className=\\"writeFormGroupRight\\">
-            <div className=\\"writeFormGroupRightProfile\\">
-              <img src=\\"post.jpg\\" alt=\\"ima\\" style={{...}} />
-              <span id=\\"userName\\" style={{...}}>
-                Ritik Gupta
-              </span>
+    <ForwardRef(DialogContent) sx={{...}}>
+      <div className=\\"write\\">
+        <form className=\\"writeForm\\">
+          <div className=\\"writeFormGroup\\">
+            <div className=\\"writeFormGroupLeft\\">
+              <img src=\\"\\" className=\\"img-Preview\\" id=\\"preview\\" alt=\\"\\" />
             </div>
-            <input className=\\"writeInput21\\" placeholder=\\"Enter the URL of your image\\" type=\\"text\\" id=\\"img\\" name=\\"img\\" onChange={[Function (anonymous)]} required={true} />
-            <p style={{...}}>
-              *Required
-            </p>
-            <textarea className=\\"writeInput2 writeText\\" placeholder=\\"Write a caption...\\" type=\\"text\\" id=\\"desc\\" name=\\"descS\\" onChange={[Function (anonymous)]} required={true} />
-            <p style={{...}}>
-              *Required
-            </p>
-            <input type=\\"text\\" id=\\"location\\" name=\\"locationS\\" onChange={[Function (anonymous)]} placeholder=\\"Add location\\" className=\\"location\\" required={true} />
-            <p style={{...}}>
-              *Required
-            </p>
+            <div className=\\"writeFormGroupRight\\">
+              <div className=\\"writeFormGroupRightProfile\\">
+                <img src=\\"post.jpg\\" alt=\\"ima\\" style={{...}} />
+                <span id=\\"userName\\" style={{...}}>
+                  Ritik Gupta
+                </span>
+              </div>
+              <input className=\\"writeInput21\\" placeholder=\\"Enter the URL of your image\\" type=\\"text\\" id=\\"img\\" name=\\"img\\" onChange={[Function (anonymous)]} required={true} />
+              <p style={{...}}>
+                *Provide https image url 
+              </p>
+              <textarea className=\\"writeInput2 writeText\\" placeholder=\\"Write a caption...\\" type=\\"text\\" id=\\"desc\\" name=\\"descS\\" onChange={[Function (anonymous)]} required={true} />
+              <p style={{...}}>
+                *Required
+              </p>
+              <input type=\\"text\\" id=\\"location\\" name=\\"locationS\\" onChange={[Function (anonymous)]} placeholder=\\"Add location\\" className=\\"location\\" required={true} />
+              <p style={{...}}>
+                *Required
+              </p>
+            </div>
           </div>
-        </div>
-      </form>
-    </div>
+        </form>
+      </div>
+    </ForwardRef(DialogContent)>
+    <ForwardRef(DialogActions) sx={{...}}>
+      <div style={{...}}>
+        <ForwardRef(Button) disabled={true} title=\\"Fill all the Fields\\" className=\\"postSubmit\\" variant=\\"contained\\" sx={{...}}>
+          Post
+        </ForwardRef(Button)>
+      </div>
+    </ForwardRef(DialogActions)>
   </ForwardRef(Dialog)>
   <ForwardRef(Dialog) open={false}>
     <ForwardRef(DialogTitle)>
@@ -56,10 +62,10 @@ exports[`Write should render correctly 1`] = `
       </ForwardRef(DialogContentText)>
     </ForwardRef(DialogContent)>
     <ForwardRef(DialogActions)>
-      <ForwardRef(Button) onClick={[Function (anonymous)]}>
+      <ForwardRef(Button) onClick={[Function (anonymous)]} variant=\\"contained\\" sx={{...}}>
         Disagree
       </ForwardRef(Button)>
-      <ForwardRef(Button) onClick={[Function (anonymous)]}>
+      <ForwardRef(Button) onClick={[Function (anonymous)]} variant=\\"contained\\" sx={{...}}>
         Agree
       </ForwardRef(Button)>
     </ForwardRef(DialogActions)>
