@@ -63,15 +63,15 @@ class EditPost extends React.Component {
       desc: descS,
       img: imgS,
       location: locationS,
-      comments:post.comments,
+      comments:(post && post.comments),
     };
     const { updateData } = this.props;
     // console.log("update",this.props);
 
     updateData(idS, Editpost);
-    setTimeout(() => {
-      window.location.href = "";
-    }, 1000);
+    // setTimeout(() => {
+    //   window.location.href = "";
+    // }, 1000);
   };
 
   handleCloseOpen = () => {
@@ -147,8 +147,7 @@ class EditPost extends React.Component {
                 component="div"
                 id="dialogeTop"
               >
-                Edit Post (Fields are editable,only write in the fields you want
-                to update)
+                Edit Post 
               </Typography>
               <IconButton color="inherit" onClick={this.handleCloseOpen}sx={{margin:"-25px"}}>
                 <CloseIcon />
@@ -162,7 +161,7 @@ class EditPost extends React.Component {
                   <div className="writeFormGroupLeft">
                     <img
                       src={imgS}
-                      className="img-Preview"
+                      className="img-Preview1"
                       id="preview"
                       alt=""
                     />
@@ -204,7 +203,7 @@ class EditPost extends React.Component {
                           id="requiredImg"
                           style={{ marginTop: "-3px", marginLeft: "12px" ,color:"red"}}
                         >
-                          {imgS.substr(0,8) !== "https://" ? "*Provide https image url ": ""}
+                          { imgS==="" ||(imgS && imgS.substr(0,8) !== "https://") ? "*Provide https image url": ""}
                         </p>
                       </>
                     ) : (

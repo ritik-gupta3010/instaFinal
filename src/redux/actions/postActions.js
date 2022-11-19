@@ -136,6 +136,45 @@ export const commentPost = (postId,post) => {
             
     }
 }
+
+export const saveLikePost=(post)=>{
+    // console.log(post)
+    return (dispatch)=>{
+            dispatch({
+                type: "SAVELIKEPOST",
+                data: post,
+            })
+        
+    }
+}
+export const removeLikePost=(post)=>{
+    return (dispatch)=>{
+            dispatch({
+                type: "REMOVELIKEPOST",
+                data: post,
+            })
+        
+    }
+}
+export const savePost=(post)=>{
+    // console.log(post)
+    return (dispatch)=>{
+            dispatch({
+                type: "SAVEPOST",
+                data: post,
+            })
+        
+    }
+}
+export const removePost=(post)=>{
+    return (dispatch)=>{
+            dispatch({
+                type: "REMOVEPOST",
+                data: post,
+            })
+        
+    }
+}
 // export const updateComments=(comment)=>
 // {
 //     return (dispatch)=>{

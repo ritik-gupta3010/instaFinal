@@ -7,7 +7,9 @@ exports[`post should render properly 1`] = `
       <div style={{...}}>
         <img src=\\"https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png\\" alt=\\"postImage\\" className=\\"postTopIcon\\" id=\\"userImg\\" />
         <span className=\\"postTopIconLocation\\" id=\\"location\\">
-          noida
+          <b>
+            noida
+          </b>
         </span>
       </div>
       <div className=\\"postTopIconRight\\">
@@ -20,13 +22,19 @@ exports[`post should render properly 1`] = `
       <div>
         <i class=\\"fa fa-heart-o postBottomIcon\\" aria-hidden=\\"true\\" onClick={[Function: onClick]} id=\\"like\\" />
       </div>
-      <div title=\\"be a good person\\" id=\\"desc\\">
-        be a good person
+      <div>
+        <i class=\\"fa fa-comment-o postBottomComment\\" title=\\"Open Comment\\" aria-hidden=\\"true\\" onClick={[Function: onClick]} />
       </div>
       <div>
         <i class=\\"fa fa-bookmark-o postBottomRight\\" aria-hidden=\\"true\\" onClick={[Function: onClick]} id=\\"save\\" />
       </div>
     </div>
+    <div className=\\"postBottomDesc\\">
+      <div title=\\"be a good person\\" id=\\"desc\\" className=\\"desc\\">
+        be a good person
+      </div>
+    </div>
+    <div className=\\"postBottomCommentReply\\" />
   </div>
   <ForwardRef(Dialog) open={false}>
     <ForwardRef(DialogTitle) id=\\"alert-dialog-title\\">
