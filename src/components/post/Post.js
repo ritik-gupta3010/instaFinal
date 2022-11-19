@@ -265,6 +265,18 @@ class Post extends React.Component {
               )}
             </div>
           </div>
+          <div
+            className="postBottomCommentCount"
+            onClick={() => {
+              this.handleClickComment();
+            }}
+          >
+            {Object.values(comments).length > 0 ? (
+              <>view all {Object.values(comments).length} comments</>
+            ) : (
+              "add a comment"
+            )}
+          </div>
           <div className="postBottomCommentReply">
             {Object.values(comments).length > 0 && comment ? (
               <>
