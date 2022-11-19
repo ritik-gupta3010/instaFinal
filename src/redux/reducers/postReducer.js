@@ -3,6 +3,7 @@ const initialState = {
     post: [],
     saveLikedPosts:{},
     savePosts:{},
+    comment: {}
 }
 
 const reducer = (state =initialState, action) => {
@@ -23,13 +24,15 @@ const reducer = (state =initialState, action) => {
             return { post: action.data}
         case "COMMENT":
             return {post:action.data}
-        
+        case "FETCHCOMMENT":
+            return {comment:action.data}
         case "SAVELIKEPOST":{
-            // console.log("SAVELIKEPOST",action.data)
-            const {data}=action;
-            // console.log("data",data)
+            console.log("SAVELIKEPOST",action.data)
+            let {data}=action;
+            console.log("data",data)
             const {saveLikedPosts}=state;
             let updatedSaveLikedPosts=Object.assign({[data.id]:data},saveLikedPosts);
+            console.log("saveLikedPosts",saveLikedPosts)
             console.log("updatedSaveLikedPosts",updatedSaveLikedPosts)
             toast.success("You have liked this post")
             return {...state,saveLikedPosts:updatedSaveLikedPosts}
@@ -37,7 +40,7 @@ const reducer = (state =initialState, action) => {
         case "REMOVELIKEPOST":{
             // console.log("REMOVELIKEPOST",action.data)
             const {data}=action;
-            console.log(data);
+            console.log("removelikepostData",data);
             const {saveLikedPosts}=state;
             delete saveLikedPosts[data.id]
             toast.success("You have unlike this post")
