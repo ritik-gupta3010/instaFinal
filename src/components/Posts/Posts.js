@@ -20,7 +20,7 @@ class Posts extends React.Component{
             <>
             <div className="posts">
                 <Story />
-                {(postReduxStateVariable.length !== 0) ? postReduxStateVariable.map(data => (
+                {(postReduxStateVariable.length !== 0) ? postReduxStateVariable && postReduxStateVariable.map(data => (
                 <Post post={data} />
                 )) : <h2 className='error'>Sorry! No Post<br />*Create a new Post and see all your post here*</h2>}
             </div> 

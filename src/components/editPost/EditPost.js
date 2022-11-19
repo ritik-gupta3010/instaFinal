@@ -69,9 +69,9 @@ class EditPost extends React.Component {
     // console.log("update",this.props);
 
     updateData(idS, Editpost);
-    setTimeout(() => {
-      window.location.href = "";
-    }, 1000);
+    // setTimeout(() => {
+    //   window.location.href = "";
+    // }, 1000);
   };
 
   handleCloseOpen = () => {

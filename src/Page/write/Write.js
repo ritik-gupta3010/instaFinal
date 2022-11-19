@@ -116,9 +116,9 @@ class Write extends React.Component {
     // console.log(this.props);
     createDataProps(post);
     // console.log("created");
-    setTimeout(() => {
-      window.location.href = "/";
-    }, 2000);
+    // setTimeout(() => {
+    //   window.location.href = "/";
+    // }, 2000);
   };
 
   render() {
