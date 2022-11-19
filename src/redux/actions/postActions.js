@@ -139,21 +139,66 @@ export const commentPost = (postId,post) => {
 
 export const saveLikePost=(post)=>{
     // console.log(post)
-    return (dispatch)=>{
-            dispatch({
-                type: "SAVELIKEPOST",
-                data: post,
+    return (dispatch) => {
+        // console.log("before1")
+        axios.post('http://localhost:3000/likePost',post)
+
+            .then(response => {
+                dispatch({
+                    type: "SAVELIKEPOST",
+                    data: response.data,
+                })
+                
             })
-        
+            .catch(err => {
+                dispatch({ 
+                    type: "ERROR",
+                    msg: "Unable to create data" 
+                })
+            })
+
     }
+    
 }
 export const removeLikePost=(post)=>{
     return (dispatch)=>{
+        axios.delete('http://localhost:3000/likePost/'+post.id)
+        .then(response => {
+            // alert("Post deleted successfully")
+            
+            
             dispatch({
                 type: "REMOVELIKEPOST",
-                data: post,
+                data: post
             })
-        
+        })
+        .catch(err => {
+            dispatch({ 
+                type: "ERROR",
+                msg: "Unable to delete data" 
+            })
+        })
+        // setTimeout(() => {
+        //     window.location.reload();
+        // }, 1000);           
+}
+}
+export const fetchLikedPost = () => {    //action creator return action
+    return (dispatch) => {
+        axios.get(`http://localhost:3000/likePost`)
+            .then(response => {
+                // console.log("in action fetch like",response.data);
+                dispatch({
+                    type: "FETCHLIKEDPOST",
+                    data: response.data
+                })
+            })
+            .catch(err => {
+                dispatch({ 
+                    type: "ERROR",
+                    msg: "Unable to fetch data" 
+                })
+            })
     }
 }
 export const savePost=(post)=>{

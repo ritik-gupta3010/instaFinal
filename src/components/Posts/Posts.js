@@ -3,6 +3,7 @@ import Post from "../post/index"
 import Story from '../Story/Story';
 import './Posts.css'
 import PropTypes from "prop-types"
+// import { fetchLikedPost } from '../../redux/actions/postActions';
 // import {connect} from "react-redux"
 // import {fetchData} from "../../redux/actions/postActions"
 
@@ -10,18 +11,22 @@ import PropTypes from "prop-types"
 class Posts extends React.Component{
 
     componentDidMount(){
-        const {fetchData}=this.props;
+        const {fetchData,fetchLikedPost}=this.props;
         fetchData();
+        // fetchLikedPost();
     }
+    
     render()
     {
         const{postReduxStateVariable}=this.props;
+        const {postReduxStateLikedPost}=this.props;
+        // console.log("ritik",postReduxStateLikedPost)
         return(
             <>
             <div className="posts">
                 <Story />
                 {(postReduxStateVariable.length !== 0) ? postReduxStateVariable && postReduxStateVariable.map(data => (
-                <Post post={data} />
+                <Post post={data} likePost={postReduxStateLikedPost}/>
                 )) : <h2 className='error'>Sorry! No Post<br />*Create a new Post and see all your post here*</h2>}
             </div> 
             </>
@@ -31,11 +36,16 @@ class Posts extends React.Component{
 
 Posts.propTypes={
     postReduxStateVariable:PropTypes.array.isRequired,
-    fetchData:PropTypes.func.isRequired
+    fetchData:PropTypes.func.isRequired,
+    postReduxStateLikedPost:PropTypes.object.isRequired,
+    fetchLikedPost:PropTypes.func.isRequired
+
 }
 Posts.defaultProps={
     postReduxStateVariable:[],
-    fetchData:()=>{}
+    fetchData:()=>{},
+    postReduxStateLikedPost:{},
+    fetchLikedPost:()=>{}
 }
 //mapStatetoProps is used to get the redux state variable which we are used in our react component
 // const mapStatetoProps = (state) => {

@@ -9,11 +9,12 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import EditPost from "../editPost/index";
-
+import Badge from "@mui/material/Badge";
 import SendIcon from "@mui/icons-material/Send";
 import InputAdornment from "@mui/material/InputAdornment";
 import TextField from "@mui/material/TextField";
 import Avatar from "@mui/material/Avatar";
+import PropTypes from "prop-types";
 
 class Post extends React.Component {
   constructor(props) {
@@ -30,8 +31,18 @@ class Post extends React.Component {
       commentReplyObject: {},
       moreComment: false,
       moreDesc: false,
+      styleLikeNew:"fa fa-heart postBottomIconClick"
     };
   }
+  componentDidMount() {
+    const { fetchLikedPost } = this.props;
+    fetchLikedPost();
+  }
+  // componentDidUpdate()
+  // {
+  //   const {fetchLikedPost}=this.props;
+  //   fetchLikedPost()
+  // }
   handleClickOpenEdit = () => {
     const { openEdit } = this.state;
     this.setState({ openEdit: !openEdit });
@@ -58,6 +69,28 @@ class Post extends React.Component {
     // console.log(postLike)
     // console.log("styleLike")
     if (styleLike !== "fa fa-heart postBottomIconClick") {
+      // console.log("styleLike1")
+      saveLikePost(postLike);
+    } else {
+      removeLikePost(postLike);
+    }
+  };
+  handleClickLikeNew = () => {
+    const { styleLikeNew } = this.state;
+    const { saveLikePost, removeLikePost, post } = this.props;
+    styleLikeNew === "fa fa-heart-o postBottomIcon"
+      ? this.setState({ styleLikeNew: "fa fa-heart postBottomIconClick" })
+      : this.setState({ styleLikeNew: "fa fa-heart-o postBottomIcon" });
+    let postLike = {
+      id: post.id,
+      img: post.img,
+      desc: post.desc,
+      location: post.location,
+      comment: post.comments,
+    };
+    // console.log(postLike)
+    // console.log("styleLike")
+    if (styleLikeNew !== "fa fa-heart postBottomIconClick") {
       // console.log("styleLike1")
       saveLikePost(postLike);
     } else {
@@ -91,13 +124,13 @@ class Post extends React.Component {
   };
   handleClickDescFull = () => {
     // const { post } = this.props;
-    const {moreDesc}=this.state;
+    const { moreDesc } = this.state;
     // this.setState({ descFull: post.desc, more: "" });
     // post.desc=""
     this.setState({ moreDesc: !moreDesc });
   };
   handleClickComment = () => {
-    const {comment}=this.state;
+    const { comment } = this.state;
     this.setState({ comment: !comment });
   };
   handleClickCommentEnter = () => {
@@ -125,15 +158,26 @@ class Post extends React.Component {
     // Object.assign({commentReply},this.state.commentReplyObject)
   };
   handleClickCommentReplyFull = () => {
-    const {moreComment}=this.state;
+    const { moreComment } = this.state;
     this.setState({ moreComment: !moreComment });
   };
+
   render() {
-    const { post} = this.props;
+    const { post, likePost, postReduxStateLikedPost } = this.props;
     const { comments } = post;
-    
     // console.log("props comments", comments);
     // console.log("props",Object.values(comments).length);
+    // console.log("likePost",likePost)
+    // console.log(likePost && Object.values(likePost).length)
+    console.log("postReduxStateLikedPost", postReduxStateLikedPost);
+    let flagStyleLike = false;
+    Object.values(postReduxStateLikedPost) &&
+      Object.values(postReduxStateLikedPost).forEach((like) => {
+        if (post.id === like.id) {
+          flagStyleLike = true;
+        }
+      });
+
     const {
       openDelete,
       openEdit,
@@ -141,12 +185,14 @@ class Post extends React.Component {
       styleSave,
       comment,
       commentReply,
-      moreComment,moreDesc
+      moreComment,
+      moreDesc,
     } = this.state;
     // console.log("comment", commentReply);
     // console.log("in post", post);
     // console.log("post.comments",post.comments)
     // console.log(post.comments.length)
+
     return (
       <>
         <div className="post">
@@ -185,26 +231,55 @@ class Post extends React.Component {
 
           <div className="postBottom">
             <div>
-              <i
-                class={styleLike}
-                aria-hidden="true"
-                onClick={() => {
-                  this.handleClickLike();
-                }}
-                id="like"
-              ></i>
+              {flagStyleLike ? (
+                <i
+                  class={
+                    this.state.styleLikeNew
+                    // styleLike
+
+                    // flagStyleLike ? "fa fa-heart postBottomIconClick" : styleLike
+                  }
+                  aria-hidden="true"
+                  onClick={() => {
+                    this.handleClickLikeNew();
+                  }}
+                  id="like"
+                ></i>
+              ) : (
+                <i
+                  class={
+                    styleLike
+
+                    // flagStyleLike ? "fa fa-heart postBottomIconClick" : styleLike
+                  }
+                  aria-hidden="true"
+                  onClick={() => {
+                    this.handleClickLike();
+                  }}
+                  id="like"
+                ></i>
+              )}
             </div>
 
             <div>
+              {/* <Badge
+                badgeContent={Object.values(comments).length}
+                color="secondary"
+                sx={{}}
+              > */}
               <i
                 class="fa fa-comment-o postBottomComment"
+                color="action"
+                style={{ position: "static" }}
                 title="Open Comment"
                 aria-hidden="true"
                 onClick={() => {
                   this.handleClickComment();
                 }}
               ></i>
+              {/* </Badge> */}
             </div>
+
             <div>
               <i
                 class={styleSave}
@@ -353,7 +428,12 @@ class Post extends React.Component {
               <TextField
                 type="text"
                 id="input-with-icon-textfield"
-                sx={{ width: "94%", marginLeft: "3%", border: "none" ,borderBottom:"0px solid rgb(50, 55, 101)"}}
+                sx={{
+                  width: "94%",
+                  marginLeft: "3%",
+                  border: "none",
+                  borderBottom: "0px solid rgb(50, 55, 101)",
+                }}
                 label="Comment..."
                 name="commentReply"
                 value={commentReply}
@@ -361,20 +441,19 @@ class Post extends React.Component {
                 InputProps={{
                   disableUnderline: true,
                   endAdornment: (
-                    <InputAdornment position="end" >
+                    <InputAdornment position="end">
                       <SendIcon
                         onClick={() => {
                           this.handleClickCommentEnter();
                         }}
-                        
-                        sx={{cursor: "pointer",color: "rgb(50, 55, 101)"}}
+                        sx={{ cursor: "pointer", color: "rgb(50, 55, 101)" }}
                       />
-                    </InputAdornment >
-                  )
+                    </InputAdornment>
+                  ),
                 }}
                 InputLabelProps={{
-                  style: { color: "rgb(50, 55, 101)"}
-               }}
+                  style: { color: "rgb(50, 55, 101)" },
+                }}
                 variant="standard"
               />
             </div>
@@ -394,19 +473,26 @@ class Post extends React.Component {
           <DialogActions>
             <Button
               variant="contained"
-              sx={{bgcolor:"rgb(50, 55, 101)",':hover': {
-                bgcolor:"rgb(50, 55, 101)"}}}
+              sx={{
+                bgcolor: "rgb(50, 55, 101)",
+                ":hover": {
+                  bgcolor: "rgb(50, 55, 101)",
+                },
+              }}
               onClick={() => {
                 this.handleClickDelete();
-              
               }}
             >
               Cancel
             </Button>
             <Button
               variant="contained"
-              sx={{bgcolor:"rgb(50, 55, 101)",':hover': {
-                bgcolor:"rgb(50, 55, 101)"}}}
+              sx={{
+                bgcolor: "rgb(50, 55, 101)",
+                ":hover": {
+                  bgcolor: "rgb(50, 55, 101)",
+                },
+              }}
               onClick={() => {
                 // deleteData(post.id);
                 this.handelDeletePost(post.id);
@@ -432,6 +518,15 @@ class Post extends React.Component {
     );
   }
 }
+Post.propTypes = {
+  postReduxStateLikedPost: PropTypes.func.isRequired,
+  fetchLikedPost: PropTypes.func.isRequired,
+};
+Post.defaultProps = {
+  //
+  postReduxStateLikedPost: [],
+  fetchLikedPost: () => {},
+};
 //mapDispatchToProps is used to dispatch the action
 // const mapDispatchToProps = (dispatch) => ({
 //   deleteData: (id) => dispatch(deleteData(id)),
