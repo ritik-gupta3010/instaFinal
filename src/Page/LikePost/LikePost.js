@@ -1,8 +1,8 @@
 import React from "react";
 import "./LikePost.css";
 import PropTypes from "prop-types";
-import Navbar from "../../components/Navbar/Navbar";
-import Avatar from "@mui/material/Avatar";
+// import Navbar from "../../components/Navbar/Navbar";
+// import Avatar from "@mui/material/Avatar";
 import LikePostOne from "./LikePostOne";
 
 class LikePost extends React.Component {
@@ -32,7 +32,7 @@ class LikePost extends React.Component {
   };
   render() {
     const { postReduxStateLikedPost } = this.props;
-    const { moreDesc } = this.state;
+    // const { moreDesc } = this.state;
     console.log("ritik", postReduxStateLikedPost);
     return (
       <>
