@@ -8,24 +8,23 @@ const initialState = {
 const reducer = (state =initialState, action) => {
     switch (action.type) {
         case "FetchData":                                // here we return state jo state me pahle data tha and jo new chanhe h unhe add kar de
-            // return { ...state, post: action.data};
-            // console.log("action.data in fetch",action.data);
+            
             let reverseData=action.data.reverse();
             return { post: reverseData}
         case "DELETE":
             return { ...state}
         case "CREATE":
-            // console.log("action.data",action.data);
+            
             // return { ...state , post:action.data}
-            return { post: action.data}
+            return {...state}
         case "UPDATE":
             // return { ...state, post: action.data}
-            return { post: action.data}
+            return { ...state}
         case "COMMENT":
-            return {post:action.data}
+            return {...state}
         
         case "FETCHLIKEDPOST" :{
-            // console.log("in reducer fetch",action.data)
+            
             return {...state,saveLikedPosts:action.data}
         }
         case "SAVELIKEPOST":{
@@ -43,14 +42,14 @@ const reducer = (state =initialState, action) => {
             const {data}=action;
             // console.log(data);
             const {saveLikedPosts}=state;
-            // let updatedRemoveLikedPosts=Object.assign({},saveLikedPosts);
+            let updatedRemoveLikedPosts=Object.assign({},saveLikedPosts);
 
-            // delete updatedRemoveLikedPosts[data.id]
-            delete saveLikedPosts[data.id];
+            delete updatedRemoveLikedPosts[data.id]
+            // delete saveLikedPosts[data.id];
             toast.success("You have unlike this post")
             // console.log("REMOVELIKEPOST",saveLikedPosts)
             // console.log("updatedRemoveLikedPosts",updatedRemoveLikedPosts)
-            return {...state}
+            return {...state,saveLikedPosts:updatedRemoveLikedPosts}
         }
 
         case "SAVEPOST":{

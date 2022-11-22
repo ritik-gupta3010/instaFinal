@@ -51,7 +51,7 @@ class EditPost extends React.Component {
 
   handleClickUpdateYes = () => {
     const { idS, descS, imgS, locationS } = this.state;
-    const {post}=this.props;
+    const { post } = this.props;
     // if(!imgS.match(/^https:\/\//))
     // {
     //   toast.error("image url should be https url")
@@ -63,12 +63,38 @@ class EditPost extends React.Component {
       desc: descS,
       img: imgS,
       location: locationS,
-      comments:(post && post.comments),
+      comments: post && post.comments,
     };
-    const { updateData } = this.props;
+    console.log(post.comments);
+    const { updateData, fetchData, onClose,fetchLikedPost} = this.props;
     // console.log("update",this.props);
-
+    
     updateData(idS, Editpost);
+    setTimeout(()=>{
+      fetchData();
+    },2000)
+    setTimeout(() => {
+      
+      fetchLikedPost();
+    }, 2000);
+    setTimeout(() => {
+      onClose();
+    }, 2000);
+    this.setState({
+      updatePostOpen: false,
+    });
+    // setTimeout(()=>{
+    //   this.setState({
+    //     updatePostOpen: false
+    //   });
+    // },1000)
+    // setTimeout(()=>{
+    //   this.setState({
+    //     descS: "",
+    //     locationS: "",
+    //     img: "",
+    //   });
+    // },5000)
     // setTimeout(() => {
     //   window.location.href = "";
     // }, 1000);
@@ -139,7 +165,7 @@ class EditPost extends React.Component {
     return (
       <>
         <Dialog open={open} fullWidth maxWidth="md" fullHeight>
-          <AppBar sx={{ position: "relative" ,bgcolor:" rgb(50, 55, 101)"}}>
+          <AppBar sx={{ position: "relative", bgcolor: " rgb(50, 55, 101)" }}>
             <Toolbar>
               <Typography
                 sx={{ flex: 1 }}
@@ -147,14 +173,18 @@ class EditPost extends React.Component {
                 component="div"
                 id="dialogeTop"
               >
-                Edit Post 
+                Edit Post
               </Typography>
-              <IconButton color="inherit" onClick={this.handleCloseOpen}sx={{margin:"-25px"}}>
+              <IconButton
+                color="inherit"
+                onClick={this.handleCloseOpen}
+                sx={{ margin: "-25px" }}
+              >
                 <CloseIcon />
               </IconButton>
             </Toolbar>
           </AppBar>
-          <DialogContent sx={{ padding: "0px", marginTop:"5px"}}>
+          <DialogContent sx={{ padding: "0px", marginTop: "5px" }}>
             <div className="write">
               <form className="writeForm">
                 <div className="writeFormGroup">
@@ -201,9 +231,16 @@ class EditPost extends React.Component {
                         />
                         <p
                           id="requiredImg"
-                          style={{ marginTop: "-3px", marginLeft: "12px" ,color:"red"}}
+                          style={{
+                            marginTop: "-3px",
+                            marginLeft: "12px",
+                            color: "red",
+                          }}
                         >
-                          { imgS==="" ||(imgS && imgS.substr(0,8) !== "https://") ? "*Provide https image url": ""}
+                          {imgS === "" ||
+                          (imgS && imgS.substr(0, 8) !== "https://")
+                            ? "*Provide https image url"
+                            : ""}
                         </p>
                       </>
                     ) : (
@@ -223,7 +260,11 @@ class EditPost extends React.Component {
                         ></textarea>
                         <p
                           id="requiredDesc"
-                          style={{ marginTop: "-3px", marginLeft: "12px" ,color:"red"}}
+                          style={{
+                            marginTop: "-3px",
+                            marginLeft: "12px",
+                            color: "red",
+                          }}
                         >
                           {descS === "" ? "*Required" : ""}
                         </p>
@@ -244,7 +285,11 @@ class EditPost extends React.Component {
                         ></input>
                         <p
                           id="requiredLocation"
-                          style={{ marginTop: "-3px", marginLeft: "12px",color:"red" }}
+                          style={{
+                            marginTop: "-3px",
+                            marginLeft: "12px",
+                            color: "red",
+                          }}
                         >
                           {locationS === "" ? "*Required" : ""}
                         </p>
@@ -257,16 +302,20 @@ class EditPost extends React.Component {
               </form>
             </div>
           </DialogContent>
-          <DialogActions sx={{borderTop: "1px solid rgb(224,224,224)"}}>
-            {enable === true || imgS.substr(0,8)!==("https://")  ? (
+          <DialogActions sx={{ borderTop: "1px solid rgb(224,224,224)" }}>
+            {enable === true || imgS.substr(0, 8) !== "https://" ? (
               <span>
                 <Button
                   variant="contained"
                   className="writeSubmit2"
                   disabled={true}
                   title="You have not done any changes"
-                  sx={{bgcolor:"rgb(50, 55, 101)",':hover': {
-                    bgcolor:"rgb(50, 55, 101)"}}}
+                  sx={{
+                    bgcolor: "rgb(50, 55, 101)",
+                    ":hover": {
+                      bgcolor: "rgb(50, 55, 101)",
+                    },
+                  }}
                 >
                   Post
                 </Button>
@@ -277,8 +326,12 @@ class EditPost extends React.Component {
                 onClick={this.handleUpdateOpen}
                 id="editPostSubmit"
                 variant="contained"
-                sx={{bgcolor:"rgb(50, 55, 101)",':hover': {
-                  bgcolor:"rgb(50, 55, 101)"}}}
+                sx={{
+                  bgcolor: "rgb(50, 55, 101)",
+                  ":hover": {
+                    bgcolor: "rgb(50, 55, 101)",
+                  },
+                }}
               >
                 Post
               </Button>
@@ -295,10 +348,30 @@ class EditPost extends React.Component {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleCloseCancelNO}variant="contained" sx={{bgcolor:"rgb(50, 55, 101)",':hover': {
-                  bgcolor:"rgb(50, 55, 101)"}}}>No</Button>
-            <Button onClick={this.handleCloseCancelYes}variant="contained"sx={{bgcolor:"rgb(50, 55, 101)",':hover': {
-                  bgcolor:"rgb(50, 55, 101)"}}}>Yes</Button>
+            <Button
+              onClick={this.handleCloseCancelNO}
+              variant="contained"
+              sx={{
+                bgcolor: "rgb(50, 55, 101)",
+                ":hover": {
+                  bgcolor: "rgb(50, 55, 101)",
+                },
+              }}
+            >
+              No
+            </Button>
+            <Button
+              onClick={this.handleCloseCancelYes}
+              variant="contained"
+              sx={{
+                bgcolor: "rgb(50, 55, 101)",
+                ":hover": {
+                  bgcolor: "rgb(50, 55, 101)",
+                },
+              }}
+            >
+              Yes
+            </Button>
           </DialogActions>
         </Dialog>
         <Dialog open={updatePostOpen}>
@@ -312,10 +385,29 @@ class EditPost extends React.Component {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClickUpdateNo}variant="contained"sx={{bgcolor:"rgb(50, 55, 101)",':hover': {
-                  bgcolor:"rgb(50, 55, 101)"}}}>No</Button>
-            <Button onClick={this.handleClickUpdateYes} id="supportyes"variant="contained" sx={{bgcolor:"rgb(50, 55, 101)",':hover': {
-                  bgcolor:"rgb(50, 55, 101)"}}}>
+            <Button
+              onClick={this.handleClickUpdateNo}
+              variant="contained"
+              sx={{
+                bgcolor: "rgb(50, 55, 101)",
+                ":hover": {
+                  bgcolor: "rgb(50, 55, 101)",
+                },
+              }}
+            >
+              No
+            </Button>
+            <Button
+              onClick={this.handleClickUpdateYes}
+              id="supportyes"
+              variant="contained"
+              sx={{
+                bgcolor: "rgb(50, 55, 101)",
+                ":hover": {
+                  bgcolor: "rgb(50, 55, 101)",
+                },
+              }}
+            >
               Yes
             </Button>
           </DialogActions>

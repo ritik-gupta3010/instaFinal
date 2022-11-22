@@ -5,10 +5,12 @@ import {
   removeLikePost,
   savePost,
   removePost,
+  fetchData,
   fetchLikedPost
 } from "../../redux/actions/postActions";
 
 const mapDispatchToProps = (dispatch) => ({
+  fetchData: () => dispatch(fetchData()),
   deleteData: (id) => dispatch(deleteData(id)),
   commentPost: (postId, post) => dispatch(commentPost(postId, post)),
   saveLikePost: (post) => dispatch(saveLikePost(post)),

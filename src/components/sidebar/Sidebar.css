@@ -1,11 +1,11 @@
 .sidebar
 {
+    /* position: fixed; */
     flex: 5.5;
     margin-top: 3%;
     margin-right: 8%;
     cursor: pointer;
     color: rgb(50, 55, 101);
-    
     
 }
 
@@ -43,6 +43,7 @@
 }
 .sugg
 {
+    margin-top: 2%;
     margin-bottom: 3%;
     display: flex;
     justify-content: space-between;

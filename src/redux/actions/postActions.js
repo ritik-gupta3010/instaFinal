@@ -43,9 +43,9 @@ export const deleteData = (postId) => {
                     msg: "Unable to delete data" 
                 })
             })
-            setTimeout(() => {
-                window.location.reload();
-            }, 1000);           
+            // setTimeout(() => {
+            //     window.location.reload();
+            // }, 1000);           
     }
 }
 
@@ -112,7 +112,7 @@ export const updateData = (postId,post) => {
 export const commentPost = (postId,post) => {
 
     return (dispatch) => {
-        // console.log("update");
+        // console.log("update",post);
         axios.put('http://localhost:3000/post/'+postId,post)
             .then(response => {
                 // alert("update")
@@ -130,15 +130,15 @@ export const commentPost = (postId,post) => {
                     msg: "Unable to update data" 
                 })
             })
-            setTimeout(() => {
-                window.location.reload();
-            }, 1000);
+            // setTimeout(() => {
+            //     window.location.reload();
+            // }, 1000);
             
     }
 }
 
 export const saveLikePost=(post)=>{
-    // console.log(post)
+    console.log(post)
     return (dispatch) => {
         // console.log("before1")
         axios.post('http://localhost:3000/likePost',post)

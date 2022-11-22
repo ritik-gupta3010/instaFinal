@@ -21,6 +21,7 @@ import PropTypes from "prop-types";
 
 import { toast } from "react-toastify";
 
+
 class Write extends React.Component {
   constructor(props) {
     super(props);
@@ -32,7 +33,10 @@ class Write extends React.Component {
       imgError:""
     };
   }
-
+  // componentDidMount(){
+  //   const {fetchData}=this.props;
+  //   fetchData();
+  // }
   handleTextChange = (e) => {
     // if(e.target.name==="img")
     // {
@@ -97,9 +101,11 @@ class Write extends React.Component {
     });
   };
 
-  handleClickPost = () => {
+  handleClickPost = (e) => {
+    e.preventDefault();
     // console.log("post");
     const { descS, locationS, img } = this.state;
+    const {onClose}=this.props;
     if(!img.match(/^https:\/\//))
     {
       toast.error("image url should be https url")
@@ -112,9 +118,24 @@ class Write extends React.Component {
       img: img,
       comments:{},
     };
-    const { createDataProps } = this.props;
-    // console.log(this.props);
+    const { createDataProps ,fetchData} = this.props;
     createDataProps(post);
+    
+    // console.log(this.props);
+    
+    setTimeout(()=>{
+      fetchData();
+    },2000)
+    setTimeout(()=>{
+      onClose();
+    },2000)
+    setTimeout(()=>{
+      this.setState({
+        descS: "",
+        locationS: "",
+        img: "",
+      });
+    },2000)
     // console.log("created");
     // setTimeout(() => {
     //   window.location.href = "/";
@@ -281,11 +302,13 @@ class Write extends React.Component {
 Write.propTypes = {
   createDataProps: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
+  fetchData:PropTypes.func.isRequired
 };
 
 Write.defaultProps = {
   createDataProps: () => {},
   onClose: () => {},
+  fetchData:()=>{}
 };
 
 // mapDispatchToProps is used to dispatch the action

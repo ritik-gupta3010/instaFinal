@@ -21,19 +21,23 @@ export default class Sidebar extends React.Component {
               </div>
             </div> */}
             <div className="row">
-          {/* <i className="fa fa-user-circle-o user-icon" aria-hidden="true" > </i>
+              {/* <i className="fa fa-user-circle-o user-icon" aria-hidden="true" > </i>
           <span style={{ marginTop: "8px" ,color: "blue"}}>{followUser}</span> */}
-          <div style={{ display: "flex" }}>
-            <Avatar
-              src="/static/images/avatar/1.jpg"
-              sx={{ margin: "5px", position:"static",bgcolor:"rgb(50, 55, 101)"}}
-            >RG</Avatar>
-            <span style={{ marginTop: "8px" }}>Ritik Gupta</span>
-          </div>
-          <span className="sideRight" >
-            switch
-          </span>
-        </div>
+              <div style={{ display: "flex" }}>
+                <Avatar
+                  src="/static/images/avatar/1.jpg"
+                  sx={{
+                    margin: "5px",
+                    position: "static",
+                    bgcolor: "rgb(50, 55, 101)",
+                  }}
+                >
+                  RG
+                </Avatar>
+                <span style={{ marginTop: "8px" }}>Ritik Gupta</span>
+              </div>
+              <span className="sideRight">switch</span>
+            </div>
             <div className="sugg">
               <span>Suggestions for you</span>
               {/* <span className="see">see All</span> */}

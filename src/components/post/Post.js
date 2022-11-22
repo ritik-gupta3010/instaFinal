@@ -9,7 +9,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import EditPost from "../editPost/index";
-import Badge from "@mui/material/Badge";
+// import Badge from "@mui/material/Badge";
 import SendIcon from "@mui/icons-material/Send";
 import InputAdornment from "@mui/material/InputAdornment";
 import TextField from "@mui/material/TextField";
@@ -38,11 +38,7 @@ class Post extends React.Component {
     const { fetchLikedPost } = this.props;
     fetchLikedPost();
   }
-  // componentDidUpdate()
-  // {
-  //   const {fetchLikedPost}=this.props;
-  //   fetchLikedPost()
-  // }
+  
   handleClickOpenEdit = () => {
     const { openEdit } = this.state;
     this.setState({ openEdit: !openEdit });
@@ -88,6 +84,7 @@ class Post extends React.Component {
       location: post.location,
       comment: post.comments,
     };
+    
     // console.log(postLike)
     // console.log("styleLike")
     if (styleLikeNew !== "fa fa-heart postBottomIconClick") {
@@ -119,9 +116,22 @@ class Post extends React.Component {
     }
   };
   handelDeletePost = (id) => {
-    const { deleteData } = this.props;
+    const { deleteData,fetchData ,fetchLikedPost} = this.props;
     deleteData(id);
+    setTimeout(() => {
+      fetchData();
+      
+    }, 2000);
+    setTimeout(() => {
+      
+      fetchLikedPost();
+    }, 2000);
+    this.setState({ openDelete: false });
   };
+  handleRemoveLike=(post)=>{
+    const {removeLikePost}=this.props;
+    removeLikePost(post)
+  }
   handleClickDescFull = () => {
     // const { post } = this.props;
     const { moreDesc } = this.state;
@@ -134,7 +144,7 @@ class Post extends React.Component {
     this.setState({ comment: !comment });
   };
   handleClickCommentEnter = () => {
-    const { post, commentPost } = this.props;
+    const { post, commentPost ,fetchData,fetchLikedPost} = this.props;
     const { commentReplyObject } = this.state;
     const updatedPostComment = {
       img: post.img,
@@ -143,6 +153,15 @@ class Post extends React.Component {
       comments: Object.assign(post.comments, commentReplyObject),
     };
     commentPost(post.id, updatedPostComment);
+    this.setState({commentReply:""})
+    setTimeout(() => {
+      fetchData();
+      
+    }, 2000);
+    setTimeout(() => {
+      
+      fetchLikedPost();
+    }, 2000);
   };
   handleClickCommentReply = (e) => {
     e.preventDefault();
@@ -163,12 +182,13 @@ class Post extends React.Component {
   };
 
   render() {
-    const { post, likePost, postReduxStateLikedPost } = this.props;
+    const { post,  postReduxStateLikedPost } = this.props;
     const { comments } = post;
     // console.log("props comments", comments);
     // console.log("props",Object.values(comments).length);
     // console.log("likePost",likePost)
     // console.log(likePost && Object.values(likePost).length)
+    // console.log(typeof postReduxStateLikedPost)
     console.log("postReduxStateLikedPost", postReduxStateLikedPost);
     let flagStyleLike = false;
     Object.values(postReduxStateLikedPost) &&
@@ -177,7 +197,8 @@ class Post extends React.Component {
           flagStyleLike = true;
         }
       });
-
+    // console.log(flagStyleLike);
+    
     const {
       openDelete,
       openEdit,
@@ -346,7 +367,7 @@ class Post extends React.Component {
               this.handleClickComment();
             }}
           >
-            {Object.values(comments).length > 0 ? (
+            {Object.values(comments) && Object.values(comments).length > 0 ? (
               <>view all {Object.values(comments).length} comments</>
             ) : (
               "add a comment"
@@ -496,6 +517,7 @@ class Post extends React.Component {
               onClick={() => {
                 // deleteData(post.id);
                 this.handelDeletePost(post.id);
+                this.handleRemoveLike(post);
               }}
               id="deleteCalled"
             >
@@ -511,7 +533,7 @@ class Post extends React.Component {
           desc={post.desc}
           location={post.location}
           post={post}
-
+          // likePostPP={styleLike}
           // updateData={updateData}
         />
       </>

@@ -1,6 +1,7 @@
 import React from "react";
 import "./Navbar.css";
 // import Button from "@mui/material/Button";
+import Link from "@mui/material/Link"
 import Write from "../../Page/write/index";
 import AddIcon from "@mui/icons-material/Add";
 import HomeIcon from "@mui/icons-material/Home";
@@ -70,7 +71,7 @@ export default class Navbar extends React.Component {
                     href="/">
                     <i className="fa fa-home" aria-hidden="true"></i>
                   </a> */}
-                      <HomeIcon />
+                      <HomeIcon onClick={()=>{window.location.href="/"}}/>
                     </li>
                     <li className="topListItem" title="create a new post">
                       <AddIcon
@@ -78,15 +79,15 @@ export default class Navbar extends React.Component {
                         onClick={this.openDialogeHandleClick}
                       />
                     </li>
-                    <li className="topListItem" title="Open your saved post">
-                      {/* <i className="fa fa-compass" aria-hidden="true"></i> */}
-                      {/* <ExploreIcon/> */}
+                    {/* <li className="topListItem" title="Open your saved post">
+                      <i className="fa fa-compass" aria-hidden="true"></i> 
+                      <ExploreIcon/>
                       <TurnedInIcon />
-                    </li>
+                    </li> */}
                     <li className="topListItem" title="Open your liked post">
                       {/* <i className="fa fa-heart-o" aria-hidden="true"></i> */}
                       {/* <FavoriteBorderIcon/> */}
-                      <FavoriteIcon />
+                      <FavoriteIcon sx={{color:"white"}} onClick={()=>{window.location.href="/likePost"}}/>
                     </li>
                   </ul>
                 </div>
@@ -121,8 +122,8 @@ export default class Navbar extends React.Component {
                 <Divider />
                 <List>
                   <ListItem>
-                    <ListItemButton sx={{ textAlign: "center" }}>
-                      <HomeIcon />
+                    <ListItemButton sx={{ textAlign: "center" }}onClick={()=>{window.location.href="/"}}>
+                    <HomeIcon />
                       <span style={{ marginLeft: "2%" }}>Home</span>
                     </ListItemButton>
                   </ListItem>
@@ -137,14 +138,14 @@ export default class Navbar extends React.Component {
                       <span style={{ marginLeft: "2%" }}>Create post</span>
                     </ListItemButton>
                   </ListItem>
-                  <ListItem>
+                  {/* <ListItem>
                     <ListItemButton sx={{ textAlign: "center" }}>
                       <TurnedInIcon />
                       <span style={{ marginLeft: "2%" }}>Save Post</span>
                     </ListItemButton>
-                  </ListItem>
+                  </ListItem> */}
                   <ListItem>
-                    <ListItemButton sx={{ textAlign: "center" }}>
+                    <ListItemButton sx={{ textAlign: "center" }} onClick={()=>{window.location.href="/likePost"}}>
                       <FavoriteIcon />
                       <span style={{ marginLeft: "2%" }}>Like Post</span>
                     </ListItemButton>

@@ -11,15 +11,16 @@ import PropTypes from "prop-types"
 class Posts extends React.Component{
 
     componentDidMount(){
-        const {fetchData,fetchLikedPost}=this.props;
+        const {fetchData}=this.props;
         fetchData();
-        // fetchLikedPost();
     }
     
     render()
     {
+        
         const{postReduxStateVariable}=this.props;
         const {postReduxStateLikedPost}=this.props;
+        console.log("postReduxStateVariable",postReduxStateVariable);
         // console.log("ritik",postReduxStateLikedPost)
         return(
             <>
