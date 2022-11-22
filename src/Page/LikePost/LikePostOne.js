@@ -149,7 +149,7 @@ export default class LikePostOne extends Component {
             Object.values(post.comment).length > 0 ? (
               <>view all {Object.values(post.comment).length} comments</>
             ) : (
-              "add a comment"
+              ""
             )}
           </div>
           <div className="postBottomCommentReply">

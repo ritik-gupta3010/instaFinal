@@ -282,7 +282,7 @@ class LikePost extends React.Component {
             <h2 className="error">
               Sorry! No liked Post
               <br />
-              *Liked a new Post and see all your liked post here*
+              *Liked a Post and see all your liked post here*
             </h2>
           )}
         </div>
