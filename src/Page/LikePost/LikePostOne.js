@@ -66,7 +66,7 @@ export default class LikePostOne extends Component {
           </div>
           <img src={post.img} alt="postImage" className="postImage" />
 
-          {/* <div className="postBottom">
+          <div className="postBottom">
                     <div>
                       <i
                         className={"fa fa-heart postBottomIconClick"}
@@ -78,18 +78,18 @@ export default class LikePostOne extends Component {
                       ></i>
                     </div>
 
-                    <div>
+                    {/* <div>
                       <i
                         class="fa fa-comment-o postBottomComment"
                         color="action"
                         style={{ position: "static" }}
                         title="Open Comment"
                         aria-hidden="true"
-                        // onClick={() => {
-                        //   this.handleClickComment();
-                        // }}
+                        onClick={() => {
+                          this.handleClickComment();
+                        }}
                       ></i>
-                    </div>
+                    </div> */}
 
                     <div>
                       <i
@@ -101,7 +101,7 @@ export default class LikePostOne extends Component {
                         id="save"
                       ></i>
                     </div>
-                  </div> */}
+                  </div>
           <div className="postBottomDesc">
             <div title={post.desc} id="desc" className="desc">
               {post.desc && post.desc.slice(0, 55)}

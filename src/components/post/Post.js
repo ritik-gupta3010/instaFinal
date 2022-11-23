@@ -9,7 +9,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import EditPost from "../editPost/index";
-// import Badge from "@mui/material/Badge";
+import Badge from "@mui/material/Badge";
 import SendIcon from "@mui/icons-material/Send";
 import InputAdornment from "@mui/material/InputAdornment";
 import TextField from "@mui/material/TextField";
@@ -283,11 +283,11 @@ class Post extends React.Component {
             </div>
 
             <div>
-              {/* <Badge
+              <Badge
                 badgeContent={Object.values(comments).length}
                 color="secondary"
                 sx={{}}
-              > */}
+              >
               <i
                 class="fa fa-comment-o postBottomComment"
                 color="action"
@@ -298,7 +298,7 @@ class Post extends React.Component {
                   this.handleClickComment();
                 }}
               ></i>
-              {/* </Badge> */}
+              </Badge>
             </div>
 
             <div>
