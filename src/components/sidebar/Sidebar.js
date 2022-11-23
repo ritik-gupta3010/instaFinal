@@ -36,7 +36,7 @@ export default class Sidebar extends React.Component {
                 </Avatar>
                 <span style={{ marginTop: "8px" }}>Ritik Gupta</span>
               </div>
-              <span className="sideRight">switch</span>
+              {/* <span className="sideRight">switch</span> */}
             </div>
             <div className="sugg">
               <span>Suggestions for you</span>

@@ -1,12 +1,14 @@
 .sidebar
 {
-    /* position: fixed; */
+    position: fixed;
     flex: 5.5;
     margin-top: 3%;
     margin-right: 8%;
     cursor: pointer;
     color: rgb(50, 55, 101);
-    
+    right: 10%;
+    width: 25%;
+    /* position:absolute */
 }
 
 .sidebarItem
@@ -65,10 +67,17 @@
     }
   }
 
-  @media screen and (max-width:780px) {
+  @media screen and (max-width:850px) {
     .sidebar
     {
         display: none;
     }
     
 }
+@media screen and (max-width:1120px) {
+    .sidebar{
+        left: 70%;
+    }
+    
+}
+  
