@@ -113,7 +113,7 @@ export default class Navbar extends React.Component {
             >
               <Box
                 onClick={this.handleDrawerToggle}
-                sx={{ textAlign: "center" }}
+                sx={{ textAlign: "center" ,color:"rgb(50, 55, 101)"}}
               >
                 <Typography variant="h5" sx={{ my: 2 }}>
                   <i className="fa fa-instagram " aria-hidden="true"></i>
