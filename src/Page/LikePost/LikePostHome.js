@@ -9,13 +9,13 @@ export default class LikePostHome extends React.Component {
     return (
       <>
         <Navbar />
-        <div style={{ backgroundColor: "#fafafa" }}>
+        <div style={{ backgroundColor: "#fafafa",marginTop:"60px",overflowY:"auto",height:"calc(100vh - 60px)",marginRight:"2px" }} id='scrollBar' >
           <div className="likePostHeader">
             <h1 style={{ color: "rgb(55,55,101)" }}>Liked Post</h1>
           </div>
           <div className="LikePostHome">
             <LikePost />
-            <Sidebar />
+            <span style={{marginTop:"-40px"}}><Sidebar /></span>
           </div>
         </div>
       </>

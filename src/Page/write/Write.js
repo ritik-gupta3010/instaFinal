@@ -21,7 +21,6 @@ import PropTypes from "prop-types";
 
 import { toast } from "react-toastify";
 
-
 class Write extends React.Component {
   constructor(props) {
     super(props);
@@ -30,7 +29,7 @@ class Write extends React.Component {
       locationS: "",
       openD: false,
       img: "",
-      imgError:""
+      imgError: "",
     };
   }
   // componentDidMount(){
@@ -40,13 +39,13 @@ class Write extends React.Component {
   handleTextChange = (e) => {
     // if(e.target.name==="img")
     // {
-    //   console.log("aaaa"); 
+    //   console.log("aaaa");
     //   console.log(e.target.value)
 
     //   if(e.target.value!=="" && e.target.value.substr(0,8)!==("https://"))
     //   {
     //     this.setState({imgError:"img url should be https",[e.target.name]: e.target.value});
-        
+
     //     return false;
     //   }
     //   else
@@ -58,7 +57,6 @@ class Write extends React.Component {
     //   }
     // }
     this.setState({
-
       [e.target.name]: e.target.value,
     });
   };
@@ -105,10 +103,9 @@ class Write extends React.Component {
     e.preventDefault();
     // console.log("post");
     const { descS, locationS, img } = this.state;
-    const {onClose}=this.props;
-    if(!img.match(/^https:\/\//))
-    {
-      toast.error("image url should be https url")
+    const { onClose } = this.props;
+    if (!img.match(/^https:\/\//)) {
+      toast.error("image url should be https url");
       // toast.error("image url should be https url",{position:toast.POSITION.BOTTOM_RIGHT})
       return false;
     }
@@ -116,26 +113,29 @@ class Write extends React.Component {
       desc: descS,
       location: locationS,
       img: img,
-      comments:{},
+      // comments:{},
+      like: false,
+      
     };
-    const { createDataProps ,fetchData} = this.props;
+    const { createDataProps, fetchData } = this.props;
     createDataProps(post);
-    
+
     // console.log(this.props);
-    
-    setTimeout(()=>{
+
+    setTimeout(() => {
       fetchData();
-    },2000)
-    setTimeout(()=>{
+    }, 2000);
+    setTimeout(() => {
       onClose();
-    },2000)
-    setTimeout(()=>{
+      
+    }, 2000);
+    setTimeout(() => {
       this.setState({
         descS: "",
         locationS: "",
         img: "",
       });
-    },2000)
+    }, 2000);
     // console.log("created");
     // setTimeout(() => {
     //   window.location.href = "/";
@@ -148,7 +148,11 @@ class Write extends React.Component {
     const { descS, locationS, img, openD } = this.state;
     // const enable = descS.length > 0 && img.length > 0 && locationS.length > 0;
     // console.log(img)
-    const enable = descS.length > 0 && img.length > 0 && (img.substr(0,8)==='https://') && locationS.length > 0;
+    const enable =
+      descS.length > 0 &&
+      img.length > 0 &&
+      img.substr(0, 8) === "https://" &&
+      locationS.length > 0;
     // console.log("enable",enable);
     return (
       <>
@@ -159,10 +163,9 @@ class Write extends React.Component {
           fullWidth
           maxWidth="md"
           fullHeight
-          // sx={{height:""}}
-          
+          sx={{ zIndex: "5000" }}
         >
-          <AppBar sx={{ position: "relative",bgcolor:" rgb(50, 55, 101)" }}>
+          <AppBar sx={{ position: "relative", bgcolor: " rgb(50, 55, 101)" }}>
             <Toolbar>
               <Typography sx={{ flex: 1 }} variant="h6" component="div">
                 Create Post
@@ -171,116 +174,146 @@ class Write extends React.Component {
                 color="inherit"
                 onClick={this.handleClickCloseX}
                 id="btn"
-                sx={{margin:"-25px"}}
+                sx={{ margin: "-25px" }}
               >
                 <CloseIcon />
               </IconButton>
             </Toolbar>
           </AppBar>
-          <DialogContent sx={{padding:"0px", marginTop:"5px"}}>
-          <div className="write">
-            <form className="writeForm">
-              <div className="writeFormGroup">
-                <div className="writeFormGroupLeft">
-                  <img src={img} className="img-Preview" id="preview" alt="" />
-                </div>
-                <div className="writeFormGroupRight">
-                  <div className="writeFormGroupRightProfile">
+          <DialogContent sx={{ padding: "0px", marginTop: "5px" }}>
+            <div className="write">
+              <form className="writeForm">
+                <div className="writeFormGroup">
+                  <div className="writeFormGroupLeft">
                     <img
-                      src={userIcon}
-                      alt="ima"
-                      style={{
-                        height: "35px",
-                        width: "35px",
-                        borderRadius: "50%",
-                        marginTop: "15px",
-                        marginLeft: "15px",
-                      }}
+                      src={img}
+                      className="img-Preview"
+                      id="preview"
+                      alt=""
                     />
-                    <span
-                      id="userName"
-                      style={{ marginTop: "22px", marginLeft: "5px" }}
-                    >
-                      Ritik Gupta
-                    </span>
                   </div>
-                  <input
-                    className="writeInput21"
-                    placeholder="Enter the URL of your image"
-                    type="text"
-                    id="img"
-                    name="img"
-                    onChange={this.handleTextChange}
-                    required
-                  />
-                  {/* <p style={{ marginTop: "-3px", marginLeft: "12px" }}>
+                  <div className="writeFormGroupRight">
+                    <div className="writeFormGroupRightProfile">
+                      <img
+                        src={userIcon}
+                        alt="ima"
+                        style={{
+                          height: "35px",
+                          width: "35px",
+                          borderRadius: "50%",
+                          marginTop: "15px",
+                          marginLeft: "15px",
+                        }}
+                      />
+                      <span
+                        id="userName"
+                        style={{ marginTop: "22px", marginLeft: "5px" }}
+                      >
+                        Ritik Gupta
+                      </span>
+                    </div>
+                    <input
+                      className="writeInput21"
+                      placeholder="Enter the URL of your image"
+                      type="text"
+                      id="img"
+                      name="img"
+                      onChange={this.handleTextChange}
+                      required
+                    />
+                    {/* <p style={{ marginTop: "-3px", marginLeft: "12px" }}>
                     {img === "" ? "*Required" : this.state.imgError}
                   </p> */}
-                  <p style={{ marginTop: "-3px", marginLeft: "12px" ,color:"red"}}>
-                    {img.substr(0,8) !== "https://" ? "*Provide https image url " : ""}
-                  </p>
-                  <textarea
-                    className="writeInput2 writeText"
-                    placeholder="Write a caption..."
-                    type="text"
-                    id="desc"
-                    name="descS"
-                    onChange={this.handleTextChange}
-                    required
-                  />
-                  <p style={{ marginTop: "-3px", marginLeft: "12px",color:"red" }}>
-                    {descS === "" ? "*Required" : ""}
-                  </p>
-                  <input
-                    type="text"
-                    id="location"
-                    name="locationS"
-                    onChange={this.handleTextChange}
-                    placeholder="Add location"
-                    className="location"
-                    required
-                  />
-                  <p style={{ marginTop: "-3px", marginLeft: "12px",color:"red" }}>
-                    {locationS === "" ? "*Required" : ""}
-                  </p>
-                  
-                  
+                    <p
+                      style={{
+                        marginTop: "-3px",
+                        marginLeft: "12px",
+                        color: "red",
+                      }}
+                    >
+                      {img.substr(0, 8) !== "https://"
+                        ? "*Provide https image url "
+                        : ""}
+                    </p>
+                    <textarea
+                      className="writeInput2 writeText"
+                      placeholder="Write a caption..."
+                      type="text"
+                      id="desc"
+                      name="descS"
+                      onChange={this.handleTextChange}
+                      required
+                    />
+                    <p
+                      style={{
+                        marginTop: "-3px",
+                        marginLeft: "12px",
+                        color: "red",
+                      }}
+                    >
+                      {descS === "" ? "*Required" : ""}
+                    </p>
+                    <input
+                      type="text"
+                      id="location"
+                      name="locationS"
+                      onChange={this.handleTextChange}
+                      placeholder="Add location"
+                      className="location"
+                      required
+                    />
+                    <p
+                      style={{
+                        marginTop: "-3px",
+                        marginLeft: "12px",
+                        color: "red",
+                      }}
+                    >
+                      {locationS === "" ? "*Required" : ""}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </form>
-          </div>
+              </form>
+            </div>
           </DialogContent>
-          <DialogActions sx={{borderTop: "1px solid rgb(224,224,224)"}}>
-                  {enable === false ? (
-                    <div style={{ position: "relative", marginLeft: "43%" }}>
-                      <Button
-                        disabled={true}
-                        title="Fill all the Fields"
-                        className="postSubmit"
-                        variant="contained"
-                        sx={{bgcolor:"rgb(50, 55, 101)",':hover': {
-                          bgcolor:"rgb(50, 55, 101)"}}}
-                      >
-                        Post
-                      </Button>
-                    </div>
-                  ) : (
-                    <div style={{ position: "relative", marginLeft: "43%" }}>
-                      <Button
-                        variant="contained"
-                        onClick={this.handleClickPost}
-                        className="postSubmit"
-                        sx={{bgcolor:"rgb(50, 55, 101)",':hover': {
-                          bgcolor:"rgb(50, 55, 101)"}}}
-                      >
-                        Post
-                      </Button>
-                    </div>
-                  )}
-                  </DialogActions>
-
+          <DialogActions sx={{ borderTop: "1px solid rgb(224,224,224)" }}>
+            {enable === false ? (
+              <div style={{ position: "relative", marginLeft: "43%" }}>
+                <Button
+                  disabled={true}
+                  title="Fill all the Fields"
+                  className="postSubmit"
+                  variant="contained"
+                  sx={{
+                    bgcolor: "rgb(50, 55, 101)",
+                    ":hover": {
+                      bgcolor: "rgb(50, 55, 101)",
+                    },
+                  }}
+                >
+                  Post
+                </Button>
+              </div>
+            ) : (
+              <div style={{ position: "relative", marginLeft: "43%" }}>
+                <Button
+                  variant="contained"
+                  onClick={this.handleClickPost}
+                  className="postSubmit"
+                  sx={{
+                    bgcolor: "rgb(50, 55, 101)",
+                    ":hover": {
+                      bgcolor: "rgb(50, 55, 101)",
+                    },
+                  }}
+                >
+                  Post
+                </Button>
+              </div>
+            )}
+          </DialogActions>
         </Dialog>
-        <Dialog open={openD}>
+        <Dialog open={openD} sx={{ zIndex: "5000" }}>
           <DialogTitle>{"Do you want to cancel your create Post?"}</DialogTitle>
           <DialogContent>
             <DialogContentText>
@@ -288,10 +321,30 @@ class Write extends React.Component {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleCloseDis} variant="contained"sx={{bgcolor:"rgb(50, 55, 101)",':hover': {
-                  bgcolor:"rgb(50, 55, 101)"}}}>Disagree</Button>
-            <Button onClick={this.handleCloseAgree}variant="contained"sx={{bgcolor:"rgb(50, 55, 101)",':hover': {
-                  bgcolor:"rgb(50, 55, 101)"}}}>Agree</Button>
+            <Button
+              onClick={this.handleCloseDis}
+              variant="contained"
+              sx={{
+                bgcolor: "rgb(50, 55, 101)",
+                ":hover": {
+                  bgcolor: "rgb(50, 55, 101)",
+                },
+              }}
+            >
+              Disagree
+            </Button>
+            <Button
+              onClick={this.handleCloseAgree}
+              variant="contained"
+              sx={{
+                bgcolor: "rgb(50, 55, 101)",
+                ":hover": {
+                  bgcolor: "rgb(50, 55, 101)",
+                },
+              }}
+            >
+              Agree
+            </Button>
           </DialogActions>
         </Dialog>
       </>
@@ -302,13 +355,13 @@ class Write extends React.Component {
 Write.propTypes = {
   createDataProps: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
-  fetchData:PropTypes.func.isRequired
+  fetchData: PropTypes.func.isRequired,
 };
 
 Write.defaultProps = {
   createDataProps: () => {},
   onClose: () => {},
-  fetchData:()=>{}
+  fetchData: () => {},
 };
 
 // mapDispatchToProps is used to dispatch the action

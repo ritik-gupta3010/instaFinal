@@ -6,7 +6,33 @@
   height: 40vmin;
   pointer-events: none;
 }
+/* width */
+::-webkit-scrollbar {
+  width: 0px;
+}
 
+#scrollBar::-webkit-scrollbar {
+  width: 10px;
+}
+/* Track */
+#scrollBar::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+  /* margin-top: 60px; */
+}
+ 
+/* Handle */
+#scrollBar::-webkit-scrollbar-thumb {
+  /* background: rgb(50, 55, 101);  */
+  background: gray;
+  border-radius: 10px;
+  
+}
+
+/* Handle on hover */
+/* ::-webkit-scrollbar-thumb:hover {
+  background: rgb(57, 59, 82); 
+} */
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

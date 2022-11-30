@@ -1,6 +1,7 @@
 .write {
   /* padding-top: 20px; */
   padding: 2%;
+  
 }
 
 .writeForm {
@@ -21,7 +22,7 @@
 
 .img-Preview
 {
-  height:425px;
+  height:415px;
   width: 100%;
   background-image: url(https://thumbs.dreamstime.com/b/no-thumbnail-image-placeholder-forums-blogs-websites-148010362.jpg);
   background-size: cover;
@@ -55,7 +56,7 @@
 {
     font-family: inherit;
     font-size: 10px;
-    height: 15vh;
+    height: 10vh;
     border: 1px solid gray;
 }
 

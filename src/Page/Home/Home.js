@@ -10,7 +10,7 @@ export default class Home extends React.Component {
         return(
             <> 
             <Navbar />
-            <div className="home">
+            <div className="home" id='scrollBar'>
                 <Posts />
                 <Sidebar />
             </div>

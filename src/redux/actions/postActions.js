@@ -109,11 +109,11 @@ export const updateData = (postId,post) => {
             
     }
 }
-export const commentPost = (postId,post) => {
+export const commentPost = (post) => {
 
     return (dispatch) => {
         // console.log("update",post);
-        axios.put('http://localhost:3000/post/'+postId,post)
+        axios.put('http://localhost:8000/comments/'+post.id,post)
             .then(response => {
                 // alert("update")
                 // console.log("update" ,response.data);
@@ -137,11 +137,82 @@ export const commentPost = (postId,post) => {
     }
 }
 
+export const commentPostInitially = (comment) => {
+    // console.log(comment)
+    return (dispatch) => {
+        // console.log("update",comment);
+        axios.post('http://localhost:8000/comments',comment)
+            .then(response => {
+                // alert("update")
+                // console.log("update" ,response.data);
+                toast.success("comments");
+                dispatch({
+                    type: "COMMENTINITIALLY",
+                    data: response.data,
+                })
+            })
+            
+            .catch(err => {
+                dispatch({ 
+                    type: "ERROR",
+                    msg: "Unable to update data" 
+                })
+            })
+            // setTimeout(() => {
+            //     window.location.reload();
+            // }, 1000);
+            
+    }
+}
+export const fetchPostComment = () => {    //action creator return action
+    return (dispatch) => {
+        axios.get(`http://localhost:8000/comments`)
+            .then(response => {
+                console.log("ritik",response.data);
+                dispatch({
+                    type: "FETCHPOSTCOMMENT",
+                    data: response.data
+                })
+            })
+            .catch(err => {
+                dispatch({ 
+                    type: "ERROR",
+                    msg: "Unable to fetch comment" 
+                })
+            })
+    }
+}
+export const deletePostComment = (postId) => {
+    // console.log("call huya delete")
+    return (dispatch) => { 
+        // console.log("delete")
+        // console.log(postId)
+        axios.delete('http://localhost:8000/comments/'+postId)
+            .then(response => {
+                // alert("Post deleted successfully")
+                // toast.success("Post deleted successfully");
+                
+                dispatch({
+                    type: "DELETEPOSTCOMMENT",
+                    id: postId
+                })
+            })
+            .catch(err => {
+                dispatch({ 
+                    type: "ERROR",
+                    msg: "Unable to delete data" 
+                })
+            })
+            // setTimeout(() => {
+            //     window.location.reload();
+            // }, 1000);           
+    }
+}
 export const saveLikePost=(post)=>{
-    console.log(post)
+    // console.log(post)
     return (dispatch) => {
         // console.log("before1")
-        axios.post('http://localhost:3000/likePost',post)
+        axios.put('http://localhost:3000/post/'+post.id,post)
 
             .then(response => {
                 dispatch({
@@ -162,7 +233,7 @@ export const saveLikePost=(post)=>{
 }
 export const removeLikePost=(post)=>{
     return (dispatch)=>{
-        axios.delete('http://localhost:3000/likePost/'+post.id)
+        axios.put('http://localhost:3000/post/'+post.id,post)
         .then(response => {
             // alert("Post deleted successfully")
             
@@ -220,17 +291,7 @@ export const removePost=(post)=>{
         
     }
 }
-// export const updateComments=(comment)=>
-// {
-//     return (dispatch)=>{
-//         dispatch(
-//             {
-//                 type:"UPDATE_COMMENT",
-//                 data:comment
-//             }
-//         )
-//     }
-// }
+
 // export const getData=()=>{
 //     return (dispatch)=>{
 //         dispatch({

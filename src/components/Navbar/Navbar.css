@@ -1,5 +1,5 @@
 .top{
-    width: 100%;
+    width: 99.9%;
     height: 60px;
     background-color: rgb(50, 55, 101);
     border-bottom: 1px solid black;
@@ -7,10 +7,11 @@
     display: flex;
     position: fixed;
     color: white;
-
+    z-index: 5000;
+    
 }
 .top1{
-    width: 100%;
+    width: 99.9%;
     height: 60px;
     background-color: rgb(50, 55, 101);
     border-bottom: 1px solid black;
@@ -18,6 +19,7 @@
     display: flex;
     position: fixed;
     color: white;
+    
     /* margin-left: 10%; */
 }
 .topLeft
@@ -41,7 +43,7 @@
 {
     flex: 8;
     display: flex;
-    margin-left: 60%;
+    margin-left: 65%;
 }
 
 .topCenter ul li

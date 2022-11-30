@@ -3,11 +3,12 @@ const initialState = {
     post: [],
     saveLikedPosts:{},
     savePosts:{},
+    comment:{}
 }
 
 const reducer = (state =initialState, action) => {
     switch (action.type) {
-        case "FetchData":                                // here we return state jo state me pahle data tha and jo new chanhe h unhe add kar de
+        case "FetchData":         // here we return state jo state me pahle data tha and jo new chanhe h unhe add kar de
             
             let reverseData=action.data.reverse();
             return { post: reverseData}
@@ -22,11 +23,18 @@ const reducer = (state =initialState, action) => {
             return { ...state}
         case "COMMENT":
             return {...state}
-        
+        case "COMMENTINITIALLY":
+            return {...state}
+        case "FETCHPOSTCOMMENT":
+            // console.log(action.data)
+            
+            return {...state,comment:action.data}
         case "FETCHLIKEDPOST" :{
             
             return {...state,saveLikedPosts:action.data}
         }
+        case "DELETEPOSTCOMMENT":
+            return {...state}
         case "SAVELIKEPOST":{
             // console.log("SAVELIKEPOST",action.data)
             const {data}=action;
@@ -46,7 +54,7 @@ const reducer = (state =initialState, action) => {
 
             delete updatedRemoveLikedPosts[data.id]
             // delete saveLikedPosts[data.id];
-            toast.success("You have unlike this post")
+            // toast.success("You have unlike this post")
             // console.log("REMOVELIKEPOST",saveLikedPosts)
             // console.log("updatedRemoveLikedPosts",updatedRemoveLikedPosts)
             return {...state,saveLikedPosts:updatedRemoveLikedPosts}

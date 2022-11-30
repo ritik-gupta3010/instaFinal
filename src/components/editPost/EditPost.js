@@ -63,9 +63,10 @@ class EditPost extends React.Component {
       desc: descS,
       img: imgS,
       location: locationS,
-      comments: post && post.comments,
+      like:post.like
+      // comments: post && post.comments,
     };
-    console.log(post.comments);
+    // console.log(post.comments);
     const { updateData, fetchData, onClose,fetchLikedPost} = this.props;
     // console.log("update",this.props);
     
@@ -73,10 +74,10 @@ class EditPost extends React.Component {
     setTimeout(()=>{
       fetchData();
     },2000)
-    setTimeout(() => {
+    // setTimeout(() => {
       
-      fetchLikedPost();
-    }, 2000);
+    //   fetchLikedPost();
+    // }, 2000);
     setTimeout(() => {
       onClose();
     }, 2000);
@@ -164,7 +165,7 @@ class EditPost extends React.Component {
 
     return (
       <>
-        <Dialog open={open} fullWidth maxWidth="md" fullHeight>
+        <Dialog open={open} fullWidth maxWidth="md" fullHeight sx={{zIndex:"6000"}}>
           <AppBar sx={{ position: "relative", bgcolor: " rgb(50, 55, 101)" }}>
             <Toolbar>
               <Typography
@@ -338,7 +339,7 @@ class EditPost extends React.Component {
             )}
           </DialogActions>
         </Dialog>
-        <Dialog open={openS}>
+        <Dialog open={openS} sx={{zIndex:"6000"}}>
           <DialogTitle>
             {"Are you sure you don't want to edit this post?"}
           </DialogTitle>
@@ -374,7 +375,7 @@ class EditPost extends React.Component {
             </Button>
           </DialogActions>
         </Dialog>
-        <Dialog open={updatePostOpen}>
+        <Dialog open={updatePostOpen} sx={{zIndex:"6000"}}>
           <DialogTitle id="alert-dialog-title">
             {"Are you sure you want to update your post?"}
           </DialogTitle>

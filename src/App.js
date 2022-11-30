@@ -11,7 +11,7 @@ function App() {
     <Router>
       <Switch>
         <Route exact path="/">
-          <Home />
+          <Home/>
         </Route>
         <Route exact path="/likePost">
           <LikePostHome />

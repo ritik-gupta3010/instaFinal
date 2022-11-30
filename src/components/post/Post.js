@@ -1,5 +1,6 @@
 import React from "react";
 import "./Post.css";
+
 // import {updateData} from "../../redux/actions/postActions";
 // import { connect } from "react-redux";
 import Button from "@mui/material/Button";
@@ -31,14 +32,15 @@ class Post extends React.Component {
       commentReplyObject: {},
       moreComment: false,
       moreDesc: false,
-      styleLikeNew:"fa fa-heart postBottomIconClick"
+      styleLikeNew: "fa fa-heart postBottomIconClick",
     };
   }
-  componentDidMount() {
-    const { fetchLikedPost } = this.props;
-    fetchLikedPost();
-  }
-  
+  // componentDidMount() {
+  //   const { fetchLikedPost, fetchPostComment } = this.props;
+  //   fetchLikedPost();
+  //   // fetchPostComment();
+  // }
+
   handleClickOpenEdit = () => {
     const { openEdit } = this.state;
     this.setState({ openEdit: !openEdit });
@@ -49,50 +51,60 @@ class Post extends React.Component {
   handleClickDelete = () => {
     this.setState({ openDelete: false });
   };
+  // handleClickLike = () => {
+  //   const { styleLike } = this.state;
+  //   const { saveLikePost, removeLikePost, post } = this.props;
+  //   styleLike === "fa fa-heart-o postBottomIcon"
+  //     ? this.setState({ styleLike: "fa fa-heart postBottomIconClick" })
+  //     : this.setState({ styleLike: "fa fa-heart-o postBottomIcon" });
+  //   let postLike = {
+  //     id: post.id,
+  //     img: post.img,
+  //     desc: post.desc,
+  //     location: post.location,
+  //     // comment: post.comments,
+  //   };
+  //   // console.log(postLike)
+  //   // console.log("styleLike")
+  //   if (styleLike !== "fa fa-heart postBottomIconClick") {
+  //     // console.log("styleLike1")
+  //     saveLikePost(postLike);
+  //   } else {
+  //     removeLikePost(postLike);
+  //   }
+  // };
   handleClickLike = () => {
-    const { styleLike } = this.state;
-    const { saveLikePost, removeLikePost, post } = this.props;
-    styleLike === "fa fa-heart-o postBottomIcon"
-      ? this.setState({ styleLike: "fa fa-heart postBottomIconClick" })
-      : this.setState({ styleLike: "fa fa-heart-o postBottomIcon" });
-    let postLike = {
-      id: post.id,
-      img: post.img,
-      desc: post.desc,
-      location: post.location,
-      comment: post.comments,
-    };
-    // console.log(postLike)
-    // console.log("styleLike")
-    if (styleLike !== "fa fa-heart postBottomIconClick") {
-      // console.log("styleLike1")
-      saveLikePost(postLike);
-    } else {
-      removeLikePost(postLike);
-    }
-  };
-  handleClickLikeNew = () => {
-    const { styleLikeNew } = this.state;
-    const { saveLikePost, removeLikePost, post } = this.props;
-    styleLikeNew === "fa fa-heart-o postBottomIcon"
-      ? this.setState({ styleLikeNew: "fa fa-heart postBottomIconClick" })
-      : this.setState({ styleLikeNew: "fa fa-heart-o postBottomIcon" });
-    let postLike = {
-      id: post.id,
-      img: post.img,
-      desc: post.desc,
-      location: post.location,
-      comment: post.comments,
-    };
     
-    // console.log(postLike)
-    // console.log("styleLike")
-    if (styleLikeNew !== "fa fa-heart postBottomIconClick") {
-      // console.log("styleLike1")
-      saveLikePost(postLike);
-    } else {
-      removeLikePost(postLike);
+    const { saveLikePost, removeLikePost, post ,fetchData} = this.props;
+    if(post.like===false)
+    {
+      let postLike = {
+        id: post.id,
+        img: post.img,
+        desc: post.desc,
+        location: post.location,
+        like:true
+      };
+      saveLikePost(postLike)
+      setTimeout(() => {
+        fetchData();
+      }, 2000);
     }
+    else
+    {
+      let postLike = {
+        id: post.id,
+        img: post.img,
+        desc: post.desc,
+        location: post.location,
+        like:false
+      };
+      removeLikePost(postLike);
+      setTimeout(() => {
+        fetchData();
+      }, 2000);
+    }
+    
   };
   handleClickSave = () => {
     const { styleSave } = this.state;
@@ -106,7 +118,7 @@ class Post extends React.Component {
       img: post.img,
       desc: post.desc,
       location: post.location,
-      comment: post.comments,
+      // comment: post.comments,
     };
     if (styleSave !== "fa fa-bookmark postBottomRight") {
       // console.log("styleLike1")
@@ -116,21 +128,31 @@ class Post extends React.Component {
     }
   };
   handelDeletePost = (id) => {
-    const { deleteData,fetchData ,fetchLikedPost} = this.props;
+    const { deleteData, fetchData, fetchLikedPost } = this.props;
     deleteData(id);
     setTimeout(() => {
       fetchData();
-      
     }, 2000);
-    setTimeout(() => {
-      
-      fetchLikedPost();
-    }, 2000);
+    // setTimeout(() => {
+    //   fetchLikedPost();
+    // }, 2000);
     this.setState({ openDelete: false });
   };
-  handleRemoveLike=(post)=>{
-    const {removeLikePost}=this.props;
-    removeLikePost(post)
+  handleRemoveLike = (post) => {
+    const { removeLikePost } = this.props;
+    if(post.like===true)
+    {
+      removeLikePost(post);
+    }
+  };
+  handledeletePostComment=(id)=>{
+    const {reduxCommentVar,deletePostComment}=this.props
+    Object.values(reduxCommentVar) &&
+      Object.values(reduxCommentVar).forEach((comment) => {
+        if (id === comment.id) {
+          deletePostComment(id)
+        }
+      });
   }
   handleClickDescFull = () => {
     // const { post } = this.props;
@@ -141,27 +163,58 @@ class Post extends React.Component {
   };
   handleClickComment = () => {
     const { comment } = this.state;
+    if (comment === false) {
+      this.props.fetchPostComment();
+    }
     this.setState({ comment: !comment });
   };
-  handleClickCommentEnter = () => {
-    const { post, commentPost ,fetchData,fetchLikedPost} = this.props;
+  handleClickCommentEnter = (replyObj) => {
+    const {
+      post,
+      commentPostInitially,
+      fetchData,
+      fetchLikedPost,
+      fetchPostComment,
+      // reduxCommentVar,
+      commentPost,
+    } = this.props;
     const { commentReplyObject } = this.state;
-    const updatedPostComment = {
-      img: post.img,
-      location: post.location,
-      desc: post.desc,
-      comments: Object.assign(post.comments, commentReplyObject),
+    const updatedPostCommentInitially = {
+      comments: commentReplyObject,
+      id: post.id,
     };
-    commentPost(post.id, updatedPostComment);
-    this.setState({commentReply:""})
+
+    let flagC = false;
+    Object.values(this.props.reduxCommentVar).length > 0 &&
+      Object.values(this.props.reduxCommentVar).forEach((comment) => {
+        if (post.id === comment.id) {
+          flagC = true;
+        }
+      });
+    if (flagC === true) {
+      console.log("if");
+      const updatedPostComment = {
+        id: post.id,
+        comments: Object.assign(replyObj.comments, commentReplyObject),
+      };
+      commentPost(updatedPostComment);
+    } else {
+      console.log("else");
+      commentPostInitially(updatedPostCommentInitially);
+    }
+
+    console.log("------------");
+
+    this.setState({ commentReply: "" });
     setTimeout(() => {
       fetchData();
-      
     }, 2000);
+    // setTimeout(() => {
+    //   fetchLikedPost();
+    // }, 2000);
     setTimeout(() => {
-      
-      fetchLikedPost();
-    }, 2000);
+      fetchPostComment();
+    }, 5000);
   };
   handleClickCommentReply = (e) => {
     e.preventDefault();
@@ -182,23 +235,33 @@ class Post extends React.Component {
   };
 
   render() {
-    const { post,  postReduxStateLikedPost } = this.props;
-    const { comments } = post;
+    const { post, postReduxStateLikedPost, reduxCommentVar } = this.props;
+    // const { comments } = post;
+
+    let replyObj = {};
+    Object.values(reduxCommentVar) &&
+      Object.values(reduxCommentVar).forEach((comment) => {
+        if (post.id === comment.id) {
+          replyObj = comment;
+        }
+      });
+
+    console.log("render", reduxCommentVar);
     // console.log("props comments", comments);
     // console.log("props",Object.values(comments).length);
     // console.log("likePost",likePost)
     // console.log(likePost && Object.values(likePost).length)
     // console.log(typeof postReduxStateLikedPost)
-    console.log("postReduxStateLikedPost", postReduxStateLikedPost);
-    let flagStyleLike = false;
-    Object.values(postReduxStateLikedPost) &&
-      Object.values(postReduxStateLikedPost).forEach((like) => {
-        if (post.id === like.id) {
-          flagStyleLike = true;
-        }
-      });
+    // console.log("postReduxStateLikedPost", postReduxStateLikedPost);
+    // let flagStyleLike = false;
+    // Object.values(postReduxStateLikedPost) &&
+    //   Object.values(postReduxStateLikedPost).forEach((like) => {
+    //     if (post.id === like.id) {
+    //       flagStyleLike = true;
+    //     }
+    //   });
     // console.log(flagStyleLike);
-    
+
     const {
       openDelete,
       openEdit,
@@ -252,53 +315,46 @@ class Post extends React.Component {
 
           <div className="postBottom">
             <div>
-              {flagStyleLike ? (
-                <i
-                  class={
-                    this.state.styleLikeNew
-                    // styleLike
-
-                    // flagStyleLike ? "fa fa-heart postBottomIconClick" : styleLike
-                  }
-                  aria-hidden="true"
-                  onClick={() => {
-                    this.handleClickLikeNew();
-                  }}
-                  id="like"
-                ></i>
-              ) : (
-                <i
-                  class={
-                    styleLike
-
-                    // flagStyleLike ? "fa fa-heart postBottomIconClick" : styleLike
-                  }
-                  aria-hidden="true"
-                  onClick={() => {
-                    this.handleClickLike();
-                  }}
-                  id="like"
-                ></i>
-              )}
+              <i
+                aria-hidden="true"
+                className={post.like===false?"fa fa-heart-o postBottomIcon":"fa fa-heart postBottomIconClick"}
+                onClick={() => {
+                  this.handleClickLike();
+                }}
+                id="like"
+              ></i>
             </div>
 
             <div>
-              <Badge
-                badgeContent={Object.values(comments).length}
-                color="secondary"
-                sx={{}}
-              >
-              <i
-                class="fa fa-comment-o postBottomComment"
-                color="action"
-                style={{ position: "static" }}
-                title="Open Comment"
-                aria-hidden="true"
-                onClick={() => {
-                  this.handleClickComment();
-                }}
-              ></i>
-              </Badge>
+              {Object.keys(replyObj).length === 0 ? (
+                <i
+                  class="fa fa-comment-o postBottomComment"
+                  color="action"
+                  style={{ position: "static" }}
+                  title="Open Comment"
+                  aria-hidden="true"
+                  onClick={() => {
+                    this.handleClickComment();
+                  }}
+                ></i>
+              ) : (
+                <Badge
+                  badgeContent={Object.values(replyObj.comments).length}
+                  color="secondary"
+                  sx={{}}
+                >
+                  <i
+                    class="fa fa-comment-o postBottomComment"
+                    color="action"
+                    style={{ position: "static" }}
+                    title="Open Comment"
+                    aria-hidden="true"
+                    onClick={() => {
+                      this.handleClickComment();
+                    }}
+                  ></i>
+                </Badge>
+              )}
             </div>
 
             <div>
@@ -314,22 +370,6 @@ class Post extends React.Component {
           </div>
           <div className="postBottomDesc">
             <div title={post.desc} id="desc" className="desc">
-              {/* {post.desc && post.desc.slice(0, 49)}
-              {post.desc && post.desc.length > 49 ? (
-                <span
-                style={{fontWeight:"500" ,marginLeft:"0px"}}
-                  onClick={() => {
-                    this.handleClickDescFull();
-                  }}
-                >
-                  {this.state.more}
-                </span>
-              ) : (
-                ""
-              )}
-              {this.state.descFull &&
-                this.state.descFull.slice(49, this.state.descFull.length)} */}
-
               {post.desc && post.desc.slice(0, 55)}
               {post.desc && post.desc.length > 55 ? (
                 <span
@@ -361,24 +401,27 @@ class Post extends React.Component {
               )}
             </div>
           </div>
-          <div
+          {/* <Comment reduxCommentVar={reduxCommentVar} commentO={comment} post={post} /> */}
+          {/* <div
             className="postBottomCommentCount"
             onClick={() => {
               this.handleClickComment();
             }}
           >
-            {Object.values(comments) && Object.values(comments).length > 0 ? (
-              <>view all {Object.values(comments).length} comments</>
+            {Object.values(replyObj) && Object.values(replyObj).length > 0 ? (
+              <>view all {Object.values(replyObj.comments).length} comments</>
             ) : (
               "add a comment"
             )}
-          </div>
+          </div> */}
           <div className="postBottomCommentReply">
-            {Object.values(comments).length > 0 && comment ? (
+            {Object.values(replyObj) &&
+            Object.values(replyObj).length > 0 &&
+            comment ? (
               <>
                 <h3 style={{ color: "rgb(50, 55, 101)" }}>comments...</h3>
-                {Object.values(comments).length > 0 &&
-                  Object.values(comments).map((reply) => {
+                {Object.values(replyObj.comments).length > 0 &&
+                  Object.values(replyObj.comments).map((reply) => {
                     return (
                       <div className="postBottomCommentReplyUlLi">
                         <Avatar
@@ -389,7 +432,7 @@ class Post extends React.Component {
                             position: "static",
                           }}
                         />
-                        {/* <div className="reply">{reply}</div> */}
+
                         <div title={reply} className="reply">
                           {reply && reply.slice(0, 88)}
                           {reply && reply.length > 88 ? (
@@ -426,10 +469,6 @@ class Post extends React.Component {
                           )}
                         </div>
                       </div>
-                      // <ul className="postBottomCommentReplyUl">
-                      //   <li className="postBottomCommentReplyUlLi">{reply}</li>
-                      // </ul>
-                      // <span>{reply},&nbsp;</span>
                     );
                   })}
               </>
@@ -437,13 +476,7 @@ class Post extends React.Component {
               ""
             )}
           </div>
-          {/* {comment ?(
-            Object.values(comments).length>0 && Object.values(comments).forEach(comment=>{
-              <div style={{}}>
-                {comment}
-              </div>
-            })
-          ):"No Comments"} */}
+
           {comment ? (
             <div className="comment">
               <TextField
@@ -465,7 +498,7 @@ class Post extends React.Component {
                     <InputAdornment position="end">
                       <SendIcon
                         onClick={() => {
-                          this.handleClickCommentEnter();
+                          this.handleClickCommentEnter(replyObj);
                         }}
                         sx={{ cursor: "pointer", color: "rgb(50, 55, 101)" }}
                       />
@@ -517,7 +550,8 @@ class Post extends React.Component {
               onClick={() => {
                 // deleteData(post.id);
                 this.handelDeletePost(post.id);
-                this.handleRemoveLike(post);
+                // this.handleRemoveLike(post);
+                this.handledeletePostComment(post.id);
               }}
               id="deleteCalled"
             >
@@ -533,21 +567,22 @@ class Post extends React.Component {
           desc={post.desc}
           location={post.location}
           post={post}
-          // likePostPP={styleLike}
-          // updateData={updateData}
         />
       </>
     );
   }
 }
 Post.propTypes = {
-  postReduxStateLikedPost: PropTypes.func.isRequired,
+  postReduxStateLikedPost: PropTypes.object.isRequired,
   fetchLikedPost: PropTypes.func.isRequired,
+  fetchPostComment: PropTypes.func.isRequired,
+  reduxCommentVar: PropTypes.object.isRequired,
 };
 Post.defaultProps = {
-  //
-  postReduxStateLikedPost: [],
+  postReduxStateLikedPost: {},
   fetchLikedPost: () => {},
+  fetchPostComment: () => {},
+  reduxCommentVar: {},
 };
 //mapDispatchToProps is used to dispatch the action
 // const mapDispatchToProps = (dispatch) => ({

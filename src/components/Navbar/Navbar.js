@@ -1,14 +1,14 @@
 import React from "react";
 import "./Navbar.css";
 // import Button from "@mui/material/Button";
-import Link from "@mui/material/Link"
+// import Link from "@mui/material/Link"
 import Write from "../../Page/write/index";
 import AddIcon from "@mui/icons-material/Add";
 import HomeIcon from "@mui/icons-material/Home";
 // import ExploreIcon from '@mui/icons-material/Explore';
 // import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import TurnedInIcon from "@mui/icons-material/TurnedIn";
+// import TurnedInIcon from "@mui/icons-material/TurnedIn";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Box from "@mui/material/Box";
@@ -94,16 +94,17 @@ export default class Navbar extends React.Component {
               </div>
             ) : null}
           </div>
-          <Box component="nav">
+          <Box component="nav" >
             <Drawer
               // container={container}
-              variant="temporary"
+              // variant="temporary"
               open={this.state.mobileOpen}
               onClose={this.handleDrawerToggle}
-              ModalProps={{
-                keepMounted: true, // Better open performance on mobile.
-              }}
+              // ModalProps={{
+              //   keepMounted: true, // Better open performance on mobile.
+              // }}
               sx={{
+                zIndex:"6000",
                 display: { xs: "block", sm: "none" },
                 "& .MuiDrawer-paper": {
                   boxSizing: "border-box",
