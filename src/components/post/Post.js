@@ -128,7 +128,7 @@ class Post extends React.Component {
     }
   };
   handelDeletePost = (id) => {
-    const { deleteData, fetchData, fetchLikedPost } = this.props;
+    const { deleteData, fetchData } = this.props;
     deleteData(id);
     setTimeout(() => {
       fetchData();
@@ -150,7 +150,9 @@ class Post extends React.Component {
     Object.values(reduxCommentVar) &&
       Object.values(reduxCommentVar).forEach((comment) => {
         if (id === comment.id) {
-          deletePostComment(id)
+          
+          deletePostComment(id);
+          
         }
       });
   }
@@ -173,7 +175,7 @@ class Post extends React.Component {
       post,
       commentPostInitially,
       fetchData,
-      fetchLikedPost,
+      // fetchLikedPost,
       fetchPostComment,
       // reduxCommentVar,
       commentPost,
@@ -212,6 +214,7 @@ class Post extends React.Component {
     // setTimeout(() => {
     //   fetchLikedPost();
     // }, 2000);
+    
     setTimeout(() => {
       fetchPostComment();
     }, 5000);
@@ -235,7 +238,7 @@ class Post extends React.Component {
   };
 
   render() {
-    const { post, postReduxStateLikedPost, reduxCommentVar } = this.props;
+    const { post, reduxCommentVar } = this.props;
     // const { comments } = post;
 
     let replyObj = {};
@@ -265,7 +268,7 @@ class Post extends React.Component {
     const {
       openDelete,
       openEdit,
-      styleLike,
+      // styleLike,
       styleSave,
       comment,
       commentReply,

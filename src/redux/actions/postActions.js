@@ -184,6 +184,7 @@ export const fetchPostComment = () => {    //action creator return action
 }
 export const deletePostComment = (postId) => {
     // console.log("call huya delete")
+    
     return (dispatch) => { 
         // console.log("delete")
         // console.log(postId)

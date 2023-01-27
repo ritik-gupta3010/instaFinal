@@ -19,7 +19,7 @@ class Posts extends React.Component{
     {
         
         const{postReduxStateVariable}=this.props;
-        const {postReduxStateLikedPost}=this.props;
+        // const {postReduxStateLikedPost}=this.props;
         // console.log("postReduxStateVariable",postReduxStateVariable);
         // console.log("ritik",postReduxStateLikedPost)
         return(

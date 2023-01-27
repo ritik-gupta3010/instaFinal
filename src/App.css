@@ -6,11 +6,11 @@
   height: 40vmin;
   pointer-events: none;
 }
-/* width */
+/* remove default scrollbar */
 ::-webkit-scrollbar {
   width: 0px;
 }
-
+/* width */
 #scrollBar::-webkit-scrollbar {
   width: 10px;
 }
